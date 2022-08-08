@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext value)
     {
-        Vector2 inputMovement = value.ReadValue<Vector2>();
+        // Vector2 inputMovement = value.ReadValue<Vector2>();
         inputMovement = new Vector3(inputMovement.x, 0, inputMovement.y);
         if (value.performed)
         {
@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("value started" + value);
         }
+        CalculateMovementInputSmoothing();
     }
 
     void CalculateMovementInputSmoothing()
