@@ -588,13 +588,14 @@ GameObject:
   - component: {fileID: 757700528}
   - component: {fileID: 757700530}
   - component: {fileID: 757700532}
+  - component: {fileID: 757700534}
   m_Layer: 0
   m_Name: DungeonSkeleton_demo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &757700528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,7 +718,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b09b8c23b348c4e828b7132a3ac744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputMovementSmoothingSpeed: 10
+  inputMovementSmoothingSpeed: 5
+  movementSpeed: 3
+  movementDirection: {x: 0, y: 0, z: 0}
   playerRB: {fileID: 757700532}
 --- !u!1 &757700531
 GameObject:
@@ -744,12 +747,12 @@ Rigidbody:
   m_GameObject: {fileID: 757700527}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 3
+  m_AngularDrag: 500
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!1 &757700533
 GameObject:
@@ -767,6 +770,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &757700534
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757700527}
+  m_Material: {fileID: 13400000, guid: 02c8c207aa967164cabd9acf9b7a1215, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!1 &757700535
 GameObject:
   m_ObjectHideFlags: 0
