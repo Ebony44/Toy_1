@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 movementDirection;
 
     public Rigidbody playerRB;
+    private Ray shootRay;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +67,12 @@ public class PlayerController : MonoBehaviour
 
         // Vector3 movement = inputMovement * movementSpeed * Time.deltaTime;
         // playerRB.MovePosition(transform.position + movement);
+    }
+
+    private void OnGUI() {
+        // Debug.DrawRay()
+        shootRay.origin = transform.position;
+        shootRay.direction = transform.forward;
     }
 
 }
