@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    
     private Vector3 rawInputMovement;
     private Vector3 smoothInputMovement;
 
@@ -62,11 +63,18 @@ public class PlayerController : MonoBehaviour
     }
     void MoveThePlayer()
     {
-        Vector3 movement = smoothInputMovement * movementSpeed * Time.deltaTime;
-        playerRB.MovePosition(transform.position + movement);
+        #region 
+        // Vector3 movement = smoothInputMovement * movementSpeed * Time.deltaTime;
+        // playerRB.MovePosition(transform.position + movement);
 
         // Vector3 movement = inputMovement * movementSpeed * Time.deltaTime;
         // playerRB.MovePosition(transform.position + movement);
+        #endregion
+
+        Vector3 movement = smoothInputMovement.ToIso() * movementSpeed * Time.deltaTime;
+        playerRB.MovePosition(transform.position + movement);
+
+
     }
 
     private void OnGUI() {
