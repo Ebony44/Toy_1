@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CalculateMovementInputSmoothing();
+
+        TestDrawLineAtLookDir();
+
     }
     private void FixedUpdate()
     {
@@ -56,8 +59,8 @@ public class PlayerController : MonoBehaviour
     {
 
         smoothInputMovement = Vector3.Lerp(smoothInputMovement, rawInputMovement, Time.deltaTime * inputMovementSmoothingSpeed);
-        Debug.Log("smooth movement is " + smoothInputMovement.ToString()
-            + " raw movement is " + rawInputMovement);
+        // Debug.Log("smooth movement is " + smoothInputMovement.ToString()
+        //     + " raw movement is " + rawInputMovement);
         
 
     }
@@ -77,10 +80,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnGUI() {
-        // Debug.DrawRay()
-        shootRay.origin = transform.position;
-        shootRay.direction = transform.forward;
-    }
+    // private void OnGUI() {
+    //     // Debug.DrawRay()
+    //     // shootRay.origin = transform.position;
+    //     // shootRay.direction = transform.forward;
+
+    //     TestDrawLineAtLookDir();
+
+    // }
+
+    public void TestDrawLineAtLookDir()
+   {
+      Vector3 start = transform.position + Vector3.up;
+      Vector3 dir = transform.forward * 35f;
+      Debug.DrawRay(start, dir, Color.red);
+      Debug.Log("start is " + start
+      + " dir is " + dir);
+   }
 
 }
