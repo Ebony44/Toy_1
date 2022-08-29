@@ -50,4 +50,9 @@ public class SimpleBullet : MonoBehaviour, IProjectile
             // TODO: About Raycast and bullet movement
         }
     }
+
+    public void OnPop()
+    {
+        throw new System.NotImplementedException();
+    }
 }

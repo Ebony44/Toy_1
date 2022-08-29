@@ -6,8 +6,11 @@ using System.IO;
 
 public class MaterialCreateWindow : EditorWindow
 {
-    public GameObject assetSrcFolderPath;
-    public GameObject assetDstPath;
+    //public GameObject assetSrcFolderPath;
+    //public GameObject assetDstPath;
+
+    public Object assetSrcFolderPath;
+    public Object assetDstPath;
 
     [MenuItem("Tools/MaterialCreator")]
     public static void Open()
@@ -25,16 +28,47 @@ public class MaterialCreateWindow : EditorWindow
         // EditorGUILayout.ObjectField()
         if (GUILayout.Button("ShowSelection"))
         {
-            // TestSelectionShow();
+            TestSelectionShow();
 
             Debug.Log(GetSelectedFilePathOrFallback());
         }
         GUILayout.Space(20f);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Folder(destination)", GUILayout.Width(200f));
+        EditorGUILayout.LabelField("Folder(that contains textures)", GUILayout.Width(200f));
+        EditorGUILayout.EndHorizontal();
+        GUILayout.Space(5f);
+        #region
+        EditorGUILayout.BeginHorizontal();
 
-        EditorGUILayout.ObjectField(null, typeof(UnityEngine.Object), false);
+        // assetDstPath = EditorGUILayout.ObjectField(assetDstPath, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+        // assetSrcFolderPath = EditorGUILayout.ObjectField(assetSrcFolderPath, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+
+        assetDstPath = EditorGUILayout.ObjectField(assetDstPath, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+        assetSrcFolderPath = EditorGUILayout.ObjectField(assetSrcFolderPath, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+
+        EditorGUILayout.EndHorizontal();
+        #endregion
 
         GUILayout.Space(20f);
+        
+        if (GUILayout.Button("CreateMaterial"))
+        {
+            if(assetDstPath != null)
+            {
+                var path = AssetDatabase.GetAssetPath(assetDstPath);
+                Debug.Log("path is " + path);
+                CreateMaterial(path);
+            }
 
+            // Debug.Log(GetSelectedFilePathOrFallback());
+        }
+
+    }
+
+    private void UpdateFolderPath()
+    {
+        throw new System.NotImplementedException();
     }
 
     [TestMethod(false)]
@@ -44,6 +78,10 @@ public class MaterialCreateWindow : EditorWindow
         {
 
             Debug.Log("current is " + item.name);
+        }
+        if (assetDstPath != null)
+        {
+            DisplayPath(assetDstPath);
         }
     }
     public string GetSelectedPathOrFallback()
@@ -77,15 +115,27 @@ public class MaterialCreateWindow : EditorWindow
         return path;
     }
 
-    static void CreateMaterial()
+    static void CreateMaterial(string path)
     {
         // Create a simple material asset
 
-        Material material = new Material(Shader.Find("Specular"));
-        // AssetDatabase.CreateAsset(material, "Assets/MyMaterial.mat");
+        Material material = new Material(Shader.Find("Standard"));
+        var tempNumber = 0;
+        AssetDatabase.CreateAsset(material, path + "/Mat_" + tempNumber + ".mat");
+        // path is Assets/TempAssetSources/Materials/TestMatFolder
 
         // Print the path of the created asset
         Debug.Log(AssetDatabase.GetAssetPath(material));
+    }
+
+    private void DisplayPath(Object folderReference)
+    {
+        // var temp = AssetDatabase.FindAssets("PacketLogInfoItem");
+        // var guid = property.FindPropertyRelative("GUID");
+        // var obj = AssetDatabase.LoadAssetAtPath<Object>(AssetDatabase.GUIDToAssetPath(guid.stringValue));
+
+        var path = AssetDatabase.GetAssetPath(folderReference);
+        Debug.Log("path is " + path);
     }
 
 }

@@ -5,4 +5,6 @@ using UnityEngine;
 public interface IProjectile
 {
     public void DamageCalc();
+
+    public void OnPop();
 }
