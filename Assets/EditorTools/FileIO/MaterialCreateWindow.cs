@@ -28,7 +28,9 @@ public class MaterialCreateWindow : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Space(20f);
+        GUILayout.Space(5f);
+        EditorGUILayout.LabelField("Setting up the resource is come from, incorrect setting will cause unidentified result");
+        GUILayout.Space(5f);
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Poliigon", GUILayout.Width(100f));
         EditorGUILayout.LabelField("3DTexture", GUILayout.Width(100f));
@@ -43,9 +45,9 @@ public class MaterialCreateWindow : EditorWindow
         // EditorGUILayout.ObjectField()
         if (GUILayout.Button("ShowSelection"))
         {
-            TestSelectionShow();
+            TestSelectionShow(); // dst folder path
 
-            Debug.Log(GetSelectedFilePathOrFallback());
+            Debug.Log(GetSelectedFilePathOrFallback()); // project folder's current file
         }
         GUILayout.Space(20f);
         EditorGUILayout.BeginHorizontal();
@@ -65,7 +67,7 @@ public class MaterialCreateWindow : EditorWindow
         EditorGUILayout.EndHorizontal();
         #endregion
 
-        GUILayout.Space(20f);
+        GUILayout.Space(50f);
         
         if (GUILayout.Button("CreateMaterial"))
         {
