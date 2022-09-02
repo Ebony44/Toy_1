@@ -17,6 +17,12 @@ public class MaterialCreateWindow : EditorWindow
     public bool bIsFrom3dTexture;
     public bool bIsFromPoliigon;
 
+    public Object baseMap;
+    public Object metallicGlossMap;
+    public Object heightDisplacementMap;
+    public Object NormalMap;
+
+
     [MenuItem("Tools/MaterialCreator")]
     public static void Open()
     {
@@ -68,7 +74,18 @@ public class MaterialCreateWindow : EditorWindow
         #endregion
 
         GUILayout.Space(50f);
-        
+
+        if (GUILayout.Button("SetMapsFromSrc"))
+        {
+            if (assetDstPath != null)
+            {
+                var path = AssetDatabase.GetAssetPath(assetSrcFolderPath);
+                Debug.Log("path is " + path);
+                SetSourceMaps(path);
+            }
+        }
+        GUILayout.Space(20f);
+
         if (GUILayout.Button("CreateMaterial"))
         {
             if(assetDstPath != null)
@@ -81,7 +98,30 @@ public class MaterialCreateWindow : EditorWindow
             // Debug.Log(GetSelectedFilePathOrFallback());
         }
 
+        GUILayout.Space(20f);
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("Basemap", GUILayout.Width(200f));
+        GUILayout.Space(5f);
+        baseMap = EditorGUILayout.ObjectField(baseMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+
+        EditorGUILayout.LabelField("MetallicGloss", GUILayout.Width(200f));
+        GUILayout.Space(5f);
+        metallicGlossMap = EditorGUILayout.ObjectField(metallicGlossMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+        
+        EditorGUILayout.LabelField("HeightDisplacement", GUILayout.Width(200f));
+        GUILayout.Space(5f);
+        heightDisplacementMap = EditorGUILayout.ObjectField(heightDisplacementMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+        
+        EditorGUILayout.LabelField("Normalmap", GUILayout.Width(200f));
+        GUILayout.Space(5f);
+        NormalMap = EditorGUILayout.ObjectField(NormalMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+        EditorGUILayout.EndVertical();
+
+        GUILayout.Space(5f);
+
     }
+
+    
 
     private void UpdateFolderPath()
     {
@@ -132,6 +172,24 @@ public class MaterialCreateWindow : EditorWindow
         return path;
     }
 
+    private void SetSourceMaps(string path)
+    {
+        
+        // 0. grab folder's file's base
+
+        if(bIsFrom3dTexture)
+        {
+
+        }
+        else if(bIsFromPoliigon)
+        {
+
+        }
+
+
+        throw new System.NotImplementedException();
+    }
+
     static void CreateMaterial(string folderPath)
     {
         // 0. check directory path and folder
@@ -170,14 +228,18 @@ public class MaterialCreateWindow : EditorWindow
         
         Material material = new Material(Shader.Find("Standard"));
         ++tempNumber;
+#if DEBUG_DISABLED
         AssetDatabase.CreateAsset(material, folderPath + "/Mat_" + tempNumber + ".mat");
+#endif
 
         //// path is Assets/TempAssetSources/Materials/TestMatFolder
 
         //// Print the path of the created asset
 
+        
         Debug.Log(AssetDatabase.GetAssetPath(material));
 
+        
         // 3. set that asset's property...
 
         // material.SetTexture("Albedo",)
