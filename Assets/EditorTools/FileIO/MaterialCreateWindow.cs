@@ -5,6 +5,7 @@ using UnityEditor;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Text;
 
 public class MaterialCreateWindow : EditorWindow
 {
@@ -14,13 +15,27 @@ public class MaterialCreateWindow : EditorWindow
     public Object assetSrcFolderPath;
     public Object assetDstPath;
 
+    #region
     public bool bIsFrom3dTexture;
+    public const string BASEMAP_NAME_3D_TEXTURE = "_basecolor";
+    public const string METALLIC_NAME_3D_TEXTURE = "_metallic";
+    #endregion
+    #region
     public bool bIsFromPoliigon;
+    public const string BASEMAP_NAME_POLIIGON = "_Flat";
+    #endregion
 
     public Object baseMap;
     public Object metallicGlossMap;
     public Object heightDisplacementMap;
     public Object NormalMap;
+    
+    public SerializedObject tempMap;
+    
+    SerializedObject m_setting;
+
+    public TextureMapSO textureMapSO;
+    // public Texture2D tempMap2;
 
 
     [MenuItem("Tools/MaterialCreator")]
@@ -29,6 +44,19 @@ public class MaterialCreateWindow : EditorWindow
         MaterialCreateWindow window = EditorWindow.CreateInstance<MaterialCreateWindow>();
 
         window.Show();
+
+    }
+    private void OnEnable()
+    {
+        // EditorToolTextureMap
+        textureMapSO = AssetDatabase.FindAssets("EditorToolTextureMap")
+            .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+            .Select(path => AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path))
+            .First() as TextureMapSO;
+
+        Debug.Log("[OnEnable], is texturemap null? " + (textureMapSO == null));
+        m_setting = new SerializedObject(textureMapSO);
+        // m_packetPrefabProp = m_setting.FindProperty("packetLogPrefab");
 
     }
 
@@ -43,8 +71,8 @@ public class MaterialCreateWindow : EditorWindow
         EditorGUILayout.EndHorizontal();
         GUILayout.Space(5f);
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.Toggle(bIsFromPoliigon, GUILayout.Width(100f));
-        EditorGUILayout.Toggle(bIsFrom3dTexture, GUILayout.Width(100f));
+        bIsFromPoliigon = EditorGUILayout.Toggle(bIsFromPoliigon, GUILayout.Width(100f));
+        bIsFrom3dTexture = EditorGUILayout.Toggle(bIsFrom3dTexture, GUILayout.Width(100f));
         EditorGUILayout.EndHorizontal();
         GUILayout.Space(20f);
 
@@ -107,7 +135,8 @@ public class MaterialCreateWindow : EditorWindow
         EditorGUILayout.LabelField("MetallicGloss", GUILayout.Width(200f));
         GUILayout.Space(5f);
         metallicGlossMap = EditorGUILayout.ObjectField(metallicGlossMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
-        
+        // EditorGUILayout.ObjectField(tempMap, GUILayout.Width(200f));
+
         EditorGUILayout.LabelField("HeightDisplacement", GUILayout.Width(200f));
         GUILayout.Space(5f);
         heightDisplacementMap = EditorGUILayout.ObjectField(heightDisplacementMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
@@ -179,15 +208,56 @@ public class MaterialCreateWindow : EditorWindow
 
         if(bIsFrom3dTexture)
         {
+            // var baseString = new DirectoryInfo(path);
+            var dirInfo = new DirectoryInfo(path);
+            var sb = new StringBuilder();
+            foreach (var item in dirInfo.GetFiles())
+            {
+                if(item.Name.Contains(".meta"))
+                {
+                    continue;
+                }
+                Debug.Log("item name is " + item.Name
+                    + "\n" + " full name is " + item.FullName);
 
+                //if (item.Name.Contains(METALLIC_NAME_3D_TEXTURE))
+                //{
+                //    GetSubstringPath(item.FullName, "Asset");
+                //}
+                metallicGlossMap = item.Name.Contains(METALLIC_NAME_3D_TEXTURE)
+                //? AssetDatabase.LoadAssetAtPath(item.FullName, typeof(UnityEngine.Object))
+                ? AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(GetSubstringPath(item.FullName, "Asset"))
+                    : null;
+                if(metallicGlossMap != null)
+                {
+                    Debug.Log("insert succeed");
+                }
+                // var temp = AssetDatabase.LoadAssetAtPath(item.FullName, typeof(UnityEngine.Object));
+
+
+
+            }
         }
         else if(bIsFromPoliigon)
         {
 
         }
+        if(!bIsFrom3dTexture && !bIsFromPoliigon)
+        {
+            Debug.LogError("no booleans set to true, set error");
+        }
 
 
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+    }
+
+    private string GetSubstringPath(string path, string subStringOption)
+    {
+        var tempStartIndex = path.IndexOf(subStringOption);
+        //Debug.Log("index is " + tempStartIndex
+        //    + " substring is " + path.Substring(tempStartIndex, path.Length - tempStartIndex));
+        // path.Substring(0, tempEndIndex);
+        return path.Substring(tempStartIndex, path.Length - tempStartIndex);
     }
 
     static void CreateMaterial(string folderPath)
@@ -216,10 +286,10 @@ public class MaterialCreateWindow : EditorWindow
         var tempMatches = HelperFunctions.FindMatchAfterCertainString(tempFileNames, "Mat_");
         var tempNumber = HelperFunctions.ParseAndReturnNumber(true, tempMatches);
         Debug.Log("highest number " + tempNumber);
-        foreach (var item in tempMatches)
-        {
-            Debug.Log("Match is " + item);
-        }
+        //foreach (var item in tempMatches)
+        //{
+        //    Debug.Log("Match is " + item);
+        //}
 
 
 

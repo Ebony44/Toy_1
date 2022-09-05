@@ -49,6 +49,7 @@ public static class HelperFunctions
 
         var tempRegex = new Regex(tempPattern);
         var matches = tempRegex.Matches(rawString);
+        Debug.Log("raw string is " + rawString);
         foreach (var item in matches)
         {
             Debug.Log("matches are " + item);
@@ -77,6 +78,19 @@ public static class HelperFunctions
 
     }
 
+    //public static string[] FindMatchBeforeCertainString(string rawString, string certainStringPat)
+    //{
+    //    //var tempPattern = @"(?<=" + certainStringPat + ")([0-9]*)";
+
+    //    //var tempRegex = new Regex(tempPattern);
+    //    //var matches = tempRegex.Matches(rawString);
+
+    //    //string[] result = new string[matches.Count];
+    //    //return result;
+        
+    //}
+
+
     public static string[] FindMatchAfterCertainString(string[] rawStrings, string certainStringPat)
     {
         string result = string.Empty;
@@ -85,7 +99,7 @@ public static class HelperFunctions
         {
             if(string.IsNullOrEmpty(item))
             {
-                Debug.Log("[FindMatchAfterCertainString], item is null or empty");
+                // Debug.Log("[FindMatchAfterCertainString], item is null or empty");
                 continue;
             }
             sb.Append(item);
