@@ -26,13 +26,14 @@ public class MaterialCreateWindow : EditorWindow
     #endregion
 
     public Object baseMap;
-    public Object metallicGlossMap;
+    public SerializedProperty metallicGlossMap;
+    public Object metallicGlossMapObj; // succeed
     public Object heightDisplacementMap;
     public Object NormalMap;
     
     public SerializedObject tempMap;
     
-    SerializedObject m_setting;
+    SerializedObject currentMapSOSetting;
 
     public TextureMapSO textureMapSO;
     // public Texture2D tempMap2;
@@ -55,7 +56,7 @@ public class MaterialCreateWindow : EditorWindow
             .First() as TextureMapSO;
 
         Debug.Log("[OnEnable], is texturemap null? " + (textureMapSO == null));
-        m_setting = new SerializedObject(textureMapSO);
+        currentMapSOSetting = new SerializedObject(textureMapSO);
         // m_packetPrefabProp = m_setting.FindProperty("packetLogPrefab");
 
     }
@@ -134,8 +135,17 @@ public class MaterialCreateWindow : EditorWindow
 
         EditorGUILayout.LabelField("MetallicGloss", GUILayout.Width(200f));
         GUILayout.Space(5f);
-        metallicGlossMap = EditorGUILayout.ObjectField(metallicGlossMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+        // metallicGlossMap = EditorGUILayout.ObjectField(metallicGlossMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
         // EditorGUILayout.ObjectField(tempMap, GUILayout.Width(200f));
+        
+        if(metallicGlossMap != null)
+        {
+            // EditorGUILayout.ObjectField(metallicGlossMap, GUIContent.none, GUILayout.Width(200f));
+            metallicGlossMap = currentMapSOSetting.FindProperty("metallicGlossMap");
+            metallicGlossMap.objectReferenceValue =
+                EditorGUILayout.ObjectField(metallicGlossMap.objectReferenceValue, typeof(UnityEngine.Object), false, GUILayout.Width(300f));
+        }
+        EditorGUILayout.ObjectField(metallicGlossMapObj, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
 
         EditorGUILayout.LabelField("HeightDisplacement", GUILayout.Width(200f));
         GUILayout.Space(5f);
@@ -148,6 +158,8 @@ public class MaterialCreateWindow : EditorWindow
 
         GUILayout.Space(5f);
 
+        // currentMapSOSetting.ApplyModifiedProperties();
+        // currentMapSOSetting.Update();
     }
 
     
@@ -203,10 +215,10 @@ public class MaterialCreateWindow : EditorWindow
 
     private void SetSourceMaps(string path)
     {
-        
+        currentMapSOSetting.Update();
         // 0. grab folder's file's base
 
-        if(bIsFrom3dTexture)
+        if (bIsFrom3dTexture)
         {
             // var baseString = new DirectoryInfo(path);
             var dirInfo = new DirectoryInfo(path);
@@ -224,14 +236,39 @@ public class MaterialCreateWindow : EditorWindow
                 //{
                 //    GetSubstringPath(item.FullName, "Asset");
                 //}
-                metallicGlossMap = item.Name.Contains(METALLIC_NAME_3D_TEXTURE)
-                //? AssetDatabase.LoadAssetAtPath(item.FullName, typeof(UnityEngine.Object))
-                ? AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(GetSubstringPath(item.FullName, "Asset"))
-                    : null;
-                if(metallicGlossMap != null)
+
+                //metallicGlossMap = item.Name.Contains(METALLIC_NAME_3D_TEXTURE)
+                ////? AssetDatabase.LoadAssetAtPath(item.FullName, typeof(UnityEngine.Object))
+                //? AssetDatabase.LoadAssetAtPath<SerializedProperty>(GetSubstringPath(item.FullName, "Asset"))
+                //    : null;
+
+                
+                if(currentMapSOSetting != null)
                 {
-                    Debug.Log("insert succeed");
+                    var assetPath = GetSubstringPath(item.FullName, "Asset");
+                    if (item.Name.Contains(METALLIC_NAME_3D_TEXTURE))
+                    {
+
+                        // metallicGlossMap = currentMapSOSetting.FindProperty("metallicGlossMap");
+                        // metallicGlossMap = AssetDatabase.LoadAssetAtPath(item.FullName, typeof(SerializedProperty));
+                        // HelperFunctions.SetValue(metallicGlossMap, AssetDatabase.LoadAssetAtPath(assetPath, typeof(SerializedProperty)));
+                        // metallicGlossMap = AssetDatabase.LoadAssetAtPath(assetPath, typeof(SerializedProperty));
+
+                        var tempObject = AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object));
+                        metallicGlossMapObj = AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object));
+                        //SerializedObject tempSerialObject = new SerializedObject(tempObject);
+                        //metallicGlossMap = tempSerialObject.FindProperty("targetObject");
+                        // var temp = tempSerialObject.FindProperty(tempObject);
+
+
+                        if (metallicGlossMap != null)
+                        {
+                            Debug.Log("insert succeed");
+                        }
+                        
+                    }
                 }
+
                 // var temp = AssetDatabase.LoadAssetAtPath(item.FullName, typeof(UnityEngine.Object));
 
 
@@ -246,7 +283,8 @@ public class MaterialCreateWindow : EditorWindow
         {
             Debug.LogError("no booleans set to true, set error");
         }
-
+        currentMapSOSetting.ApplyModifiedProperties();
+        
 
         // throw new System.NotImplementedException();
     }
