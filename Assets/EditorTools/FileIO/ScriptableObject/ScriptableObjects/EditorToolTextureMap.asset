@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab8025bf9e5af846bc4e7cde2b68adb, type: 3}
   m_Name: EditorToolTextureMap
   m_EditorClassIdentifier: 
+  baseMap: {fileID: 0}
+  metallicGlossMap: {fileID: 2800000, guid: ca0e2d75081042e44854d1756114b392, type: 3}
+  heightDisplacementMap: {fileID: 0}
+  NormalMap: {fileID: 0}
