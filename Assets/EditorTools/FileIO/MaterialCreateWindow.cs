@@ -42,6 +42,7 @@ public class MaterialCreateWindow : EditorWindow
     // public SerializedProperty metallicGlossMap;
     public Object metallicGlossMap; // succeed
     public Object heightDisplacementMap;
+    
     public Object NormalMap;
 
     public SerializedObject tempMap;
@@ -50,6 +51,7 @@ public class MaterialCreateWindow : EditorWindow
 
     public TextureMapSO textureMapSO;
     // public Texture2D tempMap2;
+    [SerializeField] [ReadOnly] private string currentMatName;
 
 
     [MenuItem("Tools/MaterialCreator")]
@@ -115,7 +117,7 @@ public class MaterialCreateWindow : EditorWindow
         EditorGUILayout.EndHorizontal();
         #endregion
 
-        GUILayout.Space(50f);
+        GUILayout.Space(40f);
 
         if (GUILayout.Button("SetMapsFromSrc"))
         {
@@ -141,7 +143,25 @@ public class MaterialCreateWindow : EditorWindow
         }
 
         GUILayout.Space(20f);
+
+
+        #region current map setting
         EditorGUILayout.BeginVertical();
+        
+        if(string.IsNullOrEmpty(currentMatName))
+        {
+            currentMatName = "currently no map is set";
+        }
+        // new Rect(0f,0f,250f,35f)
+        // GUILayout.BeginArea(new Rect(0f, 0f, 50f, 55f));
+        EditorGUILayout.BeginVertical("box");
+        GUIStyle richStyle = new GUIStyle(GUI.skin.label);
+        richStyle.richText = true;
+        EditorGUILayout.LabelField(currentMatName, richStyle);
+        EditorGUILayout.EndVertical();
+        // GUILayout.EndArea();
+
+        GUILayout.Space(5f);
         EditorGUILayout.LabelField("Basemap", GUILayout.Width(200f));
         GUILayout.Space(5f);
         baseMap = EditorGUILayout.ObjectField(baseMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
@@ -167,7 +187,9 @@ public class MaterialCreateWindow : EditorWindow
         EditorGUILayout.LabelField("Normalmap", GUILayout.Width(200f));
         GUILayout.Space(5f);
         NormalMap = EditorGUILayout.ObjectField(NormalMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+        // NormalMap = (Texture)EditorGUILayout.ObjectField(NormalMap, typeof(UnityEngine.Texture), false, GUILayout.Width(200f));
         EditorGUILayout.EndVertical();
+        #endregion
 
         GUILayout.Space(5f);
 
@@ -312,9 +334,12 @@ public class MaterialCreateWindow : EditorWindow
                             //item.Name.Contains(METALLIC_NAME_3D_TEXTURE);
                     }
 
+                    if (item.Name.Contains(NORMAL_NAME_3D_TEXTURE))
+                    {
+                        currentMatName = item.Name.Replace(NORMAL_NAME_3D_TEXTURE, string.Empty).Replace(".jpg", string.Empty);
+                    }
+
                     // var temp = AssetDatabase.LoadAssetAtPath(item.FullName, typeof(UnityEngine.Object));
-
-
 
                 }
             }
@@ -344,7 +369,7 @@ public class MaterialCreateWindow : EditorWindow
         return path.Substring(tempStartIndex, path.Length - tempStartIndex);
     }
 
-    static void CreateMaterial(string folderPath)
+    public void CreateMaterial(string folderPath)
     {
         // 0. check directory path and folder
         HelperFunctions.CreateDirectory(folderPath);
@@ -382,10 +407,11 @@ public class MaterialCreateWindow : EditorWindow
 
         Material material = new Material(Shader.Find("Standard"));
         ++tempNumber;
-#if DEBUG_DISABLED
+#if !DEBUG_DISABLED
         AssetDatabase.CreateAsset(material, folderPath + "/Mat_" + tempNumber + ".mat");
 #endif
-
+        
+        
         //// path is Assets/TempAssetSources/Materials/TestMatFolder
 
         //// Print the path of the created asset
@@ -396,8 +422,12 @@ public class MaterialCreateWindow : EditorWindow
 
         // 3. set that asset's property...
 
-        // material.SetTexture("Albedo",)
-
+        // var tempTexture = (Texture)baseMap;
+        
+        material?.SetTexture("Albedo", (Texture)baseMap);
+        material?.SetTexture("Metallic", (Texture)metallicGlossMap);
+        material?.SetTexture("Height Map", (Texture)heightDisplacementMap);
+        material?.SetTexture("Normal Map", (Texture)NormalMap);
 
 
     }
