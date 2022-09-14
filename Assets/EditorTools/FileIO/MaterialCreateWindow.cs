@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
 
+
+[System.Serializable]
 public class MaterialCreateWindow : EditorWindow
 {
     //public GameObject assetSrcFolderPath;
@@ -186,15 +188,21 @@ public class MaterialCreateWindow : EditorWindow
         //    metallicGlossMap.objectReferenceValue =
         //        EditorGUILayout.ObjectField(metallicGlossMap.objectReferenceValue, typeof(UnityEngine.Object), false, GUILayout.Width(300f));
         //}
+
+        // metallicGlossMap = EditorGUILayout.ObjectField(metallicGlossMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
         EditorGUILayout.ObjectField(metallicGlossMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
 
         EditorGUILayout.LabelField("HeightDisplacement", GUILayout.Width(200f));
         GUILayout.Space(5f);
-        heightDisplacementMap = EditorGUILayout.ObjectField(heightDisplacementMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+        // heightDisplacementMap = EditorGUILayout.ObjectField(heightDisplacementMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+        EditorGUILayout.ObjectField(heightDisplacementMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
 
         EditorGUILayout.LabelField("Normalmap", GUILayout.Width(200f));
         GUILayout.Space(5f);
-        NormalMap = EditorGUILayout.ObjectField(NormalMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+
+        // NormalMap = EditorGUILayout.ObjectField(NormalMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+        EditorGUILayout.ObjectField(NormalMap, typeof(UnityEngine.Object), false, GUILayout.Width(200f));
+
         // NormalMap = (Texture)EditorGUILayout.ObjectField(NormalMap, typeof(UnityEngine.Texture), false, GUILayout.Width(200f));
         EditorGUILayout.EndVertical();
         #endregion
@@ -259,6 +267,7 @@ public class MaterialCreateWindow : EditorWindow
     private void SetSourceMaps(string path)
     {
         currentMapSOSetting.Update();
+        Dictionary<eCurrentTexture, Object> tempDic = new Dictionary<eCurrentTexture, Object>(capacity: 5);
         // 0. grab folder's file's base
 
         if (bIsFrom3dTexture)
@@ -302,6 +311,8 @@ public class MaterialCreateWindow : EditorWindow
                     {
                         currentMatName = compareStringData.Replace(BASEMAP_NAME_3D_TEXTURE, string.Empty);
                         currentMatName = char.ToUpper(currentMatName[0]) + currentMatName.Substring(1);
+                        currentMatName = HelperFunctions.ReplaceString(currentMatName, new string[] { ".png", ".jpg" });
+                        // currentMatName = currentMatName.Replace(".jpg", string.Empty).Replace(".png", string.Empty);
                     }
 
                     if (item.Name.Contains(METALLIC_NAME_3D_TEXTURE))
@@ -331,15 +342,19 @@ public class MaterialCreateWindow : EditorWindow
                     {
                         case eCurrentTexture.BASEMAP:
                             baseMap = currentTexture;
+                            tempDic.Add(eCurrentTexture.BASEMAP, baseMap);
                             break;
                         case eCurrentTexture.METALLIC:
                             metallicGlossMap = currentTexture;
+                            tempDic.Add(eCurrentTexture.METALLIC, metallicGlossMap);
                             break;
                         case eCurrentTexture.HEIGHT:
                             heightDisplacementMap = currentTexture;
+                            tempDic.Add(eCurrentTexture.HEIGHT, heightDisplacementMap);
                             break;
                         case eCurrentTexture.NORMAL:
                             NormalMap = currentTexture;
+                            tempDic.Add(eCurrentTexture.NORMAL, NormalMap);
                             break;
                         case eCurrentTexture.NOT_FOUND:
                             break;
@@ -354,32 +369,12 @@ public class MaterialCreateWindow : EditorWindow
                             //item.Name.Contains(METALLIC_NAME_3D_TEXTURE);
                     }
 
-                    if (item.Name.Contains(NORMAL_NAME_3D_TEXTURE))
-                    {
-                        currentMatName = item.Name.Replace(NORMAL_NAME_3D_TEXTURE, string.Empty).Replace(".jpg", string.Empty);
-                    }
 
                     // var temp = AssetDatabase.LoadAssetAtPath(item.FullName, typeof(UnityEngine.Object));
 
                 }
             }
 
-            maps.Clear();
-
-            maps.Add(baseMap);
-            maps.Add(metallicGlossMap);
-            maps.Add(heightDisplacementMap);
-            maps.Add(NormalMap);
-            Debug.Log("map list count " + maps.Count);
-
-            for (int i = 0; i < maps.Count; i++)
-            {
-                if (maps[i].name.Contains(currentMatName) == false)
-                {
-                    maps[i] = null;
-                }
-
-            }
 
 
         }
@@ -391,7 +386,31 @@ public class MaterialCreateWindow : EditorWindow
         {
             Debug.LogError("no booleans set to true, set error");
         }
+        
         currentMapSOSetting.ApplyModifiedProperties();
+        #region is there any smart way for this
+        if (tempDic.ContainsKey(eCurrentTexture.BASEMAP) == false)
+        {
+            
+            baseMap = null;
+        }
+        if (tempDic.ContainsKey(eCurrentTexture.METALLIC) == false)
+        {
+            
+            metallicGlossMap = null;
+        }
+        if (tempDic.ContainsKey(eCurrentTexture.HEIGHT) == false)
+        {
+            
+            heightDisplacementMap = null;
+        }
+        if (tempDic.ContainsKey(eCurrentTexture.NORMAL) == false)
+        {
+            
+            NormalMap = null;
+        }
+        
+        #endregion
 
 
         // throw new System.NotImplementedException();
@@ -431,6 +450,10 @@ public class MaterialCreateWindow : EditorWindow
         var recentFileName = string.Empty;
 
         var tempMatches = HelperFunctions.FindMatchAfterCertainString(tempFileNames, "Mat_");
+        if (string.IsNullOrEmpty(currentMatName) == false)
+        {
+            tempMatches = HelperFunctions.FindMatchAfterCertainString(tempFileNames, currentMatName + "_");
+        }
         var tempNumber = HelperFunctions.ParseAndReturnNumber(true, tempMatches);
         Debug.Log("highest number " + tempNumber);
         //foreach (var item in tempMatches)
@@ -446,7 +469,15 @@ public class MaterialCreateWindow : EditorWindow
         Material material = new Material(Shader.Find("Standard"));
         ++tempNumber;
 #if !DEBUG_DISABLED
-        AssetDatabase.CreateAsset(material, folderPath + "/Mat_" + tempNumber + ".mat");
+        if(string.IsNullOrEmpty(currentMatName))
+        {
+            AssetDatabase.CreateAsset(material, folderPath + currentMatName + "_" + tempNumber + ".mat");
+        }
+        else
+        {
+            AssetDatabase.CreateAsset(material, folderPath + "/Mat_" + tempNumber + ".mat");
+        }
+        // AssetDatabase.CreateAsset(material, folderPath + "/Mat_" + tempNumber + ".mat");
 #endif
         
         
