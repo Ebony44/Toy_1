@@ -469,9 +469,9 @@ public class MaterialCreateWindow : EditorWindow
         Material material = new Material(Shader.Find("Standard"));
         ++tempNumber;
 #if !DEBUG_DISABLED
-        if(string.IsNullOrEmpty(currentMatName))
+        if(string.IsNullOrEmpty(currentMatName) == false)
         {
-            AssetDatabase.CreateAsset(material, folderPath + currentMatName + "_" + tempNumber + ".mat");
+            AssetDatabase.CreateAsset(material, folderPath +"/" + currentMatName + "_" + tempNumber + ".mat");
         }
         else
         {
@@ -492,11 +492,28 @@ public class MaterialCreateWindow : EditorWindow
         // 3. set that asset's property...
 
         // var tempTexture = (Texture)baseMap;
-        
-        material?.SetTexture("Albedo", (Texture)baseMap);
-        material?.SetTexture("Metallic", (Texture)metallicGlossMap);
-        material?.SetTexture("Height Map", (Texture)heightDisplacementMap);
-        material?.SetTexture("Normal Map", (Texture)NormalMap);
+
+        if (baseMap != null)
+        {
+            material?.SetTexture("_MainTex", (Texture)baseMap);
+        }
+        var temp = material?.GetTexture("_MainTex");
+        if (metallicGlossMap != null)
+        {
+            material?.SetTexture("_MetallicGlossMap", (Texture)metallicGlossMap);
+        }
+        var temp2 = material?.GetTexture("_MetallicGlossMap");
+
+        if (heightDisplacementMap != null)
+        {
+            material?.SetTexture("_ParallaxMap", (Texture)heightDisplacementMap);
+        }
+        var temp3 = material?.GetTexture("_ParallaxMap");
+        if (NormalMap != null)
+        {
+            material?.SetTexture("_BumpMap", (Texture)NormalMap);
+        }
+        var temp4 = material?.GetTexture("_BumpMap");
 
 
     }
