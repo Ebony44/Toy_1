@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TempPoC : MonoBehaviour
 {
+    [SerializeField] VoidEventChannelSO _onSceneLoadSO;
+
     [TestMethod]
     public void TestFunction()
     {
@@ -40,21 +42,41 @@ public class TempPoC : MonoBehaviour
     public Texture tempImage;
     private void OnGUI()
     {
-        for (int i = 0; i < 28; i++)
-        {
-            var tempRad = 30f + (5f * i);
-            var tempX = Mathf.Sin(tempRad) * 60f + 125f;
-            var tempY = Mathf.Cos(tempRad) * 60f + 125f;
-            // var tempY = 10f;
+        //for (int i = 0; i < 28; i++)
+        //{
+        //    var tempRad = 30f + (5f * i);
+        //    var tempX = Mathf.Sin(tempRad) * 60f + 125f;
+        //    var tempY = Mathf.Cos(tempRad) * 60f + 125f;
+        //    // var tempY = 10f;
 
-            var tempRect = new Rect(new Vector2(tempX, tempY), Vector2.one * 25f);
-            if (tempImage != null)
-            {
-                GUI.Box(tempRect, tempImage);
-            }
-        }
+        //    var tempRect = new Rect(new Vector2(tempX, tempY), Vector2.one * 25f);
+        //    if (tempImage != null)
+        //    {
+        //        GUI.Box(tempRect, tempImage);
+        //    }
+        //}
+
         // var tempRect = new Rect(new Vector2(10, 10), Vector2.one * 50f);
 
     }
+
+
+    [TestMethod(false)]
+    public void TestAssign()
+    {
+        Debug.Log("scene load Event assign");
+        _onSceneLoadSO.OnEventRaised += EvokeEvent;
+    }
+    [TestMethod(false)]
+    public void TestDismiss()
+    {
+        Debug.Log("scene load Event dismiss");
+        _onSceneLoadSO.OnEventRaised -= EvokeEvent;
+    }
+    public void EvokeEvent()
+    {
+        Debug.Log("scene load Event called");
+    }
+
 
 }
