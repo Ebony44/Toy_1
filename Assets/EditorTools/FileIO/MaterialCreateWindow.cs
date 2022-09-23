@@ -315,22 +315,6 @@ public class MaterialCreateWindow : EditorWindow
                         // currentMatName = currentMatName.Replace(".jpg", string.Empty).Replace(".png", string.Empty);
                     }
 
-                    if (item.Name.Contains(METALLIC_NAME_3D_TEXTURE))
-                    {
-
-                        // metallicGlossMap = currentMapSOSetting.FindProperty("metallicGlossMap");
-                        // metallicGlossMap = AssetDatabase.LoadAssetAtPath(item.FullName, typeof(SerializedProperty));
-                        // HelperFunctions.SetValue(metallicGlossMap, AssetDatabase.LoadAssetAtPath(assetPath, typeof(SerializedProperty)));
-                        // metallicGlossMap = AssetDatabase.LoadAssetAtPath(assetPath, typeof(SerializedProperty));
-
-                        // var tempObject = AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object));
-                        // metallicGlossMapObj = AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object));
-
-                        //SerializedObject tempSerialObject = new SerializedObject(tempObject);
-                        //metallicGlossMap = tempSerialObject.FindProperty("targetObject");
-                        // var temp = tempSerialObject.FindProperty(tempObject);
-
-                    }
 
                     var currentTexture = compareStringData.Contains(BASEMAP_NAME_3D_TEXTURE) ? AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object)) :
                         compareStringData.Contains(METALLIC_NAME_3D_TEXTURE) ? AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object)) :
@@ -414,6 +398,19 @@ public class MaterialCreateWindow : EditorWindow
 
 
         // throw new System.NotImplementedException();
+    }
+
+    private Object GetCurrentTexture(string assetPath,string compareStringData, string[] searchPattern)
+    {
+        Object currentTexture = null;
+        
+        foreach (var item in searchPattern)
+        {
+            currentTexture = compareStringData.Contains(item) ? AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object)) : null;
+            
+        }
+        return currentTexture;
+        // return null;
     }
 
 
