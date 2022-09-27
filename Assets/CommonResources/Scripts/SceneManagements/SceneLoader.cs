@@ -6,6 +6,8 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 
 public class SceneLoader : MonoBehaviour
 {
+    [SerializeField] private GameSceneSO _gameplayScene = default;
+
 
     // assign when scene loading
     // then use it as scene loading complete callback...?
