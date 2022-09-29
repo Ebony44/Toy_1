@@ -1089,7 +1089,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: bb808bda4514ee841a75a60d0835bf50, type: 2}
 --- !u!64 &1118589381
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1562,6 +1562,7 @@ GameObject:
   - component: {fileID: 1399408378}
   - component: {fileID: 1399408377}
   - component: {fileID: 1399408376}
+  - component: {fileID: 1399408375}
   m_Layer: 0
   m_Name: FollowingAgent
   m_TagString: Untagged
@@ -1569,6 +1570,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1399408375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399408374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0522efa9d71d534d9bbf1e0bba38513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 271273945}
+  self: {fileID: 1399408376}
+  bCanFollow: 0
 --- !u!195 &1399408376
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1579,7 +1595,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2873,7 +2889,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-7790
+  m_Name: pb_Mesh26568
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

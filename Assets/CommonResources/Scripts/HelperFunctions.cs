@@ -182,7 +182,7 @@ public static class HelperFunctions
 #endif // UNITY_EDITOR
 
     #region string
-    public static string ReplaceString(string originString, string[] cutOffOption)
+    public static string ReplaceStringToEmpty(string originString, string[] cutOffOption)
     {
         var sb = new StringBuilder(originString);
         for (int i = 0; i < cutOffOption.Length; i++)
