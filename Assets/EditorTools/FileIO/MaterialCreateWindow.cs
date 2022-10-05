@@ -428,7 +428,7 @@ public class MaterialCreateWindow : EditorWindow
     }
     private eCurrentTexture GetCurrentTextureType(string assetPath, string compareStringData, Dictionary<string,eCurrentTexture> searchPattern)
     {
-        eCurrentTexture currentTexturetype = eCurrentTexture.NOT_FOUND;
+        eCurrentTexture currentTextureType = eCurrentTexture.NOT_FOUND;
 
         //var currentTextureType = compareStringData.Contains(BASEMAP_NAME_3D_TEXTURE) ? eCurrentTexture.BASEMAP :
         //                compareStringData.Contains(METALLIC_NAME_3D_TEXTURE) ? eCurrentTexture.METALLIC :
@@ -440,12 +440,12 @@ public class MaterialCreateWindow : EditorWindow
         {
             // currentTexturetype = compareStringData.Contains(item) ? (eCurrentTexture)item : null;
             currentTextureType = compareStringData.Contains(item.Key) ? item.Value : eCurrentTexture.NOT_FOUND;
-            if (currentTexturetype != eCurrentTexture.NOT_FOUND)
+            if (currentTextureType != eCurrentTexture.NOT_FOUND)
             {
                 break;
             }
         }
-        return currentTexturetype;
+        return currentTextureType;
         // return null;
     }
 
