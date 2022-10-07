@@ -38,7 +38,7 @@ public class MaterialCreateWindow : EditorWindow
     #endregion
     #region for poliigon
     public bool bIsFromPoliigon;
-    public const string BASEMAP_NAME_POLIIGON = "_Flat";
+    public const string BASEMAP_NAME_POLIIGON = "_flat";
     public const string METALLIC_NAME_POLIIGON = "_gloss_";
     public const string HEIGHT_NAME_POLIIGON = "_disp_";
     public const string NORMAL_NAME_POLIIGON = "_nrm_";
@@ -274,6 +274,8 @@ public class MaterialCreateWindow : EditorWindow
     {
         currentMapSOSetting.Update();
         Dictionary<eCurrentTexture, Object> tempDic = new Dictionary<eCurrentTexture, Object>(capacity: 5);
+        Dictionary<string, eCurrentTexture> textureTypeDic = new Dictionary<string, eCurrentTexture>(capacity: 5);
+        
         // 0. grab folder's file's base
 
         if (bIsFrom3dTexture)
@@ -282,7 +284,9 @@ public class MaterialCreateWindow : EditorWindow
             // var baseString = new DirectoryInfo(path);
             var dirInfo = new DirectoryInfo(path);
             var sb = new StringBuilder();
-            Dictionary<string, eCurrentTexture> textureTypeDic = new Dictionary<string, eCurrentTexture>(capacity: 5);
+
+            string[] stringPatterns = new string[] { BASEMAP_NAME_3D_TEXTURE, METALLIC_NAME_3D_TEXTURE, HEIGHT_NAME_3D_TEXTURE, NORMAL_NAME_3D_TEXTURE };
+
             foreach (var item in dirInfo.GetFiles())
             {
                 if (item.Name.Contains(".meta"))
@@ -295,26 +299,32 @@ public class MaterialCreateWindow : EditorWindow
                 Debug.Log("item name is " + item.Name
                     + "\n" + " full name is " + item.FullName);
 
-                //if (item.Name.Contains(METALLIC_NAME_3D_TEXTURE))
-                //{
-                //    GetSubstringPath(item.FullName, "Asset");
-                //}
-
-                //metallicGlossMap = item.Name.Contains(METALLIC_NAME_3D_TEXTURE)
-                ////? AssetDatabase.LoadAssetAtPath(item.FullName, typeof(UnityEngine.Object))
-                //? AssetDatabase.LoadAssetAtPath<SerializedProperty>(GetSubstringPath(item.FullName, "Asset"))
-                //    : null;
 
                 // if (currentMapSOSetting != null)
                 if (true) // temp statement
                 {
+                    
                     var assetPath = GetSubstringPath(item.FullName, "Asset");
-                    var currentTextureType = compareStringData.Contains(BASEMAP_NAME_3D_TEXTURE) ? eCurrentTexture.BASEMAP :
-                        compareStringData.Contains(METALLIC_NAME_3D_TEXTURE) ? eCurrentTexture.METALLIC :
-                        compareStringData.Contains(HEIGHT_NAME_3D_TEXTURE) ? eCurrentTexture.HEIGHT :
-                        compareStringData.Contains(NORMAL_NAME_3D_TEXTURE) ? eCurrentTexture.NORMAL :
-                        eCurrentTexture.NOT_FOUND;
-                    if(currentTextureType == eCurrentTexture.BASEMAP)
+                    //var currentTextureType = compareStringData.Contains(BASEMAP_NAME_3D_TEXTURE) ? eCurrentTexture.BASEMAP :
+                    //    compareStringData.Contains(METALLIC_NAME_3D_TEXTURE) ? eCurrentTexture.METALLIC :
+                    //    compareStringData.Contains(HEIGHT_NAME_3D_TEXTURE) ? eCurrentTexture.HEIGHT :
+                    //    compareStringData.Contains(NORMAL_NAME_3D_TEXTURE) ? eCurrentTexture.NORMAL :
+                    //    eCurrentTexture.NOT_FOUND;
+
+                    var tempIndex = 0;
+                    if (textureTypeDic.Count == 0)
+                    {
+                        foreach (var stringItem in stringPatterns)
+                        {
+                            Debug.Log("temp index " + tempIndex
+                                + " string item " + stringItem);
+                            textureTypeDic.Add(stringItem, (eCurrentTexture)tempIndex);
+                            tempIndex++;
+                        }
+                    }
+                    var currentTextureType = GetCurrentTextureType(assetPath, compareStringData, textureTypeDic);
+
+                    if (currentTextureType == eCurrentTexture.BASEMAP)
                     {
                         currentMatName = compareStringData.Replace(BASEMAP_NAME_3D_TEXTURE, string.Empty);
                         currentMatName = char.ToUpper(currentMatName[0]) + currentMatName.Substring(1);
@@ -323,13 +333,8 @@ public class MaterialCreateWindow : EditorWindow
                     }
 
 
-                    //var currentTexture = compareStringData.Contains(BASEMAP_NAME_3D_TEXTURE) ? AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object)) :
-                    //    compareStringData.Contains(METALLIC_NAME_3D_TEXTURE) ? AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object)) :
-                    //    compareStringData.Contains(HEIGHT_NAME_3D_TEXTURE) ? AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object)) :
-                    //    compareStringData.Contains(NORMAL_NAME_3D_TEXTURE) ? AssetDatabase.LoadAssetAtPath(assetPath, typeof(UnityEngine.Object)) :
-                    //    null;
 
-                    string[] stringPatterns = new string[] { BASEMAP_NAME_3D_TEXTURE, METALLIC_NAME_3D_TEXTURE, HEIGHT_NAME_3D_TEXTURE, NORMAL_NAME_3D_TEXTURE };
+                    
 
                     var currentTexture = GetCurrentTexture(assetPath, compareStringData, stringPatterns);
 
