@@ -7,6 +7,7 @@ public class TestNavMeshController : MonoBehaviour
 {
     [SerializeField]
     private Camera Camera = null;
+    [SerializeField]
     private ObstacleAgent Agent;
 
     private RaycastHit[] Hits = new RaycastHit[1];
@@ -20,6 +21,7 @@ public class TestNavMeshController : MonoBehaviour
 
     private void Awake()
     {
+        inputMap.Enable();
         Agent = GetComponent<ObstacleAgent>();
         // playerInput = new PlayerInput();
         click = inputMap.FindAction("Fire");
@@ -30,7 +32,7 @@ public class TestNavMeshController : MonoBehaviour
     }
     private void OnEnable()
     {
-        inputMap.Enable();
+        // inputMap.Enable();
         
     }
 
@@ -41,7 +43,9 @@ public class TestNavMeshController : MonoBehaviour
         Vector3 tempVector = pos.ReadValue<Vector2>();
         tempVector.z = Camera.main.farClipPlane * 0.5f;
         Ray ray = Camera.ScreenPointToRay(tempVector);
-        
+        var temp = Physics.RaycastNonAlloc(ray, Hits);
+        var temp2 = Hits[0].point;
+
         if (Physics.RaycastNonAlloc(ray, Hits) > 0)
         {
             Agent.SetDestination(Hits[0].point);

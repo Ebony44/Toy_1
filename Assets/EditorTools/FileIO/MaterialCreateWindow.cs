@@ -380,6 +380,12 @@ public class MaterialCreateWindow : EditorWindow
         }
         else if (bIsFromPoliigon)
         {
+            
+            string[] stringPatterns = new string[] { BASEMAP_NAME_POLIIGON,
+                METALLIC_NAME_POLIIGON,
+                HEIGHT_NAME_POLIIGON,
+                NORMAL_NAME_POLIIGON };
+
 
         }
         if (!bIsFrom3dTexture && !bIsFromPoliigon)
