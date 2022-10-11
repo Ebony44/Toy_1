@@ -2,6 +2,9 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
+// https://forum.unity.com/threads/what-is-a-serializable-asset-type-for-folder.608875/
+// #3
+
 namespace EditorUtils
 {
     [System.Serializable]
