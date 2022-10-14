@@ -19,6 +19,8 @@ public class TestNavMeshController : MonoBehaviour
     InputAction click;
     InputAction pos;
 
+    public float rotationSpeed = 4f;
+
     private void Awake()
     {
         inputMap.Enable();
@@ -44,13 +46,21 @@ public class TestNavMeshController : MonoBehaviour
         tempVector.z = Camera.main.farClipPlane * 0.5f;
         Ray ray = Camera.ScreenPointToRay(tempVector);
         var temp = Physics.RaycastNonAlloc(ray, Hits);
-        var temp2 = Hits[0].point;
+        var hitPoint = Hits[0].point;
 
         if (Physics.RaycastNonAlloc(ray, Hits) > 0)
         {
             Agent.SetDestination(Hits[0].point);
         }
 
+        SetAimDirection(hitPoint);
+
+    }
+
+    public void SetAimDirection(Vector3 direction)
+    {
+        this.gameObject.transform.eulerAngles = new Vector3(0, CodeMonkey.Utils.UtilsClass.GetAngleFromVector(direction), 0);
+            //CodeMonkey.Utils.UtilsClass.GetAngleFromVector(direction);
     }
 
     //private void Update()

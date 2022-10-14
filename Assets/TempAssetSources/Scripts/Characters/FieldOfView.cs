@@ -19,6 +19,8 @@ public class FieldOfView : MonoBehaviour
     private float fov;
     private float startingAngle;
 
+    [SerializeField] private Material matForRunTimeMesh;
+
     private void Start()
     {
         mesh = GetComponent<MeshFilter>().mesh;
@@ -101,16 +103,24 @@ public class FieldOfView : MonoBehaviour
             angle -= angleIncrease;
         }
 
-        vertices[1] = new Vector3(50, 0);
-        vertices[2] = new Vector3(0, -50);
-
-        triangles[0] = 0;
-        triangles[1] = 1;
-        triangles[2] = 2;
+        // vertices[1] = new Vector3(50, 0);
+        // vertices[2] = new Vector3(0, -50);
+        // 
+        // triangles[0] = 0;
+        // triangles[1] = 1;
+        // triangles[2] = 2;
 
         mesh.vertices = vertices;
         mesh.uv = uv;
         mesh.triangles = triangles;
+
+        // TODO: apply texture to mesh
+        // like this
+
+        // Renderer renderer = GetComponent<MeshRenderer>();
+        // renderer.material = matForRunTimeMesh;
+
+        // above code maybe doesn't work properly...
 
     }
 
