@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CodeMonkey.Utils;
 
 
 public class FieldOfView : MonoBehaviour
@@ -16,16 +17,29 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] LayerMask layerMask;
     private Mesh mesh;
     Vector3 origin;
-    private float fov;
-    private float startingAngle;
+    [SerializeField] private float fov;
+    [SerializeField] private float startingAngle;
 
     [SerializeField] private Material matForRunTimeMesh;
+
+    [SerializeField] private Transform startingAngleObject;
+
+    [SerializeField] private float viewDistance = 50f;
+
+    [TestMethod(false)]
+    public void SetAimDirection()
+    {
+        startingAngle = UtilsClass.GetAngleFromVectorFloat(new Vector3(1, 0, 0)) - fov / 2f;
+    }
 
     private void Start()
     {
         mesh = GetComponent<MeshFilter>().mesh;
-        fov = 120f;
+        fov = 90f;
         origin = Vector3.zero;
+
+        Debug.Log("get angle from -1,0,0 " + UtilsClass.GetAngleFromVectorFloat(new Vector3(-1, 0, 0)));
+        Debug.Log("get angle from 1,0,0 " + UtilsClass.GetAngleFromVectorFloat(new Vector3(1, 0, 0)));
 
         // Mesh mesh = new Mesh();
         // GetComponent<MeshFilter>().mesh = mesh;
@@ -52,35 +66,54 @@ public class FieldOfView : MonoBehaviour
 
     }
 
+    
+    #region
     private void Update()
     {
         // float fov = 120f;
         // Vector3 origin = Vector3.zero;
-        int rayCount = 2;
+        // startingAngle = startingAngleObject.eulerAngles.y;
+
+        // SetAimDirection(UtilsClass.GetVectorFromAngle((int)startingAngleObject.eulerAngles.y));
+        // startingAngle = 120f;
+        // SetAimDirectionInIsometric()
+        startingAngle = 0 + fov / 2f;
+        int rayCount = 7;
         float angle = startingAngle;
         float angleIncrease = fov / rayCount;
-        float viewDistance = 50f;
+        // viewDistance = 50f;
 
         Vector3[] vertices = new Vector3[rayCount + 1 + 1];
         Vector2[] uv = new Vector2[vertices.Length];
         int[] triangles = new int[rayCount * 3];
 
+        origin = this.transform.localPosition; // meshes start from child
+
         vertices[0] = origin;
 
         int vertexIndex = 1;
         int triangleIndex = 0;
-        for (int i = 0; i < rayCount; i++)
+
+        // angle = 
+
+        for (int i = 0; i <= rayCount; i++)
         {
-            Vector3 tempDir = CodeMonkey.Utils.UtilsClass.GetVectorFromAngle((int)angle);// worth to see function...
+            Vector3 tempDir = UtilsClass.GetVectorFromAngle((int)angle);// worth to see function...
+            
+            tempDir = new Vector3(tempDir.x, 0, tempDir.y);
             // Vector3 vertex = origin + tempDir * viewDistance; 
             Vector3 vertex;
 
-            RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, tempDir, viewDistance,layerMask);
+            RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, tempDir, viewDistance, layerMask);
+
+            // RaycastHit raycastHit = Physics.Raycast(origin, tempDir, viewDistance, layerMask);
 
             if (raycastHit2D.collider == null)
             {
                 // hit nothing
+                
                 vertex = origin + tempDir * viewDistance;
+                
             }
             else
             {
@@ -99,7 +132,7 @@ public class FieldOfView : MonoBehaviour
                 triangleIndex += 3;
             }
 
-
+            vertexIndex++;
             angle -= angleIncrease;
         }
 
@@ -123,13 +156,57 @@ public class FieldOfView : MonoBehaviour
         // above code maybe doesn't work properly...
 
     }
+    #endregion
+
+    #region
+    //private void Update()
+    //{
+    //    startingAngle = 0f;
+    //    int rayCount = 3;
+    //    float angle = startingAngle;
+    //    float angleIncrease = fov / rayCount;
+    //    float viewDistance = 50f;
+
+    //    Vector3[] vertices = new Vector3[rayCount + 1 + 1];
+    //    Vector2[] uv = new Vector2[vertices.Length];
+    //    int[] triangles = new int[rayCount * 3];
+
+    //    //vertices[0] = Vector3.zero;
+    //    //vertices[1] = new Vector3(25, 0);
+    //    //vertices[2] = new Vector3(0, -25);
+
+    //    vertices[0] = Vector3.zero;
+    //    vertices[1] = new Vector3(0, 0, 25);
+    //    vertices[2] = new Vector3(25, 0,0);
+
+
+    //    triangles[0] = 0;
+    //    triangles[1] = 1;
+    //    triangles[2] = 2;
+
+    //    mesh.vertices = vertices;
+    //    mesh.uv = uv;
+    //    mesh.triangles = triangles;
+    //}
+
+    #endregion
 
     public void SetOrigin(Vector3 origin)
     {
         this.origin = origin;
     }
+    
+    
     public void SetAimDirection(Vector3 aimDirection)
     {
-        startingAngle = CodeMonkey.Utils.UtilsClass.GetAngleFromVectorFloat(aimDirection) - fov / 2f;
+        startingAngle = UtilsClass.GetAngleFromVectorFloat(aimDirection) - fov / 2f;
     }
+
+    public void SetAimDirectionInIsometric(Vector3 aimDirection)
+    {
+        startingAngle = UtilsClass.GetAngleFromVectorFloat(aimDirection) + fov / 2f;
+    }
+
+
+
 }

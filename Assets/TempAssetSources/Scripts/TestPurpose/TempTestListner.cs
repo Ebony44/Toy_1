@@ -23,4 +23,12 @@ public class TempTestListner : MonoBehaviour
     {
         Debug.Log("Test event called");
     }
+
+    [TestMethod(false)]
+    public void ShowVectorFromAngle(float angle)
+    {
+        var tempVector = CodeMonkey.Utils.UtilsClass.GetVectorFromAngle((int)angle);
+        Debug.Log("vector is " + tempVector);
+    }
+
 }
