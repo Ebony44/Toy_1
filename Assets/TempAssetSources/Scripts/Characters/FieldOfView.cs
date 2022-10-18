@@ -38,9 +38,7 @@ public class FieldOfView : MonoBehaviour
         fov = 90f;
         origin = Vector3.zero;
 
-        Debug.Log("get angle from -1,0,0 " + UtilsClass.GetAngleFromVectorFloat(new Vector3(-1, 0, 0)));
-        Debug.Log("get angle from 1,0,0 " + UtilsClass.GetAngleFromVectorFloat(new Vector3(1, 0, 0)));
-
+        
         // Mesh mesh = new Mesh();
         // GetComponent<MeshFilter>().mesh = mesh;
 
