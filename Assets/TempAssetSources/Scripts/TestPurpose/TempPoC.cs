@@ -5,8 +5,9 @@ using UnityEngine;
 public class TempPoC : MonoBehaviour
 {
     [SerializeField] VoidEventChannelSO _onSceneLoadSO;
+    [SerializeField] FieldOfView fow;
 
-    [TestMethod]
+    [TestMethod(false)]
     public void TestFunction()
     {
 
@@ -26,7 +27,7 @@ public class TempPoC : MonoBehaviour
             + " angle " + temp2 * Mathf.Rad2Deg);
     }
 
-    [TestMethod]
+    [TestMethod(false)]
     public void TestLookRot(float angle)
     {
         // Quaternion.LookRotation
@@ -76,6 +77,11 @@ public class TempPoC : MonoBehaviour
     public void EvokeEvent()
     {
         Debug.Log("scene load Event called");
+    }
+    [TestMethod(false)]
+    public void ShowAimDirectionTest()
+    {
+        Debug.Log("angle is " + fow.targetDirection);
     }
 
 

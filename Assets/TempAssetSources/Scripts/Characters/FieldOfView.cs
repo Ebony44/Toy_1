@@ -15,7 +15,7 @@ public class FieldOfView : MonoBehaviour
     }
 
     [SerializeField] LayerMask layerMask;
-    private Mesh mesh;
+    
     Vector3 origin;
     [SerializeField] private float fov;
     [SerializeField] private float startingAngle;
@@ -25,9 +25,17 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private Transform startingAngleObject;
 
     [SerializeField] private float viewDistance = 50f;
+    private Mesh mesh;
+    public Vector3 targetDirection;
+
+    [TestMethod]
+    public void GetEulerAngleY()
+    {
+        Debug.Log("angle is " + transform.eulerAngles.y);
+    }
 
     [TestMethod(false)]
-    public void SetAimDirection()
+    public void SetAimDirectionTest()
     {
         startingAngle = UtilsClass.GetAngleFromVectorFloat(new Vector3(1, 0, 0)) - fov / 2f;
     }
@@ -65,7 +73,7 @@ public class FieldOfView : MonoBehaviour
     }
 
     
-    #region
+    #region field of view update statement
     private void Update()
     {
         // float fov = 120f;
@@ -75,9 +83,13 @@ public class FieldOfView : MonoBehaviour
         // SetAimDirection(UtilsClass.GetVectorFromAngle((int)startingAngleObject.eulerAngles.y));
         // startingAngle = 120f;
         // SetAimDirectionInIsometric()
-        startingAngle = 0 + fov / 2f;
+        
+        // startingAngle = 0 + fov / 2f;
+
         int rayCount = 7;
-        float angle = startingAngle;
+        float angle = 90 + fov / 2f;
+        // float angle = this.transform.eulerAngles.y;
+        //float angle = 0;
         float angleIncrease = fov / rayCount;
         // viewDistance = 50f;
 
@@ -93,6 +105,8 @@ public class FieldOfView : MonoBehaviour
         int triangleIndex = 0;
 
         // angle = 
+
+        targetDirection = UtilsClass.GetVectorFromAngle((int)angle);
 
         for (int i = 0; i <= rayCount; i++)
         {
@@ -205,6 +219,7 @@ public class FieldOfView : MonoBehaviour
         startingAngle = UtilsClass.GetAngleFromVectorFloat(aimDirection) + fov / 2f;
     }
 
+    
 
 
 }
