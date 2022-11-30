@@ -28,6 +28,11 @@ public class FieldOfView : MonoBehaviour
     private Mesh mesh;
     public Vector3 targetDirection;
 
+    [SerializeField] private int rayCount = 7;
+
+    
+
+
     [TestMethod]
     public void GetEulerAngleY()
     {
@@ -45,6 +50,8 @@ public class FieldOfView : MonoBehaviour
         mesh = GetComponent<MeshFilter>().mesh;
         fov = 90f;
         origin = Vector3.zero;
+
+        ApplyMat();
 
         
         // Mesh mesh = new Mesh();
@@ -86,7 +93,7 @@ public class FieldOfView : MonoBehaviour
         
         // startingAngle = 0 + fov / 2f;
 
-        int rayCount = 7;
+        // int rayCount = 7;
         float angle = 90 + fov / 2f;
         // float angle = this.transform.eulerAngles.y;
         //float angle = 0;
@@ -95,6 +102,7 @@ public class FieldOfView : MonoBehaviour
 
         Vector3[] vertices = new Vector3[rayCount + 1 + 1];
         Vector2[] uv = new Vector2[vertices.Length];
+        
         int[] triangles = new int[rayCount * 3];
 
         origin = this.transform.localPosition; // meshes start from child
@@ -135,6 +143,10 @@ public class FieldOfView : MonoBehaviour
 
 
             vertices[vertexIndex] = vertex;
+            // uv[vertexIndex] = Vector2.one * (1 + vertexIndex * 0.2f);
+            // uv[vertexIndex] = Vector2.one * (1 + vertexIndex * 0.2f);
+            // uv[vertexIndex] = Vector2.zero;
+
 
             if (i > 0)
             {
@@ -154,10 +166,21 @@ public class FieldOfView : MonoBehaviour
         // triangles[0] = 0;
         // triangles[1] = 1;
         // triangles[2] = 2;
+        
+        uv[0] = Vector2.zero;
+        uv[1] = Vector2.right;
+        uv[2] = Vector2.up;
+
+        // uv[3] = Vector2.right;
+        // uv[4] = Vector2.right;
+        // uv[5] = Vector2.right;
 
         mesh.vertices = vertices;
         mesh.uv = uv;
         mesh.triangles = triangles;
+
+        // mesh.normals = new Vector3[] { Vector3.back, Vector3.back, Vector3.back };
+
 
         // TODO: apply texture to mesh
         // like this
@@ -219,6 +242,10 @@ public class FieldOfView : MonoBehaviour
         startingAngle = UtilsClass.GetAngleFromVectorFloat(aimDirection) + fov / 2f;
     }
 
+    public void ApplyMat()
+    {
+        GetComponent<MeshRenderer>().material = matForRunTimeMesh;
+    }
     
 
 
