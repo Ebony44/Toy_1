@@ -13,6 +13,9 @@ public class MeshDestroy : MonoBehaviour
     public int CutCascades = 1;
     public float ExplodeForce = 0;
 
+    public float boundExpandValue = 0.5f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +30,14 @@ public class MeshDestroy : MonoBehaviour
     //        DestroyMesh();
     //    }
     //}
-
+    [TestMethod(false)]
     private void DestroyMesh()
     {
+        this.gameObject.SetActive(true);
+        var tempObj = Instantiate(this.gameObject);
+        tempObj.SetActive(false);
+        
+
         var originalMesh = GetComponent<MeshFilter>().mesh;
         originalMesh.RecalculateBounds();
         var parts = new List<PartMesh>();
@@ -53,11 +61,28 @@ public class MeshDestroy : MonoBehaviour
             for (var i = 0; i < parts.Count; i++)
             {
                 var bounds = parts[i].Bounds;
-                bounds.Expand(0.5f);
+                bounds.Expand(boundExpandValue);
 
-                var plane = new Plane(UnityEngine.Random.onUnitSphere, new Vector3(UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
-                                                                                   UnityEngine.Random.Range(bounds.min.y, bounds.max.y),
-                                                                                   UnityEngine.Random.Range(bounds.min.z, bounds.max.z)));
+                // var randomX = UnityEngine.Random.Range(bounds.min.x, bounds.max.x);
+                // var randomY = UnityEngine.Random.Range(bounds.min.y, bounds.max.y);
+                // var randomZ = UnityEngine.Random.Range(bounds.min.z, bounds.max.z);
+
+                var randomX = bounds.min.x + i * 1.5f;
+                var randomY = bounds.min.y + i * 1.5f;
+                var randomZ = bounds.min.z + i * 1.5f;
+
+                Debug.Log("bound " + i + " is " + bounds);
+                // Bounds
+
+                Debug.Log("the value of x,y,z " + randomX + ", " + randomY + ", " + randomZ);
+
+                //var plane = new Plane(UnityEngine.Random.onUnitSphere, new Vector3(UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
+                //                                                                   UnityEngine.Random.Range(bounds.min.y, bounds.max.y),
+                //                                                                   UnityEngine.Random.Range(bounds.min.z, bounds.max.z)));
+
+                var plane = new Plane(UnityEngine.Random.onUnitSphere, new Vector3(randomX,
+                                                                                   randomY,
+                                                                                   randomZ));
 
 
                 subParts.Add(GenerateMesh(parts[i], plane, true));

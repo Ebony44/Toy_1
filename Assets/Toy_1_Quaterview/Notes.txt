@@ -1,0 +1,3 @@
+Wall(also probuilder mesh) separated from probuilder prefabs(floors mostly) for shattering
+
+currently bound box is random...
