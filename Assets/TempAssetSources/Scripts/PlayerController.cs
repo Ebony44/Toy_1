@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public float inputMovementSmoothingSpeed = 1f;
     public float movementSpeed = 2f;
 
+    public float turnSpeed = 2f;
+
     public Vector3 movementDirection;
 
     public Rigidbody playerRB;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CalculateMovementInputSmoothing();
+        CalculateMoveDirection(smoothInputMovement);
 
         TestDrawLineAtLookDir();
 
@@ -35,6 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         
         MoveThePlayer();
+        TurnThePlayer();
     }
 
     public void OnMovement(InputAction.CallbackContext value)
@@ -64,6 +68,12 @@ public class PlayerController : MonoBehaviour
         
 
     }
+
+    private void CalculateMoveDirection(Vector3 newDirection)
+    {
+        Debug.Log("[CalculateMoveDirection], dir is " + newDirection);
+        movementDirection = newDirection;
+    }
     void MoveThePlayer()
     {
         #region 
@@ -78,6 +88,19 @@ public class PlayerController : MonoBehaviour
         playerRB.MovePosition(transform.position + movement);
 
 
+    }
+
+    private void TurnThePlayer()
+    {
+        if(movementDirection.sqrMagnitude > 0.01f)
+        {
+            Quaternion newRot = Quaternion.Lerp(
+                playerRB.rotation,
+                Quaternion.LookRotation(movementDirection),
+                t: turnSpeed
+                );
+            playerRB.MoveRotation(newRot);
+        }
     }
 
     // private void OnGUI() {
