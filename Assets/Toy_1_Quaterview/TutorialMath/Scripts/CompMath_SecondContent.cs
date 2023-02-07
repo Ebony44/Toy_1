@@ -33,4 +33,9 @@ This is the basic scene:
 
     }
 
+    private void CheckPath()
+    {
+        var currentPos = youTrans.position;
+    }
+
 }
