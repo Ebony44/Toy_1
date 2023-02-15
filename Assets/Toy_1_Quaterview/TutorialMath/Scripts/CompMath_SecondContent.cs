@@ -36,6 +36,9 @@ This is the basic scene:
     private void CheckPath()
     {
         var currentPos = youTrans.position;
+        var mineToWayPoint = youTrans.position - waypointFromTrans.position;
+        var WayPointToWayPoint = waypointToTrans.position - waypointFromTrans.position;
+
     }
 
 }
