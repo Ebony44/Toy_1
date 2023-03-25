@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: WorldBackUI
+    uniqueID: 2739665189
+    locked: 0
+  - name: World
+    uniqueID: 3787754411
+    locked: 0
+  - name: WorldForward
+    uniqueID: 3628351643
+    locked: 0
+  - name: GameUI
+    uniqueID: 2123134051
+    locked: 0
+  - name: CanvasUI
+    uniqueID: 132705923
+    locked: 0
