@@ -28,21 +28,33 @@ namespace Toy2_ThreeMatch
 
             var tempCount = rowCount;
             
-            var startPosX = -(int)width/2;
+            // var startPosX = -(int)width/2;
+            // var startPosY = -(int)height/2;
+            var startPosX = -width/2f + 0.5f;
+            var startPosY = -height/2f + 0.5f;
             Debug.Log("width is " + width
             + " height is " + height
             + " aspect is " + Camera.main.aspect
             + " cell x is " + cellXSize
             + " temp count is " + tempCount
             + "start pos X " + startPosX
+            + "start pos X " + startPosY
             );
+            // even = 0.5f
+            // odd = 1f
+            
+            var boardZ = boardSprite.transform.localPosition.z;
             
             for (int i = 0; i < tempCount; i++)
             {
-                var objPos = new Vector3(startPosX + i,-2f,1f);
+                var xMod = i * cellXSize;
+                var objPos = new Vector3(startPosX + i,
+                startPosY, // + k when k for loop maded(row and column)
+                boardZ);
                 var go = Instantiate(squareObj);
                 go.transform.SetParent(boardSprite.transform);
                 go.transform.localPosition = objPos;
+                // go.transform.localScale = 
             }
             // var temp = Instantiate(squareObj);
 
