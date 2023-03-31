@@ -11,6 +11,10 @@ namespace Toy2_ThreeMatch
         public GameObject squareObj;
         public SpriteRenderer boardSprite;
 
+        
+        // public Dictionary<int, CellTag> cellsAsRowSorted;
+
+
         [TestMethod(false)]
         public void GenerateBoardWithGameobject(int rowCount = 2)
         {
@@ -52,6 +56,7 @@ namespace Toy2_ThreeMatch
                 startPosY, // + k when k for loop maded(row and column)
                 boardZ);
                 var go = Instantiate(squareObj);
+                // go.AddComponent
                 go.transform.SetParent(boardSprite.transform);
                 go.transform.localPosition = objPos;
                 // go.transform.localScale = 
@@ -79,7 +84,40 @@ namespace Toy2_ThreeMatch
 
 
         }
+
+
+        public void TestTempTwoDimArray()
+        {
+            int[,] tempArray = new int[3, 5]; // 3 row, 5 column
+            string tempString = "";
+            for (int i = 0; i < tempArray.GetLength(0); i++)
+            {
+                tempString += ("current row value is " + i + " element is ");
+                for (int k = 0; k < tempArray.GetLength(1); k++)
+                {
+                    tempArray[i, k] = i * 10 + k;
+                    var tempValue = tempArray[i, k];
+                    tempString += (tempValue + ", ");
+                }
+                tempString += ("\n");
+            }
+
+            Debug.Log(tempString);
+
+        }
+
     }
+
+
+    public struct Cell
+    {
+        public int row;
+        public int column;
+        public int cellType;
+        public int modifier;
+
+    }
+
 }
 
 
