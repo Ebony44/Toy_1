@@ -81,6 +81,9 @@ public class ModTestGroundScripts : MonoBehaviour
     public GameObject testParent;
     public GameObject testPrefab;
     public ModTestGroundScripts testScript;
+    public Button testButton;
+    public GameObject testButtonObj;
+
     [TestMethod(false)]
     public void TestGetChildren(string gameObjectName)
     {
@@ -160,10 +163,61 @@ public class ModTestGroundScripts : MonoBehaviour
     }
 
     [TestMethod(false)]
+    public void TestDestroyComponent(GameObject obj)
+    {
+        var tempList = obj.GetComponents<Component>();
+        var compCount = tempList.Length;
+        for (int i = 0; i < tempList.Length; i++)
+        {
+            var currentComp = tempList[i];
+            if (currentComp.ToString().Contains("PoolItemManager"))
+            {
+                GameObject.Destroy(currentComp);
+            }
+        }
+        
+
+    }
+
+    [TestMethod(false)]
     public void ShowLog()
     {
         Debug.Log("Show log " + (testScript == null));
+
+        var temp = testParent.GetComponents<Component>();
+        foreach (var item in temp)
+        {
+            Debug.Log("temp is " + item.GetType());
+        }
+    }
+
+
+    public void ShowOnClickLog()
+    {
+        Debug.Log("asdf");
+    }
+
+    [TestMethod(false)]
+    public void AssignButtonEvent()
+    {
+        // testButton.onClick.AddListener(ShowOnClickLog);
+
+        var currentButton = testButtonObj.AddComponent<Button>();
+        currentButton.transition = Selectable.Transition.None;
+        currentButton.onClick.AddListener(ShowOnClickLog);
+
+        // StartCoroutine(AssignButtonEventRoutine());
+
+    }
+
+    public IEnumerator AssignButtonEventRoutine()
+    {
+        var currentButton = testButtonObj.AddComponent<Button>();
+        yield return new WaitForSeconds(0.1f);
+        currentButton.transition = Selectable.Transition.None;
+        currentButton.onClick.AddListener(ShowOnClickLog);
     }
 
 
 }
+
