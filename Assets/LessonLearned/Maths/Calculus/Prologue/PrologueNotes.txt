@@ -1,0 +1,9 @@
+y=f(x)
+
+ Difference quotient
+ -> divide rise over run
+
+ rise = f(x+h) - f(x)
+ run = (x+h - x) = h
+
+ (f(x+h) - f(x)) / h
