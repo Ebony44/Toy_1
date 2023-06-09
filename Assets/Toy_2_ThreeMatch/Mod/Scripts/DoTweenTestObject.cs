@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+
 
 public class DoTweenTestObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void TweenForThisObj()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this.transform.DOLocalMove(new Vector3(2, 3, 4), 1f);
+        // DOTween.To(()=> this.transform, x=> )
     }
 }
