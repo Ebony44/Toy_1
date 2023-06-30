@@ -133,13 +133,19 @@ public class SampleTextureOnClick : MonoBehaviour
 
         // example
 
-        // caught sample was (20, 9)
+        // caught sample was (20, 9) (don't know those sampled value but i is 49)
         // (7,7) to lowest(lowest 3rd quadrant)
         // (25,25) to highest (highest 1st quadrant)
 
         // currently minX is 7
-        // x = 7 + i % 16*2
-        // x = 7 + (i % 32)
+        // x = 7 + i % 9*2
+        // x = 7 + (49 % 18)
+        // x = 7 + 13
+        // x = 20
+
+        // y = 7 + 49 / 18
+        // y = 7 + 2
+        // y = 9
 
         int x = minX + i % (halfSquareRadius * 2); 
         int y = minY + i / (halfSquareRadius * 2);
