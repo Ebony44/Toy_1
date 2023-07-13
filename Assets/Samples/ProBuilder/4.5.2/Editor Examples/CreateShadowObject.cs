@@ -104,7 +104,7 @@ namespace ProBuilder.ExampleActions
 		/// Perform the action.
 		/// </summary>
 		/// <returns>Return a pb_ActionResult indicating the success/failure of action.</returns>
-		public override ActionResult DoAction()
+		public ActionResult DoAction()
 		{
 			ShadowCastingMode shadowMode = (ShadowCastingMode) EditorPrefs.GetInt("pb_CreateShadowObject_shadowMode", (int) ShadowCastingMode.ShadowsOnly);
 			float extrudeDistance = EditorPrefs.GetFloat("pb_CreateShadowObject_volumeSize", .08f);
@@ -186,6 +186,12 @@ namespace ProBuilder.ExampleActions
 			Undo.RegisterCreatedObjectUndo(newShadowMesh.gameObject, "Create Shadow Object");
 			return newShadowMesh;
 		}
-	}
+
+        protected override ActionResult PerformActionImplementation()
+        {
+			// DoAction();
+            throw new System.NotImplementedException();
+        }
+    }
 }
 

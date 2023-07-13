@@ -23,6 +23,10 @@ public class MouseOverSpriteScript : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         
     }
+    public IEnumerator temp()
+    {
+        yield return null;
+    }
 
     private void OnMouseEnter()
     {

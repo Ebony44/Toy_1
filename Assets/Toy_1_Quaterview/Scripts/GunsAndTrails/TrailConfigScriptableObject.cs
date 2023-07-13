@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName ="Trail Config", menuName ="Guns/Gun Trail Configuration", order = 4)]
+// [CreateAssetMenu(fileName ="Trail Config", menuName ="Guns/Gun Trail Configuration", order = 4)]
 public class TrailConfigScriptableObject : ScriptableObject
 {
     public Material Material;
@@ -13,7 +13,6 @@ public class TrailConfigScriptableObject : ScriptableObject
     public Gradient Color;
     public float MissDistance = 100f;
     public float SimulationSpeed = 100f;
-
 
 
 }

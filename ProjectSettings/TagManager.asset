@@ -11,13 +11,13 @@ TagManager:
   - 
   - Water
   - UI
-  - Obstacles
-  - Entities
+  - Player
   - 
+  - Enemy
   - 
+  - Floor
   - 
-  - 
-  - 
+  - AttackRadius
   - 
   - 
   - 

@@ -52,7 +52,7 @@ namespace ProBuilder.ExampleActions
 		/// Return a pb_ActionResult indicating the success/failure of action.
 		/// </summary>
 		/// <returns></returns>
-		public override ActionResult DoAction()
+		public ActionResult DoAction()
 		{
 			var selection = MeshSelection.top.ToArray();
 			Undo.RecordObjects(selection, "Make Double-Sided Faces");
@@ -71,5 +71,10 @@ namespace ProBuilder.ExampleActions
 
 			return new ActionResult(ActionResult.Status.Success, "Make Faces Double-Sided");
 		}
-	}
+
+        protected override ActionResult PerformActionImplementation()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
