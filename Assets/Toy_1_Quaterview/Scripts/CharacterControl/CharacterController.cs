@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using System;
 
 namespace Toy_1
 {
@@ -70,6 +71,15 @@ namespace Toy_1
 
             HandleDash();
 
+            if(Keyboard.current.xKey.wasPressedThisFrame)
+            {   
+                LookAtPointer(GetMousePositionInNewInput());
+            }
+            if (Keyboard.current.cKey.wasPressedThisFrame)
+            {
+                Fire(GetMousePositionInNewInput());
+            }
+
 
         }
         private void FixedUpdate()
@@ -89,6 +99,64 @@ namespace Toy_1
             float dashDistance = 5f;
             transform.position += lastMoveDirection * dashDistance;
         }
+
+        public void LookAtPointer(Vector3 pointerPos)
+        {
+            var relativePos = pointerPos - this.transform.position;
+            Debug.Log("pos is " + relativePos);
+            // var newRot = Quaternion.LookRotation(relativePos, Vector3.forward);
+            var newRot = Quaternion.LookRotation( Vector3.forward,relativePos); // actual heading
+            // var newRot = Quaternion.LookRotation(relativePos, Vector3.back);
+            this.transform.rotation = Quaternion.Euler(0,0,newRot.eulerAngles.z); // 2d will rotate around z-axis.
+        }
+        public Vector3 GetMousePositionInNewInput()
+        {
+
+            // Vector2 worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position);
+            Vector3 readValue = Mouse.current.position.ReadValue();
+            // Vector3 paramWorldPos = new Vector3(readValue.x, readValue.y, Camera.main.transform.position.z);
+            Vector3 cameraPos = Camera.main.transform.position;
+            float cameraPosModZ = 0;
+            if(cameraPos.z < 0)
+            {
+                cameraPosModZ = -cameraPos.z;
+            }
+            else
+            {
+                cameraPosModZ = cameraPos.z;
+            }
+
+            Vector3 paramWorldPos = new Vector3(readValue.x, readValue.y, cameraPosModZ);
+            Vector3 pos = Camera.main.ScreenToViewportPoint(readValue);
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(paramWorldPos);
+            Debug.Log("mouse pos is " + pos
+                + " world pos is " + worldPos
+                + " read value is " + readValue
+                + " param world pos " + paramWorldPos);
+
+            return worldPos;
+        }
+
+
+        #region shoot related, seperate them lately
+        public GameObject bulletPrefab;
+        public Transform firePoint;
+        public float bulletSpeed = 20f;
+        public void Fire(Vector3 direction)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Impulse);
+
+        }
+        private IEnumerator Wait(float waitSecond, Action callback)
+        {
+            yield return (new WaitForSeconds(waitSecond));
+            callback?.Invoke();
+
+        }
+        #endregion
+
+
 
     }
 }
