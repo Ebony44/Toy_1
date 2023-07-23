@@ -7,9 +7,29 @@ public class LineVisualForMathPractice : MonoBehaviour
     [SerializeField] LineRenderer firstLine;
     [SerializeField] LineRenderer secondLine;
 
+    [SerializeField] GameObject firstLineFirstPointObj;
+    [SerializeField] GameObject firstLineMidPointObj;
+    [SerializeField] GameObject firstLineSecondPointObj;
+
+
+    [SerializeField] GameObject secondLineFirstPointObj;
+    [SerializeField] GameObject secondLineMidPointObj;
+    [SerializeField] GameObject secondLineSecondPointObj;
+
+
+
+
     private void Start()
     {
-        Setup(5,5);
+        // Setup(5,5);
+        SetupWithStartPoint(
+            firstX: 0,
+            firstY: 0,
+            secondX: 5,
+            secondY: 10,
+            modX: 1,
+            modY: 1
+            );
     }
 
     [TestMethod(false)]
