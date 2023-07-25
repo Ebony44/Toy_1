@@ -7,14 +7,14 @@ public class LineVisualForMathPractice : MonoBehaviour
     [SerializeField] LineRenderer firstLine;
     [SerializeField] LineRenderer secondLine;
 
-    [SerializeField] GameObject firstLineFirstPointObj;
+    [SerializeField] GameObject firstLineStartPointObj;
     [SerializeField] GameObject firstLineMidPointObj;
-    [SerializeField] GameObject firstLineSecondPointObj;
+    [SerializeField] GameObject firstLineEndPointObj;
 
 
-    [SerializeField] GameObject secondLineFirstPointObj;
+    [SerializeField] GameObject secondLineStartPointObj;
     [SerializeField] GameObject secondLineMidPointObj;
-    [SerializeField] GameObject secondLineSecondPointObj;
+    [SerializeField] GameObject secondLineEndPointObj;
 
 
 
@@ -28,7 +28,8 @@ public class LineVisualForMathPractice : MonoBehaviour
             secondX: 5,
             secondY: 10,
             modX: 1,
-            modY: 1
+            modY: 1,
+            secondLineLength: 15
             );
     }
 
@@ -58,12 +59,34 @@ public class LineVisualForMathPractice : MonoBehaviour
     [TestMethod(false)]
     public void SetupWithStartPoint(float firstX, float firstY,
         float secondX, float secondY,
-        int modX, int modY)
+        float modX, float modY,
+        float secondLineLength
+        )
     {
         Vector2 startPoint = new Vector2(firstX, firstY);
         Vector2 endPoint = new Vector2(secondX, secondY);
 
-        var tempVectors = MathHelperFunctions.GetPerpendicularLine(startPoint, endPoint, 15, modX, modY);
+        SetupPos(firstLineStartPointObj, startPoint);
+        var firstMidPointX = (startPoint.x + endPoint.x) / 2f;
+        var firstMidPointY = (startPoint.y + endPoint.y) / 2f;
+        var firstMidPoint = new Vector2(firstMidPointX, firstMidPointY);
+
+        SetupPos(firstLineMidPointObj, firstMidPoint);
+
+        SetupPos(firstLineEndPointObj, endPoint);
+
+
+        var tempVectors = MathHelperFunctions.GetPerpendicularLine(startPoint, endPoint, secondLineLength, modX, modY);
+
+        SetupPos(secondLineStartPointObj, tempVectors.Item1);
+        var secondMidPointX = (tempVectors.Item1.x + tempVectors.Item2.x) / 2f;
+        var secondMidPointY = (tempVectors.Item1.y + tempVectors.Item2.y) / 2f;
+        var secondMidPoint = new Vector2(secondMidPointX, secondMidPointY);
+
+        SetupPos(secondLineMidPointObj, secondMidPoint);
+
+        SetupPos(secondLineEndPointObj, tempVectors.Item2);
+
 
         firstLine.positionCount = 2;
         secondLine.positionCount = 2;
@@ -78,6 +101,12 @@ public class LineVisualForMathPractice : MonoBehaviour
         secondLine.SetPosition(1, tempVectors.Item2);
 
         // lineRenderer.SetPosition(linePosObjects.Count, linePosObjects[0].position);
+    }
+
+
+    public void SetupPos(GameObject obj, Vector2 paramPos)
+    {
+        obj.transform.position = paramPos;
     }
 
 }

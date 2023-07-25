@@ -13,9 +13,10 @@ public class MathHelperFunctions : MonoBehaviour
     /// <param name="lengthMod"> length of second line</param>
     /// <param name="positionModX"> position of second line</param>
     /// <returns></returns>
-    public static (Vector2, Vector2) GetPerpendicularLine(Vector2 lineStartPoint, Vector2 lineEndPoint, int lengthMod, 
-        int positionModX,
-        int positionModY)
+    public static (Vector2, Vector2) GetPerpendicularLine(Vector2 lineStartPoint, Vector2 lineEndPoint, 
+        float lengthMod, 
+        float positionModX,
+        float positionModY)
     {
         // line 1 = y = mx+n
         // line 2(this function's return value)
