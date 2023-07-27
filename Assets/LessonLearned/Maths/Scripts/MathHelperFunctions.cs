@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MathHelperFunctions : MonoBehaviour
 {
-    
+    #region line equation related
     /// <summary>
     /// 
     /// </summary>
@@ -165,4 +165,16 @@ public class MathHelperFunctions : MonoBehaviour
         resultMidPoint = new Vector2(midPointX, midPointY);
         return resultMidPoint;
     }
+
+    #endregion
+    public static Vector2 GetEasedMidPoint(Vector2 lineStartPoint, Vector2 lineEndPoint, Vector2 midPoint, float heightOfEasePoint)
+    {
+        Vector2 result = Vector2.zero;
+        var perpendicularLine = GetPerpendicularLineAtMidPoint(lineStartPoint, lineEndPoint, midPoint, heightOfEasePoint);
+        result = perpendicularLine.Item2; // must check it is always item2? 
+        // would depend on quadrant
+        return result;
+    }
+
 }
+
