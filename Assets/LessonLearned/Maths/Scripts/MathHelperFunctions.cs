@@ -74,6 +74,8 @@ public class MathHelperFunctions : MonoBehaviour
         )
 
     {
+        Debug.Log("[GetPerpendicularLineAtMidPoint], first line first point " + lineStartPoint
+            + " firstl ine second point " + lineEndPoint);
         // line 1 = y = mx+n
         // line 2(this function's return value)
 
@@ -82,6 +84,15 @@ public class MathHelperFunctions : MonoBehaviour
         //var modValueX = lineEndPoint.x - lineStartPoint.x;
         //var firstLineSlope = modValueY / modValueX;
 
+        if(lineStartPoint.x == lineEndPoint.x
+            && lineStartPoint.y == lineEndPoint.y)
+        {
+            // 2 postions are identical
+            Vector2 secondLineFirstPoint = new Vector2(lineStartPoint.x, lineStartPoint.y);
+            Vector2 secondLineSecondPoint = new Vector2(lineEndPoint.x, lineEndPoint.y + 1);
+
+        }
+
         var firstLineSlope = GetSlopeOfLine(lineStartPoint, lineEndPoint);
         if (firstLineSlope == 0)
         {
@@ -89,6 +100,10 @@ public class MathHelperFunctions : MonoBehaviour
             // in this case, x = 10, y = 0 // x = 20 , y 0... 
             // m == 0
             // second line should be x 0, y = 10 // x = 0, y = 20
+
+            // find which is 0
+            
+
             var secondLineFirstPointX = lineStartPoint.y;
             var secondLineFirstPointY = lineStartPoint.x;
 
@@ -97,6 +112,33 @@ public class MathHelperFunctions : MonoBehaviour
 
             Vector2 secondLineFirstPoint = new Vector2(secondLineFirstPointX, secondLineFirstPointY);
             Vector2 secondLineSecondPoint = new Vector2(secondLineSecondPointX, secondLineSecondPointY);
+
+
+            float absSLFirstX = Mathf.Abs(secondLineFirstPointX);
+            float absSLFirstY = Mathf.Abs(secondLineFirstPointY);
+
+            float absSLSecondX = Mathf.Abs(secondLineSecondPointX);
+            float absSLSecondY = Mathf.Abs(secondLineSecondPointY);
+
+            if ((absSLFirstX - absSLSecondX) == 0)
+            {
+                // x is 0,
+                Debug.LogError("x is 0");
+
+                // secondLineFirstPoint = new Vector2(midPoint.x, secondLineFirstPointY);
+                secondLineFirstPoint = new Vector2(midPoint.x, -secondLineSecondPointY);
+                secondLineSecondPoint = new Vector2(midPoint.x, secondLineSecondPointY);
+            }
+            else if( (absSLFirstY - absSLSecondY) == 0)
+            {
+                // examples doesn't come here...
+                // y is 0
+                Debug.LogError("y is 0");
+                secondLineFirstPoint = new Vector2(secondLineFirstPointX, midPoint.y);
+                secondLineSecondPoint = new Vector2(secondLineSecondPointX, midPoint.y);
+            }
+
+            
             return (secondLineFirstPoint, secondLineSecondPoint);
         }
         else
@@ -167,11 +209,24 @@ public class MathHelperFunctions : MonoBehaviour
     }
 
     #endregion
-    public static Vector2 GetEasedMidPoint(Vector2 lineStartPoint, Vector2 lineEndPoint, Vector2 midPoint, float heightOfEasePoint)
+    public static Vector2 GetEasedMidPoint(Vector2 lineStartPoint, Vector2 lineEndPoint, Vector2 midPoint, 
+        float heightOfEasePoint,
+        bool bSelectItem1
+        )
     {
         Vector2 result = Vector2.zero;
         var perpendicularLine = GetPerpendicularLineAtMidPoint(lineStartPoint, lineEndPoint, midPoint, heightOfEasePoint);
-        result = perpendicularLine.Item2; // must check it is always item2? 
+        if(bSelectItem1)
+        {
+            result = perpendicularLine.Item1;
+        }
+        else
+        {
+            result = perpendicularLine.Item2; // must check it is always item2? 
+        }
+
+        Debug.Log("[GetEasedMidPoint], item 1 is " + perpendicularLine.Item1
+            + " item 2 is " + perpendicularLine.Item2);
         // would depend on quadrant
         return result;
     }

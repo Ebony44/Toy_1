@@ -20,7 +20,6 @@ public class LineObjectSetup : MonoBehaviour
         }
         lineRenderer.SetPosition(linePosObjects.Count, linePosObjects[0].position);
 
-        
     }
 
 }

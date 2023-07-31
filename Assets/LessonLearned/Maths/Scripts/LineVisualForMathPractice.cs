@@ -16,6 +16,8 @@ public class LineVisualForMathPractice : MonoBehaviour
     [SerializeField] GameObject secondLineMidPointObj;
     [SerializeField] GameObject secondLineEndPointObj;
 
+    [SerializeField] GameObject easedMidPointObj;
+
 
 
 
@@ -168,5 +170,33 @@ public class LineVisualForMathPractice : MonoBehaviour
         SetupLine(1, tempVectors.Item1, tempVectors.Item2);
 
     }
+
+
+    [TestMethod(false)]
+    public void ShowEasedMidPoint(
+        float firstX, float firstY,
+        float secondX, float secondY,
+        float heightOfEasePoint,
+        bool bSelectItem1
+        )
+    {
+        Vector2 startPoint = new Vector2(firstX, firstY);
+        Vector2 endPoint = new Vector2(secondX, secondY);
+        var firstMidPoint = MathHelperFunctions.GetMidPointOfLine(startPoint, endPoint);
+        // var tempVectors = MathHelperFunctions.GetPerpendicularLineAtMidPoint(startPoint, endPoint, firstMidPoint, 10);
+        var easedPoint = MathHelperFunctions.GetEasedMidPoint(startPoint, endPoint, firstMidPoint, heightOfEasePoint, bSelectItem1);
+
+        SetupPos(firstLineStartPointObj, startPoint);
+        SetupPos(firstLineMidPointObj, firstMidPoint);
+
+        SetupPos(firstLineEndPointObj, endPoint);
+
+        SetupPos(easedMidPointObj, easedPoint);
+
+        SetupLine(0, startPoint, endPoint);
+        SetupLine(1, Vector2.zero, Vector2.one);
+
+    }
+
 
 }
