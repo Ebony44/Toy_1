@@ -231,5 +231,16 @@ public class MathHelperFunctions : MonoBehaviour
         return result;
     }
 
+
+    #region number utility
+
+    public static string GetConvertedValue(int paramValue)
+    {
+        string result = string.Empty;
+        return result;
+    }
+
+    #endregion
+
 }
 
