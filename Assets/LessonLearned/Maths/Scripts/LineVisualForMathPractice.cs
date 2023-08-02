@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -199,4 +200,20 @@ public class LineVisualForMathPractice : MonoBehaviour
     }
 
 
+    private Action tempAction = null;
+    [TestMethod(false)]
+    public void TempTestAction()
+    {
+        tempAction?.Invoke();
+    }
+    [TestMethod(false)]
+    public void AssignAction()
+    {
+        tempAction += AssignedMethod;
+    }
+    
+    public void AssignedMethod()
+    {
+        Debug.Log("[AssignedMethod]");
+    }
 }
