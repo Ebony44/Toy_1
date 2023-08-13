@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class LineVisualForMathPractice : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class LineVisualForMathPractice : MonoBehaviour
 
     private void Start()
     {
+        
         // Setup(5,5);
         SetupWithStartPoint(
             firstX: 0,
