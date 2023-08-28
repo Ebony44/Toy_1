@@ -74,10 +74,28 @@ public class ModdingUIPracs : MonoBehaviour
     #region create UIs
     public void Init()
     {
+        // Vector2 parentRect = new Vector2(255f, 0.5f);
+        Vector2 sliderRectPos = new Vector2(255f, 0.5f);
+
         var currentObject = new GameObject();
         currentObject.name = "createdSliderParent";
         currentObject.transform.parent = parentCanvas.transform;
-        currentObject.AddComponent<RectTransform>();
+        var parentRectTrans = currentObject.AddComponent<RectTransform>();
+        if(parentRectTrans != null)
+        {
+            parentRectTrans.anchoredPosition = new Vector2(0f, 0f);
+        }
+        // parentRectTrans.anchoredPosition = parentRect;
+
+        var sliderObject = new GameObject();
+        sliderObject.transform.parent = currentObject.transform;
+        sliderObject.AddComponent<Slider>();
+        var currentSliderRect = sliderObject.GetComponent<RectTransform>();
+        currentSliderRect.anchoredPosition = sliderRectPos;
+        currentSliderRect.sizeDelta = new Vector2(20f, 180f);
+        // currentSliderRect. = new Rect(0f, 0f, 20f, 180f);
+        
+
     }
 
     private void Start()
