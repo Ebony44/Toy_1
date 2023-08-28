@@ -3082,7 +3082,8 @@ MonoBehaviour:
   flowRawImage: {fileID: 1135220380}
   flowScrollSpeed: 0.1
   currentCorruptionPoint: 0
-  corruptIncreaseAmount: 4
+  corruptIncreaseAmount: 0
+  parentCanvas: {fileID: 1617223682}
 --- !u!4 &1667506110
 Transform:
   m_ObjectHideFlags: 0
@@ -3090,8 +3091,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667506108}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.7791443, y: -0.59490967, z: 0.12964916}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -13,9 +13,14 @@ public class ModdingUIPracs : MonoBehaviour
     public float currentCorruptionPoint;
     public float corruptIncreaseAmount = 1;
 
+    public Canvas parentCanvas;
+
+    #region functions for fill bar related
+    
+
     private void Update()
     {
-        if(flowRawImage!=null)
+        if (flowRawImage != null)
         {
             Rect uvRect = flowRawImage.uvRect;
             uvRect.y += flowScrollSpeed * Time.deltaTime;
@@ -37,7 +42,7 @@ public class ModdingUIPracs : MonoBehaviour
                 {
                     currentCorruptionPoint += corruptIncreaseAmount * Time.deltaTime;
                 }
-                corruptionSourceSlider.value = normalizeCorrupt();
+                corruptionSourceSlider.value = NormalizeCorrupt();
             }
         }
     }
@@ -58,15 +63,27 @@ public class ModdingUIPracs : MonoBehaviour
     {
 
     }
-    private float normalizeCorrupt()
+    private float NormalizeCorrupt()
     {
 
         return currentCorruptionPoint / MAX_CORRUPT_POINT;
     }
 
+    #endregion
 
-    #region create
+    #region create UIs
+    public void Init()
+    {
+        var currentObject = new GameObject();
+        currentObject.name = "createdSliderParent";
+        currentObject.transform.parent = parentCanvas.transform;
+        currentObject.AddComponent<RectTransform>();
+    }
 
+    private void Start()
+    {
+        Init();
+    }
 
 
     #endregion
