@@ -94,6 +94,10 @@ public class ModdingUIPracs : MonoBehaviour
         currentSliderRect.anchoredPosition = sliderRectPos;
         currentSliderRect.sizeDelta = new Vector2(20f, 180f);
         // currentSliderRect. = new Rect(0f, 0f, 20f, 180f);
+
+        // background
+        var backgroundObject = new GameObject();
+        backgroundObject.transform.parent = sliderObject.transform;
         
 
     }
