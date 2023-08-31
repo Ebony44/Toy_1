@@ -71,6 +71,12 @@ public class ModdingUIPracs : MonoBehaviour
 
     #endregion
 
+    #region variables for created
+
+    public Sprite backGroundSprite;
+    
+    #endregion
+
     #region create UIs
     public void Init()
     {
@@ -99,8 +105,19 @@ public class ModdingUIPracs : MonoBehaviour
         // background
         var backgroundObject = new GameObject();
         backgroundObject.transform.parent = sliderObject.transform;
+
+        var backgroundRect = backgroundObject.GetComponent<RectTransform>();
+        backgroundRect.anchorMin = new Vector2(0.25f, 0f);
+        backgroundRect.anchorMax= new Vector2(0.75f, 1f);
+        backgroundRect.pivot = new Vector2(0.5f, 0.5f);
+        // backgroundRect.rect = 
+
+
         var backgroundImage = backgroundObject.AddComponent<Image>();
+        backgroundImage.sprite = backGroundSprite;
         backgroundObject.name = "Background";
+
+
         
 
     }
