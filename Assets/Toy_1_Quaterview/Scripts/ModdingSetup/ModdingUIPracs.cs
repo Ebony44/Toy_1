@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class ModdingUIPracs : MonoBehaviour
     public float corruptIncreaseAmount = 1;
 
     public Canvas parentCanvas;
+
+    public RectTransform sampleBackgroundImage;
 
     #region functions for fill bar related
     
@@ -80,6 +83,9 @@ public class ModdingUIPracs : MonoBehaviour
     #region create UIs
     public void Init()
     {
+
+        var currentSample = sampleBackgroundImage;
+
         // Vector2 parentRect = new Vector2(255f, 0.5f);
         Vector2 sliderRectPos = new Vector2(255f, 0.5f);
 
@@ -98,7 +104,7 @@ public class ModdingUIPracs : MonoBehaviour
         sliderObject.AddComponent<Slider>();
         var currentSliderRect = sliderObject.GetComponent<RectTransform>();
         currentSliderRect.anchoredPosition = sliderRectPos;
-        currentSliderRect.sizeDelta = new Vector2(20f, 180f);
+        currentSliderRect.sizeDelta = new Vector2(20f, 160f);
         // currentSliderRect. = new Rect(0f, 0f, 20f, 180f);
         sliderObject.name = "Slider";
 
@@ -106,16 +112,22 @@ public class ModdingUIPracs : MonoBehaviour
         var backgroundObject = new GameObject();
         backgroundObject.transform.parent = sliderObject.transform;
 
-        var backgroundRect = backgroundObject.GetComponent<RectTransform>();
+        // var backgroundRect = backgroundObject.GetComponent<RectTransform>();
+        var backgroundRect = backgroundObject.AddComponent<RectTransform>();
         backgroundRect.anchorMin = new Vector2(0.25f, 0f);
         backgroundRect.anchorMax= new Vector2(0.75f, 1f);
         backgroundRect.pivot = new Vector2(0.5f, 0.5f);
-        // backgroundRect.rect = 
+        // WaitAndCall(0.1f, () => backgroundRect.sizeDelta = new Vector2(10f, 160f));
+        backgroundRect.anchoredPosition = Vector2.zero;
+        // backgroundRect.sizeDelta = new Vector2(10f, 160f);
+        backgroundRect.offsetMin = Vector2.zero;
+        backgroundRect.offsetMax = Vector2.zero;
 
 
         var backgroundImage = backgroundObject.AddComponent<Image>();
         backgroundImage.sprite = backGroundSprite;
         backgroundObject.name = "Background";
+        backgroundImage.type = Image.Type.Sliced;
 
 
         
@@ -125,6 +137,17 @@ public class ModdingUIPracs : MonoBehaviour
     private void Start()
     {
         Init();
+    }
+    public void WaitAndCall(float waitSeconds, Action callBack)
+    {
+        StartCoroutine(WaitAndCallRoutine(waitSeconds, callBack));
+    }
+    public IEnumerator WaitAndCallRoutine(float waitSeconds, Action callBack)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+
+        callBack?.Invoke();
+
     }
 
 
