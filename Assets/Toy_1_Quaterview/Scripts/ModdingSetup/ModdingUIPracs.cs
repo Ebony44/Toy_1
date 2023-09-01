@@ -77,7 +77,8 @@ public class ModdingUIPracs : MonoBehaviour
     #region variables for created
 
     public Sprite backGroundSprite;
-    
+    public Sprite fillSprite;
+
     #endregion
 
     #region create UIs
@@ -111,6 +112,8 @@ public class ModdingUIPracs : MonoBehaviour
         // background
         var backgroundObject = new GameObject();
         backgroundObject.transform.parent = sliderObject.transform;
+        // backgroundObject.name = "Background";
+        backgroundObject.name = "Fill Area";
 
         // var backgroundRect = backgroundObject.GetComponent<RectTransform>();
         var backgroundRect = backgroundObject.AddComponent<RectTransform>();
@@ -126,11 +129,24 @@ public class ModdingUIPracs : MonoBehaviour
 
         var backgroundImage = backgroundObject.AddComponent<Image>();
         backgroundImage.sprite = backGroundSprite;
-        backgroundObject.name = "Background";
         backgroundImage.type = Image.Type.Sliced;
-
-
         
+        var backgroundMask = backgroundObject.AddComponent<Mask>();
+
+
+        // need to change background -> fill area
+
+        var fillObject = new GameObject();
+        var fillImage = fillObject.AddComponent<Image>();
+        fillImage.sprite = null;
+        // fillImage.type = Image.Type.Sliced;
+
+        var fillMaskGauge = fillObject.AddComponent<Mask>();
+
+
+
+
+
 
     }
 
