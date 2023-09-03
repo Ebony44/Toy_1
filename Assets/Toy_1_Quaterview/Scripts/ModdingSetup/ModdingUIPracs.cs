@@ -78,11 +78,12 @@ public class ModdingUIPracs : MonoBehaviour
 
     public Sprite backGroundSprite;
     public Sprite fillSprite;
+    public Texture fillMaskedGaugeSprite;
 
     #endregion
 
     #region create UIs
-    public void Init()
+    public void InitSliderUI()
     {
 
         var currentSample = sampleBackgroundImage;
@@ -102,7 +103,13 @@ public class ModdingUIPracs : MonoBehaviour
 
         var sliderObject = new GameObject();
         sliderObject.transform.parent = currentObject.transform;
-        sliderObject.AddComponent<Slider>();
+        var sliderComponent = sliderObject.AddComponent<Slider>();
+        sliderComponent.transition = Selectable.Transition.None;
+        sliderComponent.direction = Slider.Direction.BottomToTop;
+        sliderComponent.minValue = 0f;
+        sliderComponent.maxValue = 1f;
+
+
         var currentSliderRect = sliderObject.GetComponent<RectTransform>();
         currentSliderRect.anchoredPosition = sliderRectPos;
         currentSliderRect.sizeDelta = new Vector2(20f, 160f);
@@ -137,22 +144,58 @@ public class ModdingUIPracs : MonoBehaviour
         // need to change background -> fill area
 
         var fillObject = new GameObject();
+        fillObject.transform.parent = backgroundObject.transform;
+        fillObject.name = "Fill";
         var fillImage = fillObject.AddComponent<Image>();
         fillImage.sprite = null;
         // fillImage.type = Image.Type.Sliced;
 
-        var fillMaskGauge = fillObject.AddComponent<Mask>();
+        var fillObjectMaskComp = fillObject.AddComponent<Mask>();
+        // var fillRect = fillObject.AddComponent<RectTransform>();
+        var fillRect = AddAndGetRectComp(fillObject);
+        sliderComponent.fillRect = fillRect;
+        fillRect.anchoredPosition = Vector2.zero;
+        fillRect.offsetMin = Vector2.zero;
+        fillRect.offsetMax = Vector2.zero;
+        fillRect.pivot = new Vector2(0.5f, 0f);
 
 
+        var fillMaskedGaugeObject = new GameObject();
+        fillMaskedGaugeObject.transform.parent = fillObject.transform;
+        fillMaskedGaugeObject.name = "FillMaskedGauge";
+
+        var fillMaskedRawImageComp = fillMaskedGaugeObject.AddComponent<RawImage>();
+        fillMaskedRawImageComp.texture = fillMaskedGaugeSprite;
+
+        var fillMaskedrect = AddAndGetRectComp(fillMaskedGaugeObject);
+        fillMaskedrect.anchoredPosition = Vector2.zero;
+        fillMaskedrect.sizeDelta = new Vector2(10f,200f);
+        fillMaskedrect.anchorMin = new Vector2(0.5f, 0f);
+        fillMaskedrect.anchorMax = new Vector2(0.5f, 0f);
+        fillMaskedrect.pivot = new Vector2(0.5f, 0f);
 
 
+        // test
+        sliderComponent.value = 0.4f;
 
+    }
+
+    public RectTransform AddAndGetRectComp(GameObject paramObject)
+    {
+        var result = paramObject.AddComponent<RectTransform>();
+        if(result == null)
+        {
+            result = paramObject.GetComponent<RectTransform>();
+
+        }
+
+        return result;
 
     }
 
     private void Start()
     {
-        Init();
+        InitSliderUI();
     }
     public void WaitAndCall(float waitSeconds, Action callBack)
     {

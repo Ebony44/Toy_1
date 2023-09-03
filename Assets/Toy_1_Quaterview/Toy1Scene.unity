@@ -3086,6 +3086,8 @@ MonoBehaviour:
   parentCanvas: {fileID: 1617223682}
   sampleBackgroundImage: {fileID: 1978496729}
   backGroundSprite: {fileID: 21300000, guid: 4ada37040533c3648bd3f59bf31b5198, type: 3}
+  fillSprite: {fileID: 0}
+  fillMaskedGaugeSprite: {fileID: 2800000, guid: a0e33a6e5f58d4342907353c1904f14c, type: 3}
 --- !u!4 &1667506110
 Transform:
   m_ObjectHideFlags: 0
