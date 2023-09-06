@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TempPoC : MonoBehaviour
+public class TempSubscriptTester : MonoBehaviour
 {
     [SerializeField] VoidEventChannelSO _onSceneLoadSO;
     [SerializeField] FieldOfView fow;

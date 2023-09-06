@@ -20,7 +20,6 @@ public class ModdingUIPracs : MonoBehaviour
 
     #region functions for fill bar related
     
-
     private void Update()
     {
         if (flowRawImage != null)
