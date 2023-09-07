@@ -18,8 +18,19 @@ public class ModdingUIPracs : MonoBehaviour
 
     public RectTransform sampleBackgroundImage;
 
+
+    private void Awake()
+    {
+        #region event handler init
+        var EventChannelContainerObj = new GameObject();
+        EventChannelContainerObj.name = typeof(EventChannelContainer).Name;
+        EventChannelContainerObj.AddComponent<EventChannelContainer>();
+        #endregion
+    }
+
     #region functions for fill bar related
-    
+
+
     private void Update()
     {
         if (flowRawImage != null)
@@ -210,6 +221,14 @@ public class ModdingUIPracs : MonoBehaviour
 
 
     #endregion
+
+    [TestMethod(false)]
+    public void GetTempCorruptPoint()
+    {
+        var tempGet = EventChannelContainer.Instance.Get(typeof(CorruptionPointEventChannel));
+        Debug.Log("");
+    }
+
 
 
 }
