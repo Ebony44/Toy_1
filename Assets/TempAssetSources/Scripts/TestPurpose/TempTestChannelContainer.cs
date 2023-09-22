@@ -19,7 +19,20 @@ public class TempTestChannelContainer : MonoBehaviour
     }
     public void Init()
     {
+        // broadcaster
+        // use channel as 
+        // ex)         //corruptionPointEventChannel.RaiseEvent(value: 1);
+
+        // listener
+        // assing into channel as
+        // ex 1) _onCorruptionPointChanged.OnEventRaised += EvokeOnChangedEvent;
+        // ex 2) if (_onCorruptionPointChanged != null)
+        //{
+        //    _onCorruptionPointChanged.OnEventRaised += EvokeOnChangedEvent;
+        //}
+
         corruptionPointEventChannel = new CorruptionPointEventChannel();
+
     }
 
     [TestMethod(false)]

@@ -229,6 +229,19 @@ public class ModdingUIPracs : MonoBehaviour
         Debug.Log("");
     }
 
+    [TestMethod(false)]
+    public void GetTestForTypeConversion()
+    {
+        EventChannelBase newType = new EventChannelBase();
+        TestTypeConvert<EventChannelBase>(newType);
+    }
+
+    public void TestTypeConvert<TypeT>(TypeT paramType)
+    {
+        var currentObj = paramType;
+        Debug.Log("[TestTypeConvert]");
+    }
+
 
 
 }
