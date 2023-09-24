@@ -99,7 +99,7 @@ public class ModdingUIPracs : MonoBehaviour
         var currentSample = sampleBackgroundImage;
 
         // Vector2 parentRect = new Vector2(255f, 0.5f);
-        Vector2 sliderRectPos = new Vector2(255f, 0.5f);
+        // Vector2 sliderRectPos = new Vector2(255f, 0.5f);
 
         var currentObject = new GameObject();
         currentObject.name = "createdSliderParent";
@@ -107,9 +107,14 @@ public class ModdingUIPracs : MonoBehaviour
         var parentRectTrans = currentObject.AddComponent<RectTransform>();
         if(parentRectTrans != null)
         {
-            parentRectTrans.anchoredPosition = new Vector2(0f, 0f);
+            parentRectTrans.anchoredPosition = new Vector2(-12f, 0f);
         }
         // parentRectTrans.anchoredPosition = parentRect;
+
+        parentRectTrans.anchorMin = new Vector2(1f, 0.5f);
+        parentRectTrans.anchorMax = new Vector2(1f, 0.5f);
+
+
 
         var sliderObject = new GameObject();
         sliderObject.transform.parent = currentObject.transform;
@@ -121,7 +126,8 @@ public class ModdingUIPracs : MonoBehaviour
 
 
         var currentSliderRect = sliderObject.GetComponent<RectTransform>();
-        currentSliderRect.anchoredPosition = sliderRectPos;
+        // currentSliderRect.anchoredPosition = sliderRectPos;
+        currentSliderRect.anchoredPosition = Vector2.zero;
         currentSliderRect.sizeDelta = new Vector2(20f, 160f);
         // currentSliderRect. = new Rect(0f, 0f, 20f, 180f);
         sliderObject.name = "Slider";
