@@ -137,6 +137,145 @@ public static class HelperFunctions
 
     #endregion
 
+    #region sprite and texture creation from outside resources
+    public static void CreateTextureFromFile(string filePath, out Texture2D outTexture)
+    {
+        // Texture2D tex;
+        outTexture = null;
+        // tex = new Texture2D(4, 4, TextureFormat.BGRA32, false);
+        // var tempBool = System.IO.File.Exists(filePath);
+        if (File.Exists(filePath))
+        {
+            byte[] fileData = File.ReadAllBytes(filePath);
+            outTexture = new Texture2D(64, 64, TextureFormat.ARGB32, false);
+
+            outTexture.LoadImage(fileData);
+
+        }
+        else
+        {
+            // log error?
+        }
+
+
+    }
+    public static Sprite CreateSpriteFromFile(string filePath, ref Texture2D texture)
+    {
+        CreateTextureFromFile(filePath, out texture);
+        // texture = ConvertToPremultipliedAlpha(texture);
+        texture = FillColorAlpha(texture);
+
+        // texture = FillColorAlpha(texture);
+        // texture.Apply();
+
+        // Texture2D newTex = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32, false);
+        // newTex = FillColorAlpha(newTex);
+        // newTex.SetPixels(newTex.GetPixels());
+        // newTex.Apply();
+
+        GameObject merchantObj = new GameObject();
+        // var rendererComponent = merchantObj.AddComponent<SpriteRenderer>();
+        // rendererComponent.sortingOrder = 35;
+        // rendererComponent.sprite = 
+
+        var tempSprite =
+            Sprite.Create(
+            texture,
+            new Rect(0, 0, texture.width, texture.height),
+            // new Vector2(texture.width / 2, texture.height / 2),
+            new Vector2(0.5f, 0.5f),
+            100f,
+            0,
+            SpriteMeshType.FullRect
+            // Vector2.zero
+            );
+
+        // rendererComponent.transform.localPosition = new Vector3(44.5f, 1.74f, -8.5f);
+        // merchantObj.name = "Goblin Merchant";
+
+        //var tempSprite =
+        //    Sprite.Create(
+        //    newTex,
+        //    new Rect(0, 0, newTex.width, newTex.height),
+        //    new Vector2(newTex.width / 2, newTex.height / 2),
+        //    100f,
+        //    0,
+        //    SpriteMeshType.FullRect
+        //    // Vector2.zero
+        //    );
+
+
+        return tempSprite;
+    }
+
+    public static Sprite CreateSpriteFromFile(string filePath, ref Texture2D texture, Vector4 border)
+    {
+        CreateTextureFromFile(filePath, out texture);
+        // texture = ConvertToPremultipliedAlpha(texture);
+        texture = FillColorAlpha(texture);
+
+        // texture = FillColorAlpha(texture);
+        // texture.Apply();
+
+        // Texture2D newTex = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32, false);
+        // newTex = FillColorAlpha(newTex);
+        // newTex.SetPixels(newTex.GetPixels());
+        // newTex.Apply();
+
+        GameObject merchantObj = new GameObject();
+        // var rendererComponent = merchantObj.AddComponent<SpriteRenderer>();
+        // rendererComponent.sortingOrder = 35;
+        // rendererComponent.sprite = 
+
+        var tempSprite =
+            Sprite.Create(
+            texture,
+            new Rect(0, 0, texture.width, texture.height),
+            // new Vector2(texture.width / 2, texture.height / 2),
+            new Vector2(0.5f, 0.5f),
+            100f,
+            0,
+            SpriteMeshType.FullRect,
+            border
+            // Vector2.zero
+            );
+
+        // tempSprite.border = border;
+
+        // rendererComponent.transform.localPosition = new Vector3(44.5f, 1.74f, -8.5f);
+        // merchantObj.name = "Goblin Merchant";
+
+        //var tempSprite =
+        //    Sprite.Create(
+        //    newTex,
+        //    new Rect(0, 0, newTex.width, newTex.height),
+        //    new Vector2(newTex.width / 2, newTex.height / 2),
+        //    100f,
+        //    0,
+        //    SpriteMeshType.FullRect
+        //    // Vector2.zero
+        //    );
+
+
+        return tempSprite;
+    }
+
+
+    public static Texture2D FillColorAlpha(Texture2D tex2D, Color32? fillColor = null)
+    {
+        if (fillColor == null)
+        {
+            fillColor = Color.clear;
+        }
+        Color32[] fillPixels = new Color32[tex2D.width * tex2D.height];
+        for (int i = 0; i < fillPixels.Length; i++)
+        {
+            fillPixels[i] = (Color32)fillColor;
+        }
+        tex2D.SetPixels32(fillPixels);
+        return tex2D;
+    }
+    #endregion
 
 
 #if UNITY_EDITOR
