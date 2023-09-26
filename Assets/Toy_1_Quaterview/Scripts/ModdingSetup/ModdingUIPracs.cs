@@ -94,6 +94,11 @@ public class ModdingUIPracs : MonoBehaviour
 
     #endregion
 
+    [Header("UIForPermaUpgrade")]
+    public Image parentBackgroundForPermaUpgrade;
+    public List<Button> upgradeValueModButtons;
+
+
     #region create UIs
     public void InitSliderUI()
     {
