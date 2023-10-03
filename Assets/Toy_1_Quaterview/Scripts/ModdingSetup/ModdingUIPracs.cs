@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ModdingUIPracs : MonoBehaviour
@@ -17,6 +18,8 @@ public class ModdingUIPracs : MonoBehaviour
     public Canvas parentCanvas;
 
     public RectTransform sampleBackgroundImage;
+
+    public UnityEvent onClickEvent;
 
 
     private void Awake()
@@ -98,8 +101,57 @@ public class ModdingUIPracs : MonoBehaviour
     public Image parentBackgroundForPermaUpgrade;
     public List<Button> upgradeValueModButtons;
 
+    // public Canvas testDebugDisplayCanvas;
+    public RectTransform testDebugDisplayRect;
+    public Sprite loadingImageSprite;
+
 
     #region create UIs
+
+    public void InitBlockingCanvas()
+    {
+        GameObject windowObj = new GameObject();
+        windowObj.gameObject.name = "Bloking Window Canvas";
+        var blockingCanvas = windowObj.AddComponent<Canvas>();
+        blockingCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        blockingCanvas.sortingOrder = 2000;
+        windowObj.AddComponent<CanvasScaler>();
+        var currentRayCaster = windowObj.AddComponent<GraphicRaycaster>();
+        currentRayCaster.blockingObjects = GraphicRaycaster.BlockingObjects.All;
+
+
+        GameObject blockingImageObj = new GameObject();
+        blockingImageObj.transform.SetParent(windowObj.transform);
+        blockingImageObj.gameObject.name = "Blocking Image Object";
+        var blockingImage = blockingImageObj.AddComponent<Image>();
+        blockingImage.color = new Color(0f, 0f, 0f, 0.4f);
+        var currentBackgroundRect = AddAndGetRectComp(blockingImageObj);
+
+        currentBackgroundRect.anchorMin = new Vector2(0f, 0f);
+        currentBackgroundRect.anchorMax = new Vector2(1f, 1f);
+        currentBackgroundRect.pivot = new Vector2(0.5f, 0.5f);
+        
+        currentBackgroundRect.anchoredPosition = new Vector2(0f, 0f);
+
+
+        var testSeeRect = testDebugDisplayRect;
+
+        GameObject loadingImageObj = new GameObject();
+        loadingImageObj.transform.SetParent(windowObj.transform);
+        loadingImageObj.gameObject.name = "Blocking Loading Image Object";
+        var loadingImage = loadingImageObj.AddComponent<Image>();
+        loadingImage.sprite = loadingImageSprite;
+        var loadingScript = loadingImageObj.AddComponent<Rotation>();
+        loadingScript.SetRotate(Vector3.forward);
+        loadingScript.SetSpeed(-100f, 0.1f);
+
+        var currentLoadingRect = AddAndGetRectComp(loadingImageObj);
+        currentLoadingRect.anchoredPosition = Vector2.zero;
+
+
+    }
+
+
     public void InitSliderUI()
     {
         ProvideParamAndInit();
@@ -337,20 +389,20 @@ public class ModdingUIPracs : MonoBehaviour
 
     public RectTransform AddAndGetRectComp(GameObject paramObject)
     {
-        var result = paramObject.AddComponent<RectTransform>();
+        var result = paramObject.GetComponent<RectTransform>();
         if(result == null)
         {
-            result = paramObject.GetComponent<RectTransform>();
+            result = paramObject.AddComponent<RectTransform>();
 
         }
 
         return result;
-
     }
 
     private void Start()
     {
-        InitSliderUI();
+        // InitSliderUI();
+        InitBlockingCanvas();
     }
     public void WaitAndCall(float waitSeconds, Action callBack)
     {
@@ -387,6 +439,20 @@ public class ModdingUIPracs : MonoBehaviour
         Debug.Log("[TestTypeConvert]");
     }
 
+    public void OnTestButtonClicked()
+    {
+        Debug.Log("[OnTestButtonClicked]");
+    }
+
+    public void OnTestArrowButtonClicked()
+    {
+        Debug.Log("[OnTestArrowButtonClicked]");
+    }
+    public IEnumerator Wait(float waitSec, Action executeAfterDelay)
+    {
+        yield return new WaitForSeconds(waitSec);
+        executeAfterDelay.Invoke();
+    }
 
 
 }
