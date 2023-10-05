@@ -113,6 +113,8 @@ public class ModdingUIPracs : MonoBehaviour
 
         var currentRect = testDebugDisplayRect_2;
 
+        InitPermaUpgrade();
+
     }
     #region create UIs
 
@@ -139,6 +141,7 @@ public class ModdingUIPracs : MonoBehaviour
         currentBackgroundRect.pivot = new Vector2(0.5f, 0.5f);
 
         currentBackgroundRect.anchoredPosition = new Vector2(0f, 0f);
+        currentBackgroundRect.sizeDelta = new Vector2(800f, 900f);
 
         // child_2, mask
         var maskBackgroundObj = CreateDefaultGameObject("MaskBackground", currentBackgroundRect);
@@ -146,10 +149,13 @@ public class ModdingUIPracs : MonoBehaviour
         currentMaskImage.raycastTarget = false;
         
         var currentMaskRect = AddAndGetRectComp(maskBackgroundObj);
+        currentMaskRect.anchorMin = Vector2.zero;
+        currentMaskRect.anchorMax = Vector2.one;
         currentMaskRect.anchoredPosition = new Vector2(0f, -21f); // -21f for title text area
         currentMaskRect.offsetMax = new Vector2(-8f, -50f);
         currentMaskRect.offsetMin = new Vector2(8f, 8f);
         currentMaskRect.pivot = new Vector2(0.5f, 0.5f);
+        
         // currentMaskRect.sizeDelta = new Vector2(-16f, -58f); // 52 + 6
         // TODO for offset setting
 
