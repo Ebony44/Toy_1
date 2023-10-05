@@ -103,10 +103,71 @@ public class ModdingUIPracs : MonoBehaviour
 
     // public Canvas testDebugDisplayCanvas;
     public RectTransform testDebugDisplayRect;
+    public RectTransform testDebugDisplayRect_2;
     public Sprite loadingImageSprite;
 
+    private void Start()
+    {
+        // InitSliderUI();
+        // InitBlockingCanvas();
 
+        var currentRect = testDebugDisplayRect_2;
+
+    }
     #region create UIs
+
+    #region perma upgrade ui
+
+    public void InitPermaUpgrade()
+    {
+        (GameObject, Canvas, CanvasScaler, GraphicRaycaster) permaUpgradeTuple 
+            = CreateDefaultCanvas("PermaUpgradeCanvas", 2000, true);
+
+        GameObject windowObj = permaUpgradeTuple.Item1;
+        Canvas upgradeCanvas = permaUpgradeTuple.Item2;
+
+        // child, background image
+        GameObject backgroundImageObj = new GameObject();
+        backgroundImageObj.transform.SetParent(windowObj.transform);
+        backgroundImageObj.gameObject.name = "Blocking Image Object";
+        var blockingImage = backgroundImageObj.AddComponent<Image>();
+        // blockingImage.color = new Color(0f, 0f, 0f, 0.4f);
+        var currentBackgroundRect = AddAndGetRectComp(backgroundImageObj);
+
+        currentBackgroundRect.anchorMin = new Vector2(0.5f, 0.5f);
+        currentBackgroundRect.anchorMax = new Vector2(0.5f, 0.5f);
+        currentBackgroundRect.pivot = new Vector2(0.5f, 0.5f);
+
+        currentBackgroundRect.anchoredPosition = new Vector2(0f, 0f);
+
+        // child_2, mask
+        var maskBackgroundObj = CreateDefaultGameObject("MaskBackground", currentBackgroundRect);
+        var currentMaskImage = maskBackgroundObj.AddComponent<Image>();
+        currentMaskImage.raycastTarget = false;
+        
+        var currentMaskRect = AddAndGetRectComp(maskBackgroundObj);
+        currentMaskRect.anchoredPosition = new Vector2(0f, -21f); // -21f for title text area
+        currentMaskRect.offsetMax = new Vector2(-8f, -50f);
+        currentMaskRect.offsetMin = new Vector2(8f, 8f);
+        currentMaskRect.pivot = new Vector2(0.5f, 0.5f);
+        // currentMaskRect.sizeDelta = new Vector2(-16f, -58f); // 52 + 6
+        // TODO for offset setting
+
+        var currentMask = maskBackgroundObj.AddComponent<Mask>();
+        currentMask.showMaskGraphic = true;
+
+        // child_3, tabs , it's empty gameobject
+        GameObject currentTabs = CreateDefaultGameObject("Tabs", currentMaskRect);
+        // child_3, contents
+
+
+        // child_2, title
+
+
+
+    }
+
+    #endregion
 
     public void InitBlockingCanvas()
     {
@@ -399,11 +460,7 @@ public class ModdingUIPracs : MonoBehaviour
         return result;
     }
 
-    private void Start()
-    {
-        // InitSliderUI();
-        InitBlockingCanvas();
-    }
+    
     public void WaitAndCall(float waitSeconds, Action callBack)
     {
         StartCoroutine(WaitAndCallRoutine(waitSeconds, callBack));
@@ -416,8 +473,35 @@ public class ModdingUIPracs : MonoBehaviour
 
     }
 
+    public (GameObject,Canvas,CanvasScaler,GraphicRaycaster) CreateDefaultCanvas(string objectName, int sortingOrder, bool bIsBlockingCavnas)
+    {
+        // var result
+        // (GameObject, Canvas, CanvasScaler, GraphicRaycaster) result = 
+        GameObject canvasObj = new GameObject();
+        canvasObj.gameObject.name = objectName;
+        var createdCanvas = canvasObj.AddComponent<Canvas>();
+        createdCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        createdCanvas.sortingOrder = sortingOrder;
+        var currentScaler = canvasObj.AddComponent<CanvasScaler>();
+        var currentRayCaster = canvasObj.AddComponent<GraphicRaycaster>();
+        currentRayCaster.blockingObjects = GraphicRaycaster.BlockingObjects.All;
+        (GameObject, Canvas, CanvasScaler, GraphicRaycaster) result = (canvasObj, createdCanvas, currentScaler, currentRayCaster);
+        return result;
+    }
+
+    public GameObject CreateDefaultGameObject(string name, Transform parent = null)
+    {
+        GameObject result = new GameObject(name);
+        if(parent != null)
+        {
+            result.transform.SetParent(parent);
+        }
+        return result;
+    }
 
     #endregion
+
+    
 
     [TestMethod(false)]
     public void GetTempCorruptPoint()
