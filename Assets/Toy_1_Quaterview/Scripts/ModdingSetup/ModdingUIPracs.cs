@@ -116,6 +116,14 @@ public class ModdingUIPracs : MonoBehaviour
         InitPermaUpgrade();
 
     }
+
+    #region value, status related
+    public void SetupStatus()
+    {
+
+    }
+    #endregion
+
     #region create UIs
 
     #region perma upgrade ui
