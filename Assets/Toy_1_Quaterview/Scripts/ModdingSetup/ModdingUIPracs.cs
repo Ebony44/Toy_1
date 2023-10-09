@@ -128,19 +128,33 @@ public class ModdingUIPracs : MonoBehaviour
 
     #region perma upgrade ui
 
+    public Sprite upgradeBackgroundSprite;
     public void InitPermaUpgrade()
     {
+        
+
         (GameObject, Canvas, CanvasScaler, GraphicRaycaster) permaUpgradeTuple 
             = CreateDefaultCanvas("PermaUpgradeCanvas", 2000, true);
 
         GameObject windowObj = permaUpgradeTuple.Item1;
         Canvas upgradeCanvas = permaUpgradeTuple.Item2;
+        CanvasScaler currentScaler = permaUpgradeTuple.Item3;
+
+        upgradeCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+        upgradeCanvas.worldCamera = Camera.main;
+        currentScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        currentScaler.referenceResolution = new Vector2(Screen.width, Screen.height);
+        currentScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
+        currentScaler.referencePixelsPerUnit = 100f;
+
 
         // child, background image
         GameObject backgroundImageObj = new GameObject();
         backgroundImageObj.transform.SetParent(windowObj.transform);
-        backgroundImageObj.gameObject.name = "Blocking Image Object";
-        var blockingImage = backgroundImageObj.AddComponent<Image>();
+        backgroundImageObj.gameObject.name = "PeramUpgradeBackground";
+        var backgroundImage = backgroundImageObj.AddComponent<Image>();
+        backgroundImage.sprite = upgradeBackgroundSprite;
+        backgroundImage.type = Image.Type.Sliced;
         // blockingImage.color = new Color(0f, 0f, 0f, 0.4f);
         var currentBackgroundRect = AddAndGetRectComp(backgroundImageObj);
 
@@ -149,10 +163,11 @@ public class ModdingUIPracs : MonoBehaviour
         currentBackgroundRect.pivot = new Vector2(0.5f, 0.5f);
 
         currentBackgroundRect.anchoredPosition = new Vector2(0f, 0f);
-        currentBackgroundRect.sizeDelta = new Vector2(800f, 900f);
+        currentBackgroundRect.sizeDelta = new Vector2(1000f, 900f);
+        currentBackgroundRect.localScale = Vector3.one;
 
         // child_2, mask
-        var maskBackgroundObj = CreateDefaultGameObject("MaskBackground", currentBackgroundRect);
+        var maskBackgroundObj = CreateDefaultGameObject("BackgroundMask", currentBackgroundRect);
         var currentMaskImage = maskBackgroundObj.AddComponent<Image>();
         currentMaskImage.raycastTarget = false;
         
@@ -163,15 +178,30 @@ public class ModdingUIPracs : MonoBehaviour
         currentMaskRect.offsetMax = new Vector2(-8f, -50f);
         currentMaskRect.offsetMin = new Vector2(8f, 8f);
         currentMaskRect.pivot = new Vector2(0.5f, 0.5f);
-        
+        currentMaskRect.localScale = Vector3.one;
+
         // currentMaskRect.sizeDelta = new Vector2(-16f, -58f); // 52 + 6
         // TODO for offset setting
 
         var currentMask = maskBackgroundObj.AddComponent<Mask>();
-        currentMask.showMaskGraphic = true;
+        currentMask.showMaskGraphic = false;
 
         // child_3, tabs , it's empty gameobject
-        GameObject currentTabs = CreateDefaultGameObject("Tabs", currentMaskRect);
+        GameObject currentTabs = CreateDefaultGameObject("PermaTabs", currentMaskRect);
+        var currentTabRect = AddAndGetRectComp(currentTabs);
+        currentTabRect.anchorMin = new Vector2(0f, 1f);
+        currentTabRect.anchorMax = new Vector2(1f, 1f);
+        
+        currentTabRect.offsetMin = new Vector2(0f, -50f);
+        currentTabRect.offsetMax = new Vector2(0f, 50f);
+        currentTabRect.pivot = new Vector2(0f, 1f);
+        currentTabRect.sizeDelta = new Vector2(0f, 100f);
+
+        currentTabRect.anchoredPosition = new Vector2(0f, 50f); // always adjust anchoredPosition at last step
+        currentTabRect.localScale = Vector2.one;
+
+        // currentTabRect
+        // currentTabs
         // child_3, contents
 
 
