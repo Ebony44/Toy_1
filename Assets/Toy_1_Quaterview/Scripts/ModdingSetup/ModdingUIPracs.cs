@@ -131,6 +131,7 @@ public class ModdingUIPracs : MonoBehaviour
     #region perma upgrade ui
 
     public Sprite upgradeBackgroundSprite;
+    public Sprite tabLayoutSprite;
     public void InitPermaUpgrade()
     {
         
@@ -232,12 +233,38 @@ public class ModdingUIPracs : MonoBehaviour
         currentTabRect.anchoredPosition = new Vector2(0f, 50f); // always adjust anchoredPosition at last step
         currentTabRect.localScale = Vector2.one;
 
+        // child_4 tab layout
+        GameObject currentTabLayoutObj = CreateDefaultGameObject("TabLayout", currentTabRect);
+        var currentTabLayoutRect = AddAndGetRectComp(currentTabLayoutObj);
+
+        currentTabLayoutRect.anchorMin = new Vector2(0f, 0.5f);
+        currentTabLayoutRect.anchorMax = new Vector2(1f, 0.5f);
+
+        currentTabLayoutRect.offsetMin = new Vector2(0f, -100f);
+        currentTabLayoutRect.offsetMax = new Vector2(0f, 0f);
+        currentTabLayoutRect.pivot = new Vector2(0f, 1f);
+        currentTabLayoutRect.sizeDelta = new Vector2(0f, 100f);
+        
+        currentTabLayoutRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentTabLayoutRect.localScale = Vector2.one;
+
+        var currentTabLayoutImage = currentTabLayoutObj.AddComponent<Image>();
+        currentTabLayoutImage.raycastTarget = false;
+        currentTabLayoutImage.type = Image.Type.Sliced;
+        currentTabLayoutImage.sprite = tabLayoutSprite;
+
+        var currentLayoutGroup = currentTabLayoutObj.AddComponent<HorizontalLayoutGroup>();
+        currentLayoutGroup.childAlignment = TextAnchor.MiddleLeft;
+        currentLayoutGroup.childForceExpandWidth = true;
+        currentLayoutGroup.childControlWidth = true;
+
+
         // currentTabRect
         // currentTabs
         // child_3, contents
 
 
-        
+
 
 
 
