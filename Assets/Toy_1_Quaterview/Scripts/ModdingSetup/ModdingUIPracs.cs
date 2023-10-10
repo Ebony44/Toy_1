@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -104,6 +105,7 @@ public class ModdingUIPracs : MonoBehaviour
     // public Canvas testDebugDisplayCanvas;
     public RectTransform testDebugDisplayRect;
     public RectTransform testDebugDisplayRect_2;
+    public TextMeshProUGUI testDebugDisplayTMPRO;
     public Sprite loadingImageSprite;
 
     private void Start()
@@ -186,6 +188,36 @@ public class ModdingUIPracs : MonoBehaviour
         var currentMask = maskBackgroundObj.AddComponent<Mask>();
         currentMask.showMaskGraphic = false;
 
+        // child_2, title
+        var titleObj = CreateDefaultGameObject("PermaTitle", currentBackgroundRect);
+        var currentTitleRect = AddAndGetRectComp(titleObj);
+        currentTitleRect.anchorMin = new Vector2(0.5f, 1f);
+        currentTitleRect.anchorMax = new Vector2(0.5f, 1f);
+        currentTitleRect.pivot = new Vector2(0.5f, 1f);
+        currentTitleRect.anchoredPosition = Vector2.zero;
+        currentTitleRect.offsetMax = new Vector2(50f, 0f);
+        currentTitleRect.offsetMin = new Vector2(-50f, -50f);
+        currentTitleRect.localScale = Vector3.one;
+
+        // child_3 title text
+        var titleTextObj = CreateDefaultGameObject("PermaTitle_Text", currentTitleRect);
+        var currentTitleTextRect = AddAndGetRectComp(titleTextObj);
+        currentTitleTextRect.anchorMin = new Vector2(0.5f, 1f);
+        currentTitleTextRect.anchorMax = new Vector2(0.5f, 1f);
+        currentTitleTextRect.pivot = new Vector2(0.5f, 1f);
+        currentTitleTextRect.anchoredPosition = Vector2.zero;
+        currentTitleTextRect.offsetMax = new Vector2(50f, 0f);
+        currentTitleTextRect.offsetMin = new Vector2(-50f, -50f);
+        currentTitleTextRect.sizeDelta = new Vector2(200f, 50f);
+        currentTitleTextRect.localScale = Vector3.one;
+
+        var currentTitleTextUGUI = titleTextObj.AddComponent<TextMeshProUGUI>();
+        currentTitleTextUGUI.fontSize = 36f;
+        currentTitleTextUGUI.alignment = TextAlignmentOptions.Center;
+
+        // var currentTitle
+
+
         // child_3, tabs , it's empty gameobject
         GameObject currentTabs = CreateDefaultGameObject("PermaTabs", currentMaskRect);
         var currentTabRect = AddAndGetRectComp(currentTabs);
@@ -205,7 +237,7 @@ public class ModdingUIPracs : MonoBehaviour
         // child_3, contents
 
 
-        // child_2, title
+        
 
 
 
