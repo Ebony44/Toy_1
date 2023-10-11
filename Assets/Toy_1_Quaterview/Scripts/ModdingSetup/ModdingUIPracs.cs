@@ -132,10 +132,9 @@ public class ModdingUIPracs : MonoBehaviour
 
     public Sprite upgradeBackgroundSprite;
     public Sprite tabLayoutSprite;
+    public Sprite tabButtonSprite;
     public void InitPermaUpgrade()
     {
-        
-
         (GameObject, Canvas, CanvasScaler, GraphicRaycaster) permaUpgradeTuple 
             = CreateDefaultCanvas("PermaUpgradeCanvas", 2000, true);
 
@@ -255,8 +254,27 @@ public class ModdingUIPracs : MonoBehaviour
 
         var currentLayoutGroup = currentTabLayoutObj.AddComponent<HorizontalLayoutGroup>();
         currentLayoutGroup.childAlignment = TextAnchor.MiddleLeft;
+        currentLayoutGroup.padding.left = 15;
+        currentLayoutGroup.padding.right = 15;
+        currentLayoutGroup.padding.bottom = 4;
         currentLayoutGroup.childForceExpandWidth = true;
         currentLayoutGroup.childControlWidth = true;
+
+        currentLayoutGroup.childForceExpandHeight = false;
+        currentLayoutGroup.childControlHeight = false;
+
+        // child_5 tab 1 breeding
+        GameObject firstTabButtonObj = CreateDefaultGameObject("Tab_1_Breeding", currentTabLayoutRect);
+        var firstTabButtonRect = AddAndGetRectComp(firstTabButtonObj);
+        firstTabButtonRect.sizeDelta = new Vector2(235f, 80f);
+        firstTabButtonRect.localScale = Vector2.one;
+
+        var firstTabImage = firstTabButtonObj.AddComponent<Image>();
+        firstTabImage.sprite = tabButtonSprite;
+        firstTabImage.type = Image.Type.Sliced;
+        var firstTabButton = firstTabButtonObj.AddComponent<Button>();
+        firstTabButton.targetGraphic = firstTabImage;
+
 
 
         // currentTabRect
