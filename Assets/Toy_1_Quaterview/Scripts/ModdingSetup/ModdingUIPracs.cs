@@ -264,23 +264,50 @@ public class ModdingUIPracs : MonoBehaviour
         currentLayoutGroup.childControlHeight = false;
 
         // child_5 tab 1 breeding
-        GameObject firstTabButtonObj = CreateDefaultGameObject("Tab_1_Breeding", currentTabLayoutRect);
-        var firstTabButtonRect = AddAndGetRectComp(firstTabButtonObj);
-        firstTabButtonRect.sizeDelta = new Vector2(235f, 80f);
-        firstTabButtonRect.localScale = Vector2.one;
+        //GameObject firstTabButtonObj = CreateDefaultGameObject("Tab_1_Breeding", currentTabLayoutRect);
+        //var firstTabButtonRect = AddAndGetRectComp(firstTabButtonObj);
+        //firstTabButtonRect.sizeDelta = new Vector2(235f, 80f);
+        //firstTabButtonRect.localScale = Vector2.one;
 
-        var firstTabImage = firstTabButtonObj.AddComponent<Image>();
-        firstTabImage.sprite = tabButtonSprite;
-        firstTabImage.type = Image.Type.Sliced;
-        var firstTabButton = firstTabButtonObj.AddComponent<Button>();
-        firstTabButton.targetGraphic = firstTabImage;
+        //var firstTabImage = firstTabButtonObj.AddComponent<Image>();
+        //firstTabImage.sprite = tabButtonSprite;
+        //firstTabImage.type = Image.Type.Sliced;
+        //var firstTabButton = firstTabButtonObj.AddComponent<Button>();
+        //firstTabButton.targetGraphic = firstTabImage;
+
+        var tabButtonList = CreateButtonsWithParam("Tab_", 4, currentTabLayoutRect);
+        // add listener from above list
 
 
 
-        // currentTabRect
-        // currentTabs
-        // child_3, contents
 
+        //
+
+        // child_3, contents , there should be translucent script
+        GameObject currentContents = CreateDefaultGameObject("PermaContents", currentMaskRect);
+        var currentContentsRect = AddAndGetRectComp(currentContents);
+        currentContentsRect.anchorMax = new Vector2(1f, 1f);
+        currentContentsRect.anchorMin = new Vector2(0f, 0f);
+        currentContentsRect.offsetMax = new Vector2(0f, -100f);
+        currentContentsRect.offsetMin = new Vector2(0f, 80f);
+        currentContentsRect.pivot = new Vector2(0.5f, 0.5f);
+        currentContentsRect.sizeDelta = new Vector2(0f, -180f);
+        currentContentsRect.anchoredPosition = new Vector2(0f, -10f); // always adjust anchoredPosition at last step
+        currentContentsRect.localScale = Vector2.one;
+        // child_4, contents_1, first content
+        //GameObject firstContent = CreateDefaultGameObject("Content_", currentContentsRect);
+        //var firstContentRect = AddAndGetRectComp(firstContent);
+        //firstContentRect.anchorMax = new Vector2(1f, 1f);
+        //firstContentRect.anchorMin = new Vector2(0f, 0f);
+        //firstContentRect.offsetMax = new Vector2(0f, 0f);
+        //firstContentRect.offsetMin = new Vector2(0f, 0f);
+        //firstContentRect.pivot = new Vector2(0.5f, 0.5f);
+        //firstContentRect.sizeDelta = new Vector2(0f, 0f);
+        //firstContentRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        //firstContentRect.localScale = Vector2.one;
+
+        var contentList = CreateContentsWithParam("Content_", 4, currentContentsRect);
+        // add listener from above list
 
 
 
@@ -333,7 +360,7 @@ public class ModdingUIPracs : MonoBehaviour
 
     }
 
-
+    #region slider UI creation
     public void InitSliderUI()
     {
         ProvideParamAndInit();
@@ -569,6 +596,7 @@ public class ModdingUIPracs : MonoBehaviour
 
     }
 
+    #endregion
     public RectTransform AddAndGetRectComp(GameObject paramObject)
     {
         var result = paramObject.GetComponent<RectTransform>();
@@ -620,9 +648,67 @@ public class ModdingUIPracs : MonoBehaviour
         return result;
     }
 
+    public List<GameObject> CreateButtonsWithParam(string name, int iterationCount, Transform parent = null)
+    {
+        List<GameObject> buttonList = new List<GameObject>(iterationCount);
+
+        for (int i = 0; i < iterationCount; i++)
+        {
+            // child_5 tab 1 breeding
+            GameObject tabButtonObj = CreateDefaultGameObject("Tab_" + (i + 1) + "", parent);
+            var tabButtonRect = AddAndGetRectComp(tabButtonObj);
+            tabButtonRect.sizeDelta = new Vector2(235f, 80f);
+            tabButtonRect.localScale = Vector2.one;
+
+            var tabImage = tabButtonObj.AddComponent<Image>();
+            tabImage.sprite = tabButtonSprite;
+            tabImage.type = Image.Type.Sliced;
+            var tabButton = tabButtonObj.AddComponent<Button>();
+            tabButton.targetGraphic = tabImage;
+            buttonList.Add(tabButtonObj);
+        }
+        
+        return buttonList;
+    }
+
+    public List<GameObject> CreateContentsWithParam(string name, int iterationCount, Transform parent = null)
+    {
+        List<GameObject> contentList = new List<GameObject>(iterationCount);
+
+        for (int i = 0; i < iterationCount; i++)
+        {
+            // child_4, contents_1, first content
+            GameObject currentContentObj = CreateDefaultGameObject("Content_" + (i + 1) + "", parent);
+            // GameObject tabButtonObj = CreateDefaultGameObject("Tab_" + (i + 1) + "", parent);
+            var currentContentRect = AddAndGetRectComp(currentContentObj);
+            currentContentRect.anchorMax = new Vector2(1f, 1f);
+            currentContentRect.anchorMin = new Vector2(0f, 0f);
+            currentContentRect.offsetMax = new Vector2(0f, 0f);
+            currentContentRect.offsetMin = new Vector2(0f, 0f);
+            currentContentRect.pivot = new Vector2(0.5f, 0.5f);
+            currentContentRect.sizeDelta = new Vector2(0f, 0f);
+            currentContentRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+            currentContentRect.localScale = Vector2.one;
+
+            var currentLayoutGroup = currentContentObj.AddComponent<VerticalLayoutGroup>();
+            currentLayoutGroup.childAlignment = TextAnchor.UpperCenter;
+            currentLayoutGroup.padding.top = 10;
+            currentLayoutGroup.spacing = 10f;
+
+            currentLayoutGroup.childControlWidth = false;
+            currentLayoutGroup.childControlHeight = false;
+            currentLayoutGroup.childForceExpandWidth = true;
+            currentLayoutGroup.childForceExpandHeight = false;
+
+            contentList.Add(currentContentObj);
+        }
+
+        return contentList;
+    }
+
     #endregion
 
-    
+
 
     [TestMethod(false)]
     public void GetTempCorruptPoint()
