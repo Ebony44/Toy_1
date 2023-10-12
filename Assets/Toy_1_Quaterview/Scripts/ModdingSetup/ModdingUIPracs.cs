@@ -310,6 +310,13 @@ public class ModdingUIPracs : MonoBehaviour
         // add listener from above list
 
 
+        // child_5, contents_1, upgrade lists
+        var currentUpgrade = contentList[0];
+        for (int i = 0; i < contentList.Count; i++)
+        {
+            // var currentUpgradeLists = new 
+        }
+
 
 
 
