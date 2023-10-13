@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using System.Linq;
 
 public class CSVTestingScript : MonoBehaviour
 {
     private void Start()
     {
         Parsing();
+        DisplayJoinString();
     }
     public void Parsing()
     {
@@ -38,5 +40,18 @@ public class CSVTestingScript : MonoBehaviour
 
         return tempResultString;
     }
+
+    [TestMethod(false)]
+    public void DisplayJoinString()
+    {
+        Dictionary<int, int> tempDic = new Dictionary<int, int>();
+        tempDic.Add(3000, 125);
+        
+        var currentString = string.Join(";", from x in tempDic select string.Format("{0},{1}", x.Key, x.Value));
+
+        Debug.Log(" current string is " + currentString);
+
+    }
+
 
 }
