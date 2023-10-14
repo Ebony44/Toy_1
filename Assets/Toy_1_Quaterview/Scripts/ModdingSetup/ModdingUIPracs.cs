@@ -108,6 +108,13 @@ public class ModdingUIPracs : MonoBehaviour
     public TextMeshProUGUI testDebugDisplayTMPRO;
     public Sprite loadingImageSprite;
 
+    public enum EPermaUpgradeTitle
+    {
+        Basic = 0,
+        Advanced,
+        Expert,
+    }
+
     private void Start()
     {
         // InitSliderUI();
@@ -133,6 +140,7 @@ public class ModdingUIPracs : MonoBehaviour
     public Sprite upgradeBackgroundSprite;
     public Sprite tabLayoutSprite;
     public Sprite tabButtonSprite;
+    public Sprite upItemBackSprite;
     public void InitPermaUpgrade()
     {
         (GameObject, Canvas, CanvasScaler, GraphicRaycaster) permaUpgradeTuple 
@@ -149,7 +157,7 @@ public class ModdingUIPracs : MonoBehaviour
         currentScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
         currentScaler.referencePixelsPerUnit = 100f;
 
-
+        #region child 1 to 3
         // child, background image
         GameObject backgroundImageObj = new GameObject();
         backgroundImageObj.transform.SetParent(windowObj.transform);
@@ -232,6 +240,8 @@ public class ModdingUIPracs : MonoBehaviour
         currentTabRect.anchoredPosition = new Vector2(0f, 50f); // always adjust anchoredPosition at last step
         currentTabRect.localScale = Vector2.one;
 
+        #endregion
+
         // child_4 tab layout
         GameObject currentTabLayoutObj = CreateDefaultGameObject("TabLayout", currentTabRect);
         var currentTabLayoutRect = AddAndGetRectComp(currentTabLayoutObj);
@@ -252,16 +262,16 @@ public class ModdingUIPracs : MonoBehaviour
         currentTabLayoutImage.type = Image.Type.Sliced;
         currentTabLayoutImage.sprite = tabLayoutSprite;
 
-        var currentLayoutGroup = currentTabLayoutObj.AddComponent<HorizontalLayoutGroup>();
-        currentLayoutGroup.childAlignment = TextAnchor.MiddleLeft;
-        currentLayoutGroup.padding.left = 15;
-        currentLayoutGroup.padding.right = 15;
-        currentLayoutGroup.padding.bottom = 4;
-        currentLayoutGroup.childForceExpandWidth = true;
-        currentLayoutGroup.childControlWidth = true;
+        var currentTabLayoutGroup = currentTabLayoutObj.AddComponent<HorizontalLayoutGroup>();
+        currentTabLayoutGroup.childAlignment = TextAnchor.MiddleLeft;
+        currentTabLayoutGroup.padding.left = 15;
+        currentTabLayoutGroup.padding.right = 15;
+        currentTabLayoutGroup.padding.bottom = 4;
+        currentTabLayoutGroup.childForceExpandWidth = true;
+        currentTabLayoutGroup.childControlWidth = true;
 
-        currentLayoutGroup.childForceExpandHeight = false;
-        currentLayoutGroup.childControlHeight = false;
+        currentTabLayoutGroup.childForceExpandHeight = false;
+        currentTabLayoutGroup.childControlHeight = false;
 
         // child_5 tab 1 breeding
         //GameObject firstTabButtonObj = CreateDefaultGameObject("Tab_1_Breeding", currentTabLayoutRect);
@@ -294,28 +304,126 @@ public class ModdingUIPracs : MonoBehaviour
         currentContentsRect.sizeDelta = new Vector2(0f, -180f);
         currentContentsRect.anchoredPosition = new Vector2(0f, -10f); // always adjust anchoredPosition at last step
         currentContentsRect.localScale = Vector2.one;
-        // child_4, contents_1, first content
-        //GameObject firstContent = CreateDefaultGameObject("Content_", currentContentsRect);
-        //var firstContentRect = AddAndGetRectComp(firstContent);
-        //firstContentRect.anchorMax = new Vector2(1f, 1f);
-        //firstContentRect.anchorMin = new Vector2(0f, 0f);
-        //firstContentRect.offsetMax = new Vector2(0f, 0f);
-        //firstContentRect.offsetMin = new Vector2(0f, 0f);
-        //firstContentRect.pivot = new Vector2(0.5f, 0.5f);
-        //firstContentRect.sizeDelta = new Vector2(0f, 0f);
-        //firstContentRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
-        //firstContentRect.localScale = Vector2.one;
+        // child_4, contents_1, content
+       
 
         var contentList = CreateContentsWithParam("Content_", 4, currentContentsRect);
         // add listener from above list
 
 
         // child_5, contents_1, upgrade lists
-        var currentUpgrade = contentList[0];
+
+        Dictionary<int, List<GameObject>> currentUpgradeListDic = new Dictionary<int, List<GameObject>>(32);
+        List<GameObject> currentUpgradeList = new List<GameObject>(32);
         for (int i = 0; i < contentList.Count; i++)
         {
-            // var currentUpgradeLists = new 
+            var currentParentRect = AddAndGetRectComp(contentList[i]);
+            // currentUpgradeList = CreateContentsUpListWithParam("Content_" + (i + 1), 3, currentParentRect);
+            var upName = "Content_" + (i + 1);
+            currentUpgradeListDic.Add(i, CreateContentsUpListWithParam(upName, 3, currentParentRect));
+            // currentUpgradeList.AddRange(CreateContentsUpListWithParam(upName, 3, currentParentRect));
         }
+
+        // child_6, contents_1_1_1, upgrade list's item
+        // title, text with buttons... etc
+        // var currentUpItem = currentUpgradeList[0];
+        // var currentParrentRect = AddAndGetRectComp(currentUpgradeList[0]);
+        Dictionary<int, List<GameObject>> currentUpgradeItemListDic = new Dictionary<int, List<GameObject>>(32);
+        // List<GameObject> currentUpgradeItemList = new List<GameObject>(32);
+
+        
+        for (int i = 0; i < currentUpgradeListDic.Count; i++)
+        {
+            for (int k = 0; k < currentUpgradeListDic[i].Count; k++)
+            {
+                var currentParentRect = AddAndGetRectComp(currentUpgradeListDic[i][k]);
+                var upName = "Content_" + (i + 1);
+                upName += "_" + (k + 1);
+                var keyValue = i * 100 + k * 1; // 0 to 100...200 + k
+                currentUpgradeItemListDic.Add(keyValue, CreateContentsUpItemListWithParam(upName, 3, currentParentRect));
+            }
+            
+            // var currentParentRect = AddAndGetRectComp(currentUpgradeListDic[i]);
+            //var upName = "Content_" + (i + 1);
+            //upName += "_" + (i + 1);
+            //currentUpgradeItemListDic.Add(i, CreateContentsUpItemListWithParam(upName, 3, currentParentRect));
+            
+        }
+        // child_6, contents_1_1_x, upgrade list item's text, button...etc
+        // first is only text for title
+
+        Dictionary<EPermaUpgradeTitle,string> permaUpgradeTitleLevelTexts = new Dictionary<EPermaUpgradeTitle, string>(3);
+        permaUpgradeTitleLevelTexts.Add(EPermaUpgradeTitle.Basic, "Basic Each Upgrade Costs 1 point		Unused Point: ");
+        permaUpgradeTitleLevelTexts.Add(EPermaUpgradeTitle.Advanced, "Advanced Each Upgrade Costs 2 points	Unused Point: ");
+        permaUpgradeTitleLevelTexts.Add(EPermaUpgradeTitle.Expert, "Expert Each Upgrade Costs 3 points	Unused Point: ");
+        // Expert Each Upgrade Costs 3 points	Unused Point: 
+
+
+        var tempIndexForTitleText = 0;
+        foreach (var item in currentUpgradeItemListDic)
+        {
+            
+            if (item.Key % 100 == 3)
+            {
+                continue;
+                
+            }
+            else
+            {
+                var tempList = item.Value;
+                
+                for (int i = 0; i < tempList.Count; i++)
+                {
+                    var currentObj = tempList[i];
+                    if (currentObj.name.Contains("Title"))
+                    {
+                        var currentParentRect = AddAndGetRectComp(currentObj);
+                        // init title object and rect
+                        var tempTitleTextObj = CreateDefaultGameObject("TitleText", currentParentRect);
+                        var tempTitleTextRect = AddAndGetRectComp(tempTitleTextObj);
+                        tempTitleTextRect.anchorMax = new Vector2(1f, 1f);
+                        tempTitleTextRect.anchorMin = new Vector2(0f, 1f);
+                        tempTitleTextRect.offsetMax = new Vector2(0f, 0f);
+                        tempTitleTextRect.offsetMin = new Vector2(0f, -50f);
+                        tempTitleTextRect.pivot = new Vector2(0.5f, 0.5f);
+
+                        tempTitleTextRect.anchoredPosition = new Vector2(0f, -25f);
+                        tempTitleTextRect.localScale = Vector2.one;
+
+                        var tempTitleTextComp = tempTitleTextObj.AddComponent<TextMeshProUGUI>();
+                        tempTitleTextComp.text = permaUpgradeTitleLevelTexts[(EPermaUpgradeTitle)tempIndexForTitleText];
+                        Debug.Log("tempIndexForTitleText is " + tempIndexForTitleText);
+                        tempTitleTextComp.fontSize = 30f;
+                        tempTitleTextComp.color = Color.black;
+                        tempTitleTextComp.alignment = TextAlignmentOptions.Center;
+                        tempIndexForTitleText++;
+                        if(tempIndexForTitleText % Enum.GetValues(typeof( EPermaUpgradeTitle)).Length == 0 )
+                        {
+                            tempIndexForTitleText = 0;
+                        }
+                        // if(tempIndexForTitleText)
+
+
+                    }
+                    else
+                    {
+                        // init other item which contains text and increase, decrease button...
+                    }
+                }
+                
+            }
+            // title
+            if (item.Key % 100 == 0)
+            {
+                var currentParentRect = AddAndGetRectComp(item.Value[0]);
+            }
+            else // other item which contains text and increase, decrease button...
+            {
+
+            }
+        }
+
+
 
 
 
@@ -685,7 +793,7 @@ public class ModdingUIPracs : MonoBehaviour
         for (int i = 0; i < iterationCount; i++)
         {
             // child_4, contents_1, first content
-            GameObject currentContentObj = CreateDefaultGameObject("Content_" + (i + 1) + "", parent);
+            GameObject currentContentObj = CreateDefaultGameObject(name + (i + 1) + "", parent);
             // GameObject tabButtonObj = CreateDefaultGameObject("Tab_" + (i + 1) + "", parent);
             var currentContentRect = AddAndGetRectComp(currentContentObj);
             currentContentRect.anchorMax = new Vector2(1f, 1f);
@@ -711,6 +819,83 @@ public class ModdingUIPracs : MonoBehaviour
         }
 
         return contentList;
+    }
+
+    public List<GameObject> CreateContentsUpListWithParam(string name, int iterationCount, Transform parent = null)
+    {
+        List<GameObject> contentUpList = new List<GameObject>(iterationCount);
+
+        for (int i = 0; i < iterationCount; i++)
+        {
+            // child_5, contents_1, upgrade lists
+            
+            GameObject currentUpgradeObj = CreateDefaultGameObject(name + "_" + (i + 1) + "", parent);
+            // GameObject tabButtonObj = CreateDefaultGameObject("Tab_" + (i + 1) + "", parent);
+            var currentUpgradeRect = AddAndGetRectComp(currentUpgradeObj);
+            currentUpgradeRect.anchorMax = new Vector2(0f, 0f);
+            currentUpgradeRect.anchorMin = new Vector2(0f, 0f);
+            currentUpgradeRect.offsetMax = new Vector2(542f, 100f);
+            currentUpgradeRect.offsetMin = new Vector2(-542f, -100f);
+            currentUpgradeRect.pivot = new Vector2(0.5f, 0.5f);
+            // currentUpgradeRect.sizeDelta = new Vector2(0f, 0f);
+            // currentUpgradeRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+            currentUpgradeRect.localScale = Vector2.one;
+
+            var currentUpgradeRectLayoutGroup = currentUpgradeObj.AddComponent<VerticalLayoutGroup>();
+            currentUpgradeRectLayoutGroup.childAlignment = TextAnchor.UpperCenter;
+            // currentUpgradeRectLayoutGroup.padding.top = 10;
+            currentUpgradeRectLayoutGroup.spacing = 10f;
+            currentUpgradeRectLayoutGroup.childControlWidth = false;
+            currentUpgradeRectLayoutGroup.childControlHeight = false;
+            currentUpgradeRectLayoutGroup.childForceExpandWidth = true;
+            currentUpgradeRectLayoutGroup.childForceExpandHeight = false;
+
+            contentUpList.Add(currentUpgradeObj);
+        }
+
+        return contentUpList;
+    }
+
+    public List<GameObject> CreateContentsUpItemListWithParam(string name, int iterationCount, Transform parent = null)
+    {
+        List<GameObject> contentUpItemList = new List<GameObject>(iterationCount);
+
+        for (int i = 0; i < iterationCount; i++)
+        {
+            // child_5, contents_1, upgrade lists
+
+            // var currentUpItem = currentUpgradeList[0];
+            // var currentParrentRect = AddAndGetRectComp(currentUpgradeList[0]);
+            string itemName = name;
+            if(i==0)
+            {
+                itemName += "_Title";
+            }
+            else
+            {
+                itemName += "_UpItem" + i;
+            }
+            GameObject currentUpItemObj = CreateDefaultGameObject(itemName, parent);
+            // GameObject tabButtonObj = CreateDefaultGameObject("Tab_" + (i + 1) + "", parent);
+            var currentUpItemRect = AddAndGetRectComp(currentUpItemObj);
+            currentUpItemRect.anchorMax = new Vector2(0f, 0f);
+            currentUpItemRect.anchorMin = new Vector2(0f, 0f);
+            currentUpItemRect.offsetMax = new Vector2(542f, 25f);
+            currentUpItemRect.offsetMin = new Vector2(-542f, -25f);
+            currentUpItemRect.pivot = new Vector2(0.5f, 0.5f);
+            // currentUpgradeRect.sizeDelta = new Vector2(0f, 0f);
+            // currentUpgradeRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+            currentUpItemRect.localScale = Vector2.one;
+
+            var currentUpItemImage = currentUpItemObj.AddComponent<Image>();
+            currentUpItemImage.raycastTarget = false;
+            currentUpItemImage.type = Image.Type.Sliced;
+            currentUpItemImage.sprite = upItemBackSprite;
+
+            contentUpItemList.Add(currentUpItemObj);
+        }
+
+        return contentUpItemList;
     }
 
     #endregion
