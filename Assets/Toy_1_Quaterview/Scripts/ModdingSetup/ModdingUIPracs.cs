@@ -141,6 +141,8 @@ public class ModdingUIPracs : MonoBehaviour
     public Sprite tabLayoutSprite;
     public Sprite tabButtonSprite;
     public Sprite upItemBackSprite;
+    public Sprite IncDecButtonSprite;
+
     public void InitPermaUpgrade()
     {
         (GameObject, Canvas, CanvasScaler, GraphicRaycaster) permaUpgradeTuple 
@@ -288,9 +290,6 @@ public class ModdingUIPracs : MonoBehaviour
         var tabButtonList = CreateButtonsWithParam("Tab_", 4, currentTabLayoutRect);
         // add listener from above list
 
-
-
-
         //
 
         // child_3, contents , there should be translucent script
@@ -358,11 +357,9 @@ public class ModdingUIPracs : MonoBehaviour
         permaUpgradeTitleLevelTexts.Add(EPermaUpgradeTitle.Expert, "Expert Each Upgrade Costs 3 points	Unused Point: ");
         // Expert Each Upgrade Costs 3 points	Unused Point: 
 
-
         var tempIndexForTitleText = 0;
         foreach (var item in currentUpgradeItemListDic)
         {
-            
             if (item.Key % 100 == 3)
             {
                 continue;
@@ -375,9 +372,10 @@ public class ModdingUIPracs : MonoBehaviour
                 for (int i = 0; i < tempList.Count; i++)
                 {
                     var currentObj = tempList[i];
+                    var currentParentRect = AddAndGetRectComp(currentObj);
                     if (currentObj.name.Contains("Title"))
                     {
-                        var currentParentRect = AddAndGetRectComp(currentObj);
+                        
                         // init title object and rect
                         var tempTitleTextObj = CreateDefaultGameObject("TitleText", currentParentRect);
                         var tempTitleTextRect = AddAndGetRectComp(tempTitleTextObj);
@@ -408,23 +406,23 @@ public class ModdingUIPracs : MonoBehaviour
                     else
                     {
                         // init other item which contains text and increase, decrease button...
+                        CreateUpItemsWithParam(currentParentRect);
+                        // upgrade description
+
+                        // effect desc
+                        // current point 0 / 0
+                        // button dec
+                        // button inc
+
+
                     }
                 }
                 
             }
-            // title
-            if (item.Key % 100 == 0)
-            {
-                var currentParentRect = AddAndGetRectComp(item.Value[0]);
-            }
-            else // other item which contains text and increase, decrease button...
-            {
 
-            }
         }
 
-
-
+        // child_6 end
 
 
 
@@ -898,6 +896,167 @@ public class ModdingUIPracs : MonoBehaviour
         return contentUpItemList;
     }
 
+    public PermaUpgradeUIItemInfo CreateUpItemsWithParam(Transform parent = null)
+    {
+        PermaUpgradeUIItemInfo result = new PermaUpgradeUIItemInfo();
+        // upgrade description
+        GameObject currentUpgradeDescObj = CreateDefaultGameObject("UpgradeDesc", parent);
+        var currentUpgradeDescRect = AddAndGetRectComp(currentUpgradeDescObj);
+        currentUpgradeDescRect.anchorMax = new Vector2(0f, 0.5f);
+        currentUpgradeDescRect.anchorMin = new Vector2(0f, 0.5f);
+        currentUpgradeDescRect.offsetMax = new Vector2(320f, 25f);
+        currentUpgradeDescRect.offsetMin = new Vector2(20f, -25f);
+        currentUpgradeDescRect.pivot = new Vector2(0f, 0.5f);
+        currentUpgradeDescRect.anchoredPosition = new Vector2(20f, 0f); // always adjust anchoredPosition at last step
+        currentUpgradeDescRect.localScale = Vector2.one;
+
+        // var currentUpgradeDescText = currentUpgradeDescObj.AddComponent<TextMeshProUGUI>();
+        var currentUpgradeDescText = AddTextMeshProUGUIToUpItems(ref currentUpgradeDescObj);
+
+        // effect desc
+        GameObject currentEffectDescObj = CreateDefaultGameObject("UpgradeEffect", parent);
+        var currentEffectDescRect = AddAndGetRectComp(currentEffectDescObj);
+        currentEffectDescRect.anchorMax = new Vector2(0f, 0.5f);
+        currentEffectDescRect.anchorMin = new Vector2(0f, 0.5f);
+        currentEffectDescRect.offsetMax = new Vector2(630f, 25f);
+        currentEffectDescRect.offsetMin = new Vector2(380f, -25f);
+        currentEffectDescRect.pivot = new Vector2(0f, 0.5f);
+        currentEffectDescRect.anchoredPosition = new Vector2(380f, 0f); // always adjust anchoredPosition at last step
+        currentEffectDescRect.localScale = Vector2.one;
+
+        var currentEffectDescText = AddTextMeshProUGUIToUpItems(ref currentEffectDescObj);
+
+        // current point 0 / 0
+        GameObject currentPointDescObj = CreateDefaultGameObject("UpgradePoint", parent);
+        var currentPointDescRect = AddAndGetRectComp(currentPointDescObj);
+        currentPointDescRect.anchorMax = new Vector2(0f, 0.5f);
+        currentPointDescRect.anchorMin = new Vector2(0f, 0.5f);
+        currentPointDescRect.offsetMax = new Vector2(870f, 25f);
+        currentPointDescRect.offsetMin = new Vector2(720f, -25f);
+        currentPointDescRect.pivot = new Vector2(0f, 0.5f);
+        currentPointDescRect.anchoredPosition = new Vector2(720f, 0f); // always adjust anchoredPosition at last step
+        currentPointDescRect.localScale = Vector2.one;
+
+        var currentPointDescText = AddTextMeshProUGUIToUpItems(ref currentPointDescObj);
+        // button dec
+        GameObject currentDecButtonObj = CreateDefaultGameObject("DecreaseButton", parent);
+        var currentDecButtonRect = AddAndGetRectComp(currentDecButtonObj);
+        currentDecButtonRect.anchorMax = new Vector2(0f, 0.5f);
+        currentDecButtonRect.anchorMin = new Vector2(0f, 0.5f);
+        currentDecButtonRect.offsetMax = new Vector2(960f, 25f);
+        currentDecButtonRect.offsetMin = new Vector2(910f, -25f);
+        currentDecButtonRect.pivot = new Vector2(0f, 0.5f);
+        currentDecButtonRect.anchoredPosition = new Vector2(910f, 0f); // always adjust anchoredPosition at last step
+        currentDecButtonRect.localScale = Vector2.one;
+
+        Image currentDecButtonImage = currentDecButtonObj.AddComponent<Image>();
+        currentDecButtonImage.sprite = IncDecButtonSprite;
+        
+        Button currentDecButtonComp = currentDecButtonObj.AddComponent<Button>();
+        // currentDecButtonComp.colors.disabledColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+        currentDecButtonComp.colors = GetOnlyDisabledColor(currentDecButtonComp.colors, new Color(0.5f, 0.5f, 0.5f, 1f));
+
+
+        var currentDecButtonTextObj = CreateDefaultGameObject("Text", currentDecButtonRect);
+        var currentDecButtonText = currentDecButtonTextObj.AddComponent<TextMeshProUGUI>();
+        currentDecButtonText.alignment = TextAlignmentOptions.Center;
+        currentDecButtonText.fontSize = 55;
+        currentDecButtonText.color = new Color(0.2f, 0.2f, 0.2f);
+        currentDecButtonText.text = "-";
+
+        var currentDecButtonTextRect = AddAndGetRectComp(currentDecButtonTextObj);
+        currentDecButtonTextRect.anchorMax = new Vector2(1f, 1f);
+        currentDecButtonTextRect.anchorMin = new Vector2(0f, 0f);
+        currentDecButtonTextRect.offsetMax = new Vector2(0f, 0f);
+        currentDecButtonTextRect.offsetMin = new Vector2(0f, 0f);
+        currentDecButtonTextRect.pivot = new Vector2(0.5f, 0.5f);
+        // currentDecButtonTextRect.anchoredPosition = new Vector2(970f, 0f); // always adjust anchoredPosition at last step
+        currentDecButtonTextRect.localScale = Vector2.one;
+
+        // button inc
+        GameObject currentIncButtonObj = CreateDefaultGameObject("IncreaseButton", parent);
+        var currentIncButtonRect = AddAndGetRectComp(currentIncButtonObj);
+        currentIncButtonRect.anchorMax = new Vector2(0f, 0.5f);
+        currentIncButtonRect.anchorMin = new Vector2(0f, 0.5f);
+        currentIncButtonRect.offsetMax = new Vector2(1020f, 25f);
+        currentIncButtonRect.offsetMin = new Vector2(970f, -25f);
+        currentIncButtonRect.pivot = new Vector2(0f, 0.5f);
+        currentIncButtonRect.anchoredPosition = new Vector2(970f, 0f); // always adjust anchoredPosition at last step
+        currentIncButtonRect.localScale = Vector2.one;
+
+        Image currentIncButtonImage = currentIncButtonObj.AddComponent<Image>();
+        currentIncButtonImage.sprite = IncDecButtonSprite;
+
+        Button currentIncButtonComp = currentIncButtonObj.AddComponent<Button>();
+        // currentDecButtonComp.colors.disabledColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+        currentIncButtonComp.colors = GetOnlyDisabledColor(currentIncButtonComp.colors, new Color(0.5f, 0.5f, 0.5f, 1f));
+
+
+        var currentIncButtonTextObj = CreateDefaultGameObject("Text", currentIncButtonRect);
+        var currentIncButtonText = currentIncButtonTextObj.AddComponent<TextMeshProUGUI>();
+        currentIncButtonText.alignment = TextAlignmentOptions.Center;
+        currentIncButtonText.fontSize = 55;
+        currentIncButtonText.color = new Color(0.2f, 0.2f, 0.2f);
+        currentIncButtonText.text = "+";
+
+        var currentIncButtonTextRect = AddAndGetRectComp(currentIncButtonTextObj);
+        currentIncButtonTextRect.anchorMax = new Vector2(1f, 1f);
+        currentIncButtonTextRect.anchorMin = new Vector2(0f, 0f);
+        currentIncButtonTextRect.offsetMax = new Vector2(0f, 0f);
+        currentIncButtonTextRect.offsetMin = new Vector2(0f, 0f);
+        currentIncButtonTextRect.pivot = new Vector2(0.5f, 0.5f);
+        // currentDecButtonTextRect.anchoredPosition = new Vector2(970f, 0f); // always adjust anchoredPosition at last step
+        currentIncButtonTextRect.localScale = Vector2.one;
+
+
+        result.upgradeDesc = currentUpgradeDescText;
+        result.upgradeEffect = currentEffectDescText;
+        result.upgradePoint = currentPointDescText;
+        result.decButton = currentDecButtonComp;
+        result.incButton = currentIncButtonComp;
+
+
+        return result;
+    }
+
+    public void SetRectWithParam(
+        Vector2 anchMax,
+        Vector2 anchMin,
+        Vector2 offsetMax,
+        Vector2 offsetMin,
+        Vector2 pivot,
+        Vector2 anchPos,
+        ref RectTransform paramRect
+        )
+    {
+        paramRect.anchorMax = anchMax;
+        paramRect.anchorMin = anchMin;
+        paramRect.offsetMax = offsetMax;
+        paramRect.offsetMin = offsetMin;
+        paramRect.pivot = pivot;
+        paramRect.anchoredPosition = anchPos;
+    }
+
+    public TextMeshProUGUI AddTextMeshProUGUIToUpItems(ref GameObject paramObj)
+    {
+        var resultText = paramObj.AddComponent<TextMeshProUGUI>();
+        resultText.fontSize = 30f;
+        resultText.color = Color.black;
+        resultText.alignment = TextAlignmentOptions.Center;
+        resultText.enableAutoSizing = true;
+        resultText.fontSizeMin = 20;
+        resultText.fontSizeMax = 26;
+        // resultText.enable = false;
+        return resultText;
+    }
+
+    public ColorBlock GetOnlyDisabledColor(ColorBlock originBlock, Color paramDisabledColor)
+    {
+        ColorBlock result = originBlock;
+        result.disabledColor = paramDisabledColor;
+        return result;
+    }
+
     #endregion
 
 
@@ -937,5 +1096,16 @@ public class ModdingUIPracs : MonoBehaviour
         executeAfterDelay.Invoke();
     }
 
+    
 
+}
+
+public class PermaUpgradeUIItemInfo
+{
+    public TextMeshProUGUI upgradeDesc;
+    public TextMeshProUGUI upgradeEffect;
+    public TextMeshProUGUI upgradePoint;
+    public Button decButton;
+    public Button incButton;
+        
 }
