@@ -115,6 +115,39 @@ public class ModdingUIPracs : MonoBehaviour
         Expert,
     }
 
+    public enum EPermaUpgradeInfoItemForUI
+    {
+        PermaUpgrade_Breeding_Basic_Title = 0,
+        PermaUpgrade_Breeding_GrowthTime,
+        PermaUpgrade_Breeding_DamageDoneByMonster,
+        PermaUpgrade_Breeding_Advanced_Title,
+        PermaUpgrade_Breeding_ConceptionRateFromMonster,
+        PermaUpgrade_Breeding_SexTimeFromMonster,
+        PermaUpgrade_Breeding_Expert_Title,
+        PermaUpgrade_Breeding_PerTierRaceDevolveChance,
+        PermaUpgrade_Breeding_EssenceDevolveChance,
+
+        PermaUpgrade_ShortTerm_Basic_Title = 100,
+        PermaUpgrade_ShortTerm_StartGold,
+        PermaUpgrade_ShortTerm_StartSoul,
+        PermaUpgrade_ShortTerm_Advanced_Title,
+        PermaUpgrade_ShortTerm_StartItem,
+        PermaUpgrade_ShortTerm_StartTentacleEgg,
+        PermaUpgrade_ShortTerm_Expert_Title,
+        PermaUpgrade_ShortTerm_DecreaseEstatePrice,
+        PermaUpgrade_ShortTerm_FreeRoomBuild,
+
+        PermaUpgrade_LongTerm_Basic_Title = 200,
+        PermaUpgrade_LongTerm_GoldPerDay,
+        PermaUpgrade_LongTerm_SoulPerDay,
+        PermaUpgrade_LongTerm_Advanced_Title,
+        PermaUpgrade_LongTerm_ItemPer10Days,
+        PermaUpgrade_LongTerm_EggsAndPartsPer5Days,
+        PermaUpgrade_LongTerm_Expert_Title,
+        PermaUpgrade_LongTerm_DecreaseMaintenancePee,
+        PermaUpgrade_LongTerm_MitigateMarketPriceAdjust,
+    }
+
     private void Start()
     {
         // InitSliderUI();
@@ -304,9 +337,10 @@ public class ModdingUIPracs : MonoBehaviour
         currentContentsRect.anchoredPosition = new Vector2(0f, -10f); // always adjust anchoredPosition at last step
         currentContentsRect.localScale = Vector2.one;
         // child_4, contents_1, content
-       
+
 
         var contentList = CreateContentsWithParam("Content_", 4, currentContentsRect);
+        // var contentList = CreateContentsWithParam("Content_", 3, currentContentsRect);
         // add listener from above list
 
 
@@ -314,8 +348,14 @@ public class ModdingUIPracs : MonoBehaviour
 
         Dictionary<int, List<GameObject>> currentUpgradeListDic = new Dictionary<int, List<GameObject>>(32);
         List<GameObject> currentUpgradeList = new List<GameObject>(32);
+        int lastIndexOfcontentList = contentList.Count - 1;
         for (int i = 0; i < contentList.Count; i++)
         {
+            if(i == lastIndexOfcontentList)
+            {
+                // last should be different
+                continue;
+            }
             var currentParentRect = AddAndGetRectComp(contentList[i]);
             // currentUpgradeList = CreateContentsUpListWithParam("Content_" + (i + 1), 3, currentParentRect);
             var upName = "Content_" + (i + 1);
@@ -356,10 +396,14 @@ public class ModdingUIPracs : MonoBehaviour
         permaUpgradeTitleLevelTexts.Add(EPermaUpgradeTitle.Advanced, "Advanced Each Upgrade Costs 2 points	Unused Point: ");
         permaUpgradeTitleLevelTexts.Add(EPermaUpgradeTitle.Expert, "Expert Each Upgrade Costs 3 points	Unused Point: ");
         // Expert Each Upgrade Costs 3 points	Unused Point: 
-
+        Dictionary<EPermaUpgradeInfoItemForUI, PermaUpgradeUIItemInfo> currentPermaUpgradeUIItemInfoDic 
+            = new Dictionary<EPermaUpgradeInfoItemForUI, PermaUpgradeUIItemInfo>(32);
         var tempIndexForTitleText = 0;
+        int tempIterationCount = 0;
+        EPermaUpgradeInfoItemForUI tempEnum = EPermaUpgradeInfoItemForUI.PermaUpgrade_Breeding_Basic_Title;
         foreach (var item in currentUpgradeItemListDic)
         {
+            
             if (item.Key % 100 == 3)
             {
                 continue;
@@ -371,6 +415,9 @@ public class ModdingUIPracs : MonoBehaviour
                 
                 for (int i = 0; i < tempList.Count; i++)
                 {
+                    
+
+                    tempIterationCount++;
                     var currentObj = tempList[i];
                     var currentParentRect = AddAndGetRectComp(currentObj);
                     if (currentObj.name.Contains("Title"))
@@ -400,13 +447,18 @@ public class ModdingUIPracs : MonoBehaviour
                             tempIndexForTitleText = 0;
                         }
                         // if(tempIndexForTitleText)
-
+                        PermaUpgradeUIItemInfo tempTitleUIInfo = new PermaUpgradeUIItemInfo();
+                        tempTitleUIInfo.titleText = tempTitleTextComp;
+                        currentPermaUpgradeUIItemInfoDic.Add(tempEnum, tempTitleUIInfo);
 
                     }
                     else
                     {
                         // init other item which contains text and increase, decrease button...
-                        CreateUpItemsWithParam(currentParentRect);
+                        PermaUpgradeUIItemInfo createdUIInfo =  CreateUpItemsWithParam(currentParentRect);
+
+                        currentPermaUpgradeUIItemInfoDic.Add(tempEnum, createdUIInfo);
+
                         // upgrade description
 
                         // effect desc
@@ -416,6 +468,9 @@ public class ModdingUIPracs : MonoBehaviour
 
 
                     }
+                    Debug.Log("temp enum is " + tempEnum.ToString());
+                    tempEnum = HelperFunctions.GetNextEnum<EPermaUpgradeInfoItemForUI>(tempEnum);
+
                 }
                 
             }
@@ -423,6 +478,9 @@ public class ModdingUIPracs : MonoBehaviour
         }
 
         // child_6 end
+
+        Debug.Log("tempIterationCount is " + tempIterationCount
+            + " length of enum is " + (System.Enum.GetValues(typeof(EPermaUpgradeInfoItemForUI)).Length));
 
 
 
@@ -904,10 +962,10 @@ public class ModdingUIPracs : MonoBehaviour
         var currentUpgradeDescRect = AddAndGetRectComp(currentUpgradeDescObj);
         currentUpgradeDescRect.anchorMax = new Vector2(0f, 0.5f);
         currentUpgradeDescRect.anchorMin = new Vector2(0f, 0.5f);
-        currentUpgradeDescRect.offsetMax = new Vector2(320f, 25f);
-        currentUpgradeDescRect.offsetMin = new Vector2(20f, -25f);
+        currentUpgradeDescRect.offsetMax = new Vector2(300f, 25f);
+        currentUpgradeDescRect.offsetMin = new Vector2(50f, -25f);
         currentUpgradeDescRect.pivot = new Vector2(0f, 0.5f);
-        currentUpgradeDescRect.anchoredPosition = new Vector2(20f, 0f); // always adjust anchoredPosition at last step
+        currentUpgradeDescRect.anchoredPosition = new Vector2(50f, 0f); // always adjust anchoredPosition at last step
         currentUpgradeDescRect.localScale = Vector2.one;
 
         // var currentUpgradeDescText = currentUpgradeDescObj.AddComponent<TextMeshProUGUI>();
@@ -1046,6 +1104,8 @@ public class ModdingUIPracs : MonoBehaviour
         resultText.enableAutoSizing = true;
         resultText.fontSizeMin = 20;
         resultText.fontSizeMax = 26;
+        resultText.enableWordWrapping = false;
+        resultText.overflowMode = TextOverflowModes.Ellipsis;
         // resultText.enable = false;
         return resultText;
     }
@@ -1107,5 +1167,8 @@ public class PermaUpgradeUIItemInfo
     public TextMeshProUGUI upgradePoint;
     public Button decButton;
     public Button incButton;
+
+    // sepearted from above
+    public TextMeshProUGUI titleText;
         
 }
