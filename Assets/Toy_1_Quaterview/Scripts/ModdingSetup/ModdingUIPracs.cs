@@ -324,7 +324,7 @@ public class ModdingUIPracs : MonoBehaviour
         // add listener from above list
 
         //
-
+        #region child 3 to 6 contents
         // child_3, contents , there should be translucent script
         GameObject currentContents = CreateDefaultGameObject("PermaContents", currentMaskRect);
         var currentContentsRect = AddAndGetRectComp(currentContents);
@@ -336,6 +336,7 @@ public class ModdingUIPracs : MonoBehaviour
         currentContentsRect.sizeDelta = new Vector2(0f, -180f);
         currentContentsRect.anchoredPosition = new Vector2(0f, -10f); // always adjust anchoredPosition at last step
         currentContentsRect.localScale = Vector2.one;
+
         // child_4, contents_1, content
 
 
@@ -482,7 +483,22 @@ public class ModdingUIPracs : MonoBehaviour
         Debug.Log("tempIterationCount is " + tempIterationCount
             + " length of enum is " + (System.Enum.GetValues(typeof(EPermaUpgradeInfoItemForUI)).Length));
 
+        #endregion
 
+        #region child 3 perma bottom
+        GameObject currentBottomContentObj = CreateDefaultGameObject("PermaBottomContents", currentMaskRect);
+        var currentBottomContentRect = AddAndGetRectComp(currentBottomContentObj);
+
+        currentBottomContentRect.anchorMax = new Vector2(1f, 0f);
+        currentBottomContentRect.anchorMin = new Vector2(0f, 0f);
+        currentBottomContentRect.offsetMax = new Vector2(0f, 80f);
+        currentBottomContentRect.offsetMin = new Vector2(0f, 0f);
+        currentBottomContentRect.pivot = new Vector2(0.5f, 0.5f);
+        // currentBottomContentRect.sizeDelta = new Vector2(0f, 100f);
+        currentBottomContentRect.anchoredPosition = new Vector2(0f, 40f); // always adjust anchoredPosition at last step
+        currentBottomContentRect.localScale = Vector2.one;
+        #endregion
+        // 
 
     }
 

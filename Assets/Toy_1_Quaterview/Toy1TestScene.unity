@@ -10992,7 +10992,7 @@ MonoBehaviour:
   parentBackgroundForPermaUpgrade: {fileID: 0}
   upgradeValueModButtons: []
   testDebugDisplayRect: {fileID: 1581988742}
-  testDebugDisplayRect_2: {fileID: 1228279681}
+  testDebugDisplayRect_2: {fileID: 521083924}
   testDebugDisplayTMPRO: {fileID: 919303966}
   loadingImageSprite: {fileID: 21300000, guid: 25bd0e8f4faba4243a5cc4c7de5d4253, type: 3}
   upgradeBackgroundSprite: {fileID: 21300000, guid: 0ae56685d27b700419514e8411e89f25, type: 3}
