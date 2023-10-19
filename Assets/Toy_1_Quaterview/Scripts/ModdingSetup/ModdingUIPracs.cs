@@ -485,7 +485,7 @@ public class ModdingUIPracs : MonoBehaviour
 
         #endregion
 
-        #region child 3 perma bottom
+        #region child 3 perma bottom to child 4
         GameObject currentBottomContentObj = CreateDefaultGameObject("PermaBottomContents", currentMaskRect);
         var currentBottomContentRect = AddAndGetRectComp(currentBottomContentObj);
 
@@ -497,6 +497,68 @@ public class ModdingUIPracs : MonoBehaviour
         // currentBottomContentRect.sizeDelta = new Vector2(0f, 100f);
         currentBottomContentRect.anchoredPosition = new Vector2(0f, 40f); // always adjust anchoredPosition at last step
         currentBottomContentRect.localScale = Vector2.one;
+
+        // child 4
+        GameObject currentBottomLevelObj = CreateDefaultGameObject("TotalLevelInfoTextParent", currentBottomContentRect);
+        var currentBottomLevelRect = AddAndGetRectComp(currentBottomLevelObj);
+
+        currentBottomLevelRect.anchorMax = new Vector2(0f, 1f);
+        currentBottomLevelRect.anchorMin = new Vector2(0f, 0f);
+        currentBottomLevelRect.offsetMax = new Vector2(350f, 0f);
+        currentBottomLevelRect.offsetMin = new Vector2(0f, 0f);
+        currentBottomLevelRect.pivot = new Vector2(0f, 0.5f);
+        currentBottomLevelRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentBottomLevelRect.localScale = Vector2.one;
+
+        // child 5
+        GameObject currentBottomLevelTextObj = CreateDefaultGameObject("TotalLevelInfoText", currentBottomLevelRect);
+        var currentBottomLevelTextRect = AddAndGetRectComp(currentBottomLevelTextObj);
+
+        currentBottomLevelTextRect.anchorMax = new Vector2(1f, 1f);
+        currentBottomLevelTextRect.anchorMin = new Vector2(0f, 0f);
+        currentBottomLevelTextRect.offsetMax = new Vector2(-15f, 0f);
+        currentBottomLevelTextRect.offsetMin = new Vector2(15f, 0f);
+        currentBottomLevelTextRect.pivot = new Vector2(0.5f, 0.5f);
+        currentBottomLevelTextRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentBottomLevelTextRect.localScale = Vector2.one;
+
+        TextMeshProUGUI currentBottomLevelText = currentBottomLevelTextObj.AddComponent<TextMeshProUGUI>();
+        currentBottomLevelText.fontSizeMax = 40f;
+        currentBottomLevelText.fontSizeMin = 25f;
+        // currentBottomLevelText.color = Color.black;
+        currentBottomLevelText.enableAutoSizing = true;
+        currentBottomLevelText.enableWordWrapping = false;
+        currentBottomLevelText.alignment = TextAlignmentOptions.Left;
+
+        // child 4
+        GameObject currentExpInfoObj = CreateDefaultGameObject("TotalEXPInfoParent", currentBottomContentRect);
+        var currentExpInfoRect = AddAndGetRectComp(currentExpInfoObj);
+
+        currentExpInfoRect.anchorMax = new Vector2(0f, 1f);
+        currentExpInfoRect.anchorMin = new Vector2(0f, 0f);
+        currentExpInfoRect.offsetMax = new Vector2(730f, 0f);
+        currentExpInfoRect.offsetMin = new Vector2(380f, 0f);
+        currentExpInfoRect.pivot = new Vector2(0f, 0.5f);
+        currentExpInfoRect.anchoredPosition = new Vector2(380f, 0f); // always adjust anchoredPosition at last step
+        currentExpInfoRect.localScale = Vector2.one;
+
+        // todo child 5 text and child 5 slider -> slider will be complicated
+
+        // child 4
+        GameObject currentConfirmButtonObj = CreateDefaultGameObject("ConfirmButton", currentBottomContentRect);
+        var currentConfirmButtonRect = AddAndGetRectComp(currentConfirmButtonObj);
+
+        currentConfirmButtonRect.anchorMax = new Vector2(1f, 0.5f);
+        currentConfirmButtonRect.anchorMin = new Vector2(1f, 0.5f);
+        currentConfirmButtonRect.offsetMax = new Vector2(-15f, 27.50f);
+        currentConfirmButtonRect.offsetMin = new Vector2(-125f, -27.50f);
+        currentConfirmButtonRect.pivot = new Vector2(1f, 0.5f);
+        currentConfirmButtonRect.anchoredPosition = new Vector2(-15f, 0f); // always adjust anchoredPosition at last step
+        currentConfirmButtonRect.localScale = Vector2.one;
+
+        // todo child 5 text for button
+
+
         #endregion
         // 
 
