@@ -106,6 +106,8 @@ public class ModdingUIPracs : MonoBehaviour
     public RectTransform testDebugDisplayRect;
     public RectTransform testDebugDisplayRect_2;
     public TextMeshProUGUI testDebugDisplayTMPRO;
+    public Slider testDebugDisplaySlider;
+
     public Sprite loadingImageSprite;
 
     public enum EPermaUpgradeTitle
@@ -175,6 +177,9 @@ public class ModdingUIPracs : MonoBehaviour
     public Sprite tabButtonSprite;
     public Sprite upItemBackSprite;
     public Sprite IncDecButtonSprite;
+
+    public Sprite expSliderBackSprite;
+    public Sprite expSliderFillSprite;
 
     public void InitPermaUpgrade()
     {
@@ -498,6 +503,12 @@ public class ModdingUIPracs : MonoBehaviour
         currentBottomContentRect.anchoredPosition = new Vector2(0f, 40f); // always adjust anchoredPosition at last step
         currentBottomContentRect.localScale = Vector2.one;
 
+        Image currentBottomContentBackImage = currentBottomContentObj.AddComponent<Image>();
+        currentBottomContentBackImage.sprite = tabLayoutSprite;
+        currentBottomContentBackImage.type = Image.Type.Sliced;
+
+
+
         // child 4
         GameObject currentBottomLevelObj = CreateDefaultGameObject("TotalLevelInfoTextParent", currentBottomContentRect);
         var currentBottomLevelRect = AddAndGetRectComp(currentBottomLevelObj);
@@ -564,7 +575,64 @@ public class ModdingUIPracs : MonoBehaviour
         currentExpInfoTextComp.alignment = TextAlignmentOptions.Left;
 
         // child 5 slider obj
+        GameObject currentExpSliderObj = CreateDefaultGameObject("ExpSlider", currentExpInfoRect);
+        var currentExpSliderRect = AddAndGetRectComp(currentExpSliderObj);
 
+        currentExpSliderRect.anchorMax = new Vector2(1f, 1f);
+        currentExpSliderRect.anchorMin = new Vector2(0f, 1f);
+        currentExpSliderRect.offsetMax = new Vector2(-5f, 0f);
+        currentExpSliderRect.offsetMin = new Vector2(5f, -40f);
+        currentExpSliderRect.pivot = new Vector2(0.5f, 1f);
+        currentExpSliderRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentExpSliderRect.localScale = Vector2.one;
+
+        Slider currentExpSliderComp = currentExpSliderObj.AddComponent<Slider>();
+        currentExpSliderComp.transition = Selectable.Transition.None;
+        currentExpSliderComp.interactable = false;
+
+        // currentExpSliderComp.fillRect =
+
+        // child 6 slider object's back
+        GameObject currentExpSliderBackObj = CreateDefaultGameObject("ExpSliderBack", currentExpSliderRect);
+        var currentExpSliderBackRect = AddAndGetRectComp(currentExpSliderBackObj);
+
+        currentExpSliderBackRect.anchorMax = new Vector2(1f, 0.75f);
+        currentExpSliderBackRect.anchorMin = new Vector2(0f, 0.25f);
+        currentExpSliderBackRect.offsetMax = new Vector2(0f, 0f);
+        currentExpSliderBackRect.offsetMin = new Vector2(0f, 0f);
+        currentExpSliderBackRect.pivot = new Vector2(0.5f, 0.5f);
+        currentExpSliderBackRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentExpSliderBackRect.localScale = Vector2.one;
+
+        Image currentExpSliderBackImage = currentExpSliderBackObj.AddComponent<Image>();
+        currentExpSliderBackImage.sprite = expSliderBackSprite;
+
+        // child 6 silder Fill Area obj and rect
+        GameObject currentExpSliderFillAreaObj = CreateDefaultGameObject("FillArea", currentExpSliderRect);
+        var currentExpSliderFillAreaRect = AddAndGetRectComp(currentExpSliderFillAreaObj);
+
+        currentExpSliderFillAreaRect.anchorMax = new Vector2(1f, 0.75f);
+        currentExpSliderFillAreaRect.anchorMin = new Vector2(0f, 0.25f);
+        currentExpSliderFillAreaRect.offsetMax = new Vector2(0f, 0f);
+        currentExpSliderFillAreaRect.offsetMin = new Vector2(0f, 0f);
+        currentExpSliderFillAreaRect.pivot = new Vector2(0.5f, 0.5f);
+        currentExpSliderFillAreaRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentExpSliderFillAreaRect.localScale = Vector2.one;
+
+        // child 7 fill object and rect
+        GameObject currentExpSliderFillObj = CreateDefaultGameObject("FillBar", currentExpSliderFillAreaRect);
+        var currentExpSliderFillRect = AddAndGetRectComp(currentExpSliderFillObj);
+
+        currentExpSliderFillRect.anchorMax = new Vector2(1f, 0f); // this will be controlled by slider
+        currentExpSliderFillRect.anchorMin = new Vector2(0f, 0f);
+        currentExpSliderFillRect.offsetMax = new Vector2(0f, 0f);
+        currentExpSliderFillRect.offsetMin = new Vector2(0f, 0f);
+        currentExpSliderFillRect.pivot = new Vector2(0.5f, 0.5f);
+        currentExpSliderFillRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentExpSliderFillRect.localScale = Vector2.one;
+
+        Image currentExpSliderFillImage = currentExpSliderFillObj.AddComponent<Image>();
+        currentExpSliderFillImage.sprite = expSliderFillSprite;
 
         #region confirm button below bottom content
         // child 4
@@ -581,7 +649,7 @@ public class ModdingUIPracs : MonoBehaviour
 
         var currentConfirmButtonImage = currentConfirmButtonObj.AddComponent<Image>();
         currentConfirmButtonImage.type = Image.Type.Sliced;
-        // currentConfirmButtonImage.sprite = 
+        currentConfirmButtonImage.sprite = IncDecButtonSprite;
         var currentConfirmButtonComp = currentConfirmButtonObj.AddComponent<Button>();
 
 

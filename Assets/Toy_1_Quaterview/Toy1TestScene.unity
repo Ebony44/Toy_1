@@ -1559,15 +1559,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8759048, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 10e3162e5029eba42b96f1179e80ef09, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2214,7 +2214,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.834
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10038,8 +10038,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dcb2284c7f4c8984c94d1069d6ed883b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -11406,15 +11406,18 @@ MonoBehaviour:
   fillMaskedGaugeSpriteForTwoDimention: {fileID: 2800000, guid: a0e33a6e5f58d4342907353c1904f14c, type: 3}
   parentBackgroundForPermaUpgrade: {fileID: 0}
   upgradeValueModButtons: []
-  testDebugDisplayRect: {fileID: 2118880901}
-  testDebugDisplayRect_2: {fileID: 1767832268}
+  testDebugDisplayRect: {fileID: 346480569}
+  testDebugDisplayRect_2: {fileID: 160925269}
   testDebugDisplayTMPRO: {fileID: 1886334524}
+  testDebugDisplaySlider: {fileID: 300100082}
   loadingImageSprite: {fileID: 21300000, guid: 25bd0e8f4faba4243a5cc4c7de5d4253, type: 3}
   upgradeBackgroundSprite: {fileID: 21300000, guid: 0ae56685d27b700419514e8411e89f25, type: 3}
   tabLayoutSprite: {fileID: 21300000, guid: b92f1f83626bc4149b13e35208a49319, type: 3}
   tabButtonSprite: {fileID: 21300000, guid: aefea38ea5f389d4b81c2d58649303dc, type: 3}
   upItemBackSprite: {fileID: 21300000, guid: ce23389a71ee9c949a529220fca5c5a5, type: 3}
   IncDecButtonSprite: {fileID: 21300000, guid: 29d777f3d3c873c479d522a5564582e7, type: 3}
+  expSliderBackSprite: {fileID: 21300000, guid: dcb2284c7f4c8984c94d1069d6ed883b, type: 3}
+  expSliderFillSprite: {fileID: 21300000, guid: 10e3162e5029eba42b96f1179e80ef09, type: 3}
 --- !u!4 &1667506110
 Transform:
   m_ObjectHideFlags: 0
@@ -12029,7 +12032,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'EXP : 2400/13600'
+  m_text: 'EXP : 24000000/136000000'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12056,7 +12059,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.8
+  m_fontSize: 27.8
   m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 1
