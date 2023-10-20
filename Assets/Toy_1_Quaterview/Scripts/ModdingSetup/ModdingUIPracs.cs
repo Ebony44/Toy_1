@@ -542,8 +542,31 @@ public class ModdingUIPracs : MonoBehaviour
         currentExpInfoRect.anchoredPosition = new Vector2(380f, 0f); // always adjust anchoredPosition at last step
         currentExpInfoRect.localScale = Vector2.one;
 
-        // todo child 5 text and child 5 slider -> slider will be complicated
 
+        // todo child 5 text and child 5 slider -> slider will be complicated
+        // child 5, below the exp info obj and rect
+        GameObject currentExpInfoTextObj = CreateDefaultGameObject("TotalEXPInfoText", currentExpInfoRect);
+        var currentExpInfoTextRect = AddAndGetRectComp(currentExpInfoTextObj);
+
+        currentExpInfoTextRect.anchorMax = new Vector2(0.5f, 0f);
+        currentExpInfoTextRect.anchorMin = new Vector2(0.5f, 0f);
+        currentExpInfoTextRect.offsetMax = new Vector2(175f, 40f);
+        currentExpInfoTextRect.offsetMin = new Vector2(-175f, 0f);
+        currentExpInfoTextRect.pivot = new Vector2(0.5f, 0f);
+        currentExpInfoTextRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentExpInfoTextRect.localScale = Vector2.one;
+
+        TextMeshProUGUI currentExpInfoTextComp = currentExpInfoTextObj.AddComponent<TextMeshProUGUI>();
+        currentExpInfoTextComp.enableAutoSizing = true;
+        currentExpInfoTextComp.fontSizeMax = 40f;
+        currentExpInfoTextComp.fontSizeMin = 25f;
+        currentExpInfoTextComp.enableWordWrapping = false;
+        currentExpInfoTextComp.alignment = TextAlignmentOptions.Left;
+
+        // child 5 slider obj
+
+
+        #region confirm button below bottom content
         // child 4
         GameObject currentConfirmButtonObj = CreateDefaultGameObject("ConfirmButton", currentBottomContentRect);
         var currentConfirmButtonRect = AddAndGetRectComp(currentConfirmButtonObj);
@@ -556,8 +579,31 @@ public class ModdingUIPracs : MonoBehaviour
         currentConfirmButtonRect.anchoredPosition = new Vector2(-15f, 0f); // always adjust anchoredPosition at last step
         currentConfirmButtonRect.localScale = Vector2.one;
 
-        // todo child 5 text for button
+        var currentConfirmButtonImage = currentConfirmButtonObj.AddComponent<Image>();
+        currentConfirmButtonImage.type = Image.Type.Sliced;
+        // currentConfirmButtonImage.sprite = 
+        var currentConfirmButtonComp = currentConfirmButtonObj.AddComponent<Button>();
 
+
+
+        // todo child 5 text for button
+        var currentConfirmButtonTextObj = CreateDefaultGameObject("ConfirmButtonText", currentConfirmButtonRect);
+        var currentConfirmButtonTextRect = AddAndGetRectComp(currentConfirmButtonTextObj);
+
+        currentConfirmButtonTextRect.anchorMax = new Vector2(1f, 1f);
+        currentConfirmButtonTextRect.anchorMin = new Vector2(0f, 0f);
+        currentConfirmButtonTextRect.offsetMax = new Vector2(0f,0f);
+        currentConfirmButtonTextRect.offsetMin = new Vector2(0f,0f);
+        currentConfirmButtonTextRect.pivot = new Vector2(0.5f, 0.5f);
+        currentConfirmButtonTextRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentConfirmButtonTextRect.localScale = Vector2.one;
+
+        var currentConfirmButtonTextComp = currentConfirmButtonTextObj.AddComponent<TextMeshProUGUI>();
+        currentConfirmButtonTextComp.color = Color.black;
+        currentConfirmButtonTextComp.alignment = TextAlignmentOptions.Center;
+        currentConfirmButtonTextComp.fontSize = 24f;
+
+        #endregion
 
         #endregion
         // 
