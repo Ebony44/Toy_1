@@ -181,6 +181,8 @@ public class ModdingUIPracs : MonoBehaviour
     public Sprite expSliderBackSprite;
     public Sprite expSliderFillSprite;
 
+    public RectTransform cachedbackMaskRect;
+
     public void InitPermaUpgrade()
     {
         (GameObject, Canvas, CanvasScaler, GraphicRaycaster) permaUpgradeTuple 
@@ -428,33 +430,37 @@ public class ModdingUIPracs : MonoBehaviour
                     var currentParentRect = AddAndGetRectComp(currentObj);
                     if (currentObj.name.Contains("Title"))
                     {
-                        
+
                         // init title object and rect
-                        var tempTitleTextObj = CreateDefaultGameObject("TitleText", currentParentRect);
-                        var tempTitleTextRect = AddAndGetRectComp(tempTitleTextObj);
-                        tempTitleTextRect.anchorMax = new Vector2(1f, 1f);
-                        tempTitleTextRect.anchorMin = new Vector2(0f, 1f);
-                        tempTitleTextRect.offsetMax = new Vector2(0f, 0f);
-                        tempTitleTextRect.offsetMin = new Vector2(0f, -50f);
-                        tempTitleTextRect.pivot = new Vector2(0.5f, 0.5f);
+                        #region obsolete
+                        //var tempTitleTextObj = CreateDefaultGameObject("TitleText", currentParentRect);
+                        //var tempTitleTextRect = AddAndGetRectComp(tempTitleTextObj);
+                        //tempTitleTextRect.anchorMax = new Vector2(1f, 1f);
+                        //tempTitleTextRect.anchorMin = new Vector2(0f, 1f);
+                        //tempTitleTextRect.offsetMax = new Vector2(0f, 0f);
+                        //tempTitleTextRect.offsetMin = new Vector2(0f, -50f);
+                        //tempTitleTextRect.pivot = new Vector2(0.5f, 0.5f);
 
-                        tempTitleTextRect.anchoredPosition = new Vector2(0f, -25f);
-                        tempTitleTextRect.localScale = Vector2.one;
+                        //tempTitleTextRect.anchoredPosition = new Vector2(0f, -25f);
+                        //tempTitleTextRect.localScale = Vector2.one;
 
-                        var tempTitleTextComp = tempTitleTextObj.AddComponent<TextMeshProUGUI>();
-                        tempTitleTextComp.text = permaUpgradeTitleLevelTexts[(EPermaUpgradeTitle)tempIndexForTitleText];
-                        Debug.Log("tempIndexForTitleText is " + tempIndexForTitleText);
-                        tempTitleTextComp.fontSize = 30f;
-                        tempTitleTextComp.color = Color.black;
-                        tempTitleTextComp.alignment = TextAlignmentOptions.Center;
-                        tempIndexForTitleText++;
-                        if(tempIndexForTitleText % Enum.GetValues(typeof( EPermaUpgradeTitle)).Length == 0 )
-                        {
-                            tempIndexForTitleText = 0;
-                        }
-                        // if(tempIndexForTitleText)
-                        PermaUpgradeUIItemInfo tempTitleUIInfo = new PermaUpgradeUIItemInfo();
-                        tempTitleUIInfo.titleText = tempTitleTextComp;
+                        //var tempTitleTextComp = tempTitleTextObj.AddComponent<TextMeshProUGUI>();
+                        //tempTitleTextComp.text = permaUpgradeTitleLevelTexts[(EPermaUpgradeTitle)tempIndexForTitleText];
+                        //Debug.Log("tempIndexForTitleText is " + tempIndexForTitleText);
+                        //tempTitleTextComp.fontSize = 30f;
+                        //tempTitleTextComp.color = Color.black;
+                        //tempTitleTextComp.alignment = TextAlignmentOptions.Center;
+                        //tempIndexForTitleText++;
+                        //if(tempIndexForTitleText % Enum.GetValues(typeof( EPermaUpgradeTitle)).Length == 0 )
+                        //{
+                        //    tempIndexForTitleText = 0;
+                        //}
+                        #endregion
+
+                        PermaUpgradeUIItemInfo tempTitleUIInfo = CreateUpTitleItemsWithParam(currentParentRect);
+
+                        // PermaUpgradeUIItemInfo tempTitleUIInfo = new PermaUpgradeUIItemInfo();
+                        // tempTitleUIInfo.titleText = tempTitleTextComp;
                         currentPermaUpgradeUIItemInfoDic.Add(tempEnum, tempTitleUIInfo);
 
                     }
@@ -1029,6 +1035,27 @@ public class ModdingUIPracs : MonoBehaviour
             var tabButton = tabButtonObj.AddComponent<Button>();
             tabButton.targetGraphic = tabImage;
             buttonList.Add(tabButtonObj);
+
+            // child 6 
+            GameObject tabTextObj = CreateDefaultGameObject("TabButtonText", tabButtonRect);
+            var tabTextRect = AddAndGetRectComp(tabTextObj);
+
+            tabTextRect.anchorMax = new Vector2(0.5f, 0.5f);
+            tabTextRect.anchorMin = new Vector2(0.5f, 0.5f);
+            tabTextRect.offsetMax = new Vector2(100f, 25f);
+            tabTextRect.offsetMin = new Vector2(-100f, -25f);
+            tabTextRect.pivot = new Vector2(0.5f, 0.5f);
+            tabTextRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+            tabTextRect.localScale = Vector2.one;
+
+            TextMeshProUGUI tabTextComp = tabTextObj.AddComponent<TextMeshProUGUI>();
+            tabTextComp.alignment = TextAlignmentOptions.Center;
+            tabTextComp.fontSize = 36f;
+            tabTextComp.fontSizeMax = 36f;
+            tabTextComp.fontSizeMin = 25f;
+            tabTextComp.enableWordWrapping = false;
+            tabTextComp.color = Color.black;
+
         }
         
         return buttonList;
@@ -1082,8 +1109,8 @@ public class ModdingUIPracs : MonoBehaviour
             var currentUpgradeRect = AddAndGetRectComp(currentUpgradeObj);
             currentUpgradeRect.anchorMax = new Vector2(0f, 0f);
             currentUpgradeRect.anchorMin = new Vector2(0f, 0f);
-            currentUpgradeRect.offsetMax = new Vector2(542f, 100f);
-            currentUpgradeRect.offsetMin = new Vector2(-542f, -100f);
+            currentUpgradeRect.offsetMax = new Vector2(496f, 100f);
+            currentUpgradeRect.offsetMin = new Vector2(-496f, -100f);
             currentUpgradeRect.pivot = new Vector2(0.5f, 0.5f);
             // currentUpgradeRect.sizeDelta = new Vector2(0f, 0f);
             // currentUpgradeRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
@@ -1128,8 +1155,8 @@ public class ModdingUIPracs : MonoBehaviour
             var currentUpItemRect = AddAndGetRectComp(currentUpItemObj);
             currentUpItemRect.anchorMax = new Vector2(0f, 0f);
             currentUpItemRect.anchorMin = new Vector2(0f, 0f);
-            currentUpItemRect.offsetMax = new Vector2(542f, 25f);
-            currentUpItemRect.offsetMin = new Vector2(-542f, -25f);
+            currentUpItemRect.offsetMax = new Vector2(496f, 25f);
+            currentUpItemRect.offsetMin = new Vector2(-496f, -25f);
             currentUpItemRect.pivot = new Vector2(0.5f, 0.5f);
             // currentUpgradeRect.sizeDelta = new Vector2(0f, 0f);
             // currentUpgradeRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
@@ -1146,6 +1173,71 @@ public class ModdingUIPracs : MonoBehaviour
         return contentUpItemList;
     }
 
+    public PermaUpgradeUIItemInfo CreateUpTitleItemsWithParam(Transform parent = null)
+    {
+        PermaUpgradeUIItemInfo result = new PermaUpgradeUIItemInfo();
+        // init title object and rect
+        var tempTitleTextObj = CreateDefaultGameObject("TitleText", parent);
+        var tempTitleTextRect = AddAndGetRectComp(tempTitleTextObj);
+        tempTitleTextRect.anchorMax = new Vector2(0f, 1f);
+        tempTitleTextRect.anchorMin = new Vector2(0f, 1f);
+        tempTitleTextRect.offsetMax = new Vector2(500f, 0f);
+        tempTitleTextRect.offsetMin = new Vector2(0f, -50f);
+        tempTitleTextRect.pivot = new Vector2(0f, 1f);
+
+        tempTitleTextRect.anchoredPosition = new Vector2(0f, 0f);
+        tempTitleTextRect.localScale = Vector2.one;
+
+        var tempTitleTextComp = tempTitleTextObj.AddComponent<TextMeshProUGUI>();
+        
+        tempTitleTextComp.fontSize = 30f;
+        tempTitleTextComp.color = Color.black;
+        tempTitleTextComp.alignment = TextAlignmentOptions.Center;
+
+        // unused point text
+        var tempUnusedDescTextObj = CreateDefaultGameObject("UnusedPointDesc", parent);
+        var tempUnusedDescTextRect = AddAndGetRectComp(tempUnusedDescTextObj);
+        
+        tempUnusedDescTextRect.anchorMax = new Vector2(0f, 1f);
+        tempUnusedDescTextRect.anchorMin = new Vector2(0f, 1f);
+        tempUnusedDescTextRect.offsetMax = new Vector2(850f, 0f);
+        tempUnusedDescTextRect.offsetMin = new Vector2(600f, -50f);
+        tempUnusedDescTextRect.pivot = new Vector2(0f, 1f);
+        tempUnusedDescTextRect.anchoredPosition = new Vector2(600f, 0f);
+        tempUnusedDescTextRect.localScale = Vector2.one;
+
+        var tempUnusedDescTextComp = tempUnusedDescTextObj.AddComponent<TextMeshProUGUI>();
+
+        tempUnusedDescTextComp.fontSize = 30f;
+        tempUnusedDescTextComp.color = Color.black;
+        tempUnusedDescTextComp.alignment = TextAlignmentOptions.Center;
+
+        // unused point value text
+        var tempUnusedValueTextObj = CreateDefaultGameObject("UnusedPointValueText", parent);
+        var tempUnusedValueTextRect = AddAndGetRectComp(tempUnusedValueTextObj);
+
+        tempUnusedValueTextRect.anchorMax = new Vector2(0f, 1f);
+        tempUnusedValueTextRect.anchorMin = new Vector2(0f, 1f);
+        tempUnusedValueTextRect.offsetMax = new Vector2(950f, 0f);
+        tempUnusedValueTextRect.offsetMin = new Vector2(870f, -50f);
+        tempUnusedValueTextRect.pivot = new Vector2(0f, 1f);
+        tempUnusedValueTextRect.anchoredPosition = new Vector2(870f, 0f);
+        tempUnusedValueTextRect.localScale = Vector2.one;
+
+        var tempUnusedValueTextComp = tempUnusedValueTextObj.AddComponent<TextMeshProUGUI>();
+        tempTitleTextComp.fontSize = 30f;
+        tempTitleTextComp.color = Color.black;
+        tempTitleTextComp.alignment = TextAlignmentOptions.Center;
+
+        result.titleText = tempTitleTextComp;
+        result.titleUnusedPointDesc = tempUnusedDescTextComp;
+        result.titleUnusedPointValueText = tempUnusedValueTextComp;
+
+
+        return result;
+    }
+
+
     public PermaUpgradeUIItemInfo CreateUpItemsWithParam(Transform parent = null)
     {
         PermaUpgradeUIItemInfo result = new PermaUpgradeUIItemInfo();
@@ -1154,10 +1246,10 @@ public class ModdingUIPracs : MonoBehaviour
         var currentUpgradeDescRect = AddAndGetRectComp(currentUpgradeDescObj);
         currentUpgradeDescRect.anchorMax = new Vector2(0f, 0.5f);
         currentUpgradeDescRect.anchorMin = new Vector2(0f, 0.5f);
-        currentUpgradeDescRect.offsetMax = new Vector2(300f, 25f);
-        currentUpgradeDescRect.offsetMin = new Vector2(50f, -25f);
+        currentUpgradeDescRect.offsetMax = new Vector2(250f, 25f);
+        currentUpgradeDescRect.offsetMin = new Vector2(0f, -25f);
         currentUpgradeDescRect.pivot = new Vector2(0f, 0.5f);
-        currentUpgradeDescRect.anchoredPosition = new Vector2(50f, 0f); // always adjust anchoredPosition at last step
+        currentUpgradeDescRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
         currentUpgradeDescRect.localScale = Vector2.one;
 
         // var currentUpgradeDescText = currentUpgradeDescObj.AddComponent<TextMeshProUGUI>();
@@ -1169,9 +1261,9 @@ public class ModdingUIPracs : MonoBehaviour
         currentEffectDescRect.anchorMax = new Vector2(0f, 0.5f);
         currentEffectDescRect.anchorMin = new Vector2(0f, 0.5f);
         currentEffectDescRect.offsetMax = new Vector2(630f, 25f);
-        currentEffectDescRect.offsetMin = new Vector2(380f, -25f);
+        currentEffectDescRect.offsetMin = new Vector2(290f, -25f);
         currentEffectDescRect.pivot = new Vector2(0f, 0.5f);
-        currentEffectDescRect.anchoredPosition = new Vector2(380f, 0f); // always adjust anchoredPosition at last step
+        currentEffectDescRect.anchoredPosition = new Vector2(290f, 0f); // always adjust anchoredPosition at last step
         currentEffectDescRect.localScale = Vector2.one;
 
         var currentEffectDescText = AddTextMeshProUGUIToUpItems(ref currentEffectDescObj);
@@ -1181,10 +1273,10 @@ public class ModdingUIPracs : MonoBehaviour
         var currentPointDescRect = AddAndGetRectComp(currentPointDescObj);
         currentPointDescRect.anchorMax = new Vector2(0f, 0.5f);
         currentPointDescRect.anchorMin = new Vector2(0f, 0.5f);
-        currentPointDescRect.offsetMax = new Vector2(870f, 25f);
-        currentPointDescRect.offsetMin = new Vector2(720f, -25f);
+        currentPointDescRect.offsetMax = new Vector2(820f, 25f);
+        currentPointDescRect.offsetMin = new Vector2(670f, -25f);
         currentPointDescRect.pivot = new Vector2(0f, 0.5f);
-        currentPointDescRect.anchoredPosition = new Vector2(720f, 0f); // always adjust anchoredPosition at last step
+        currentPointDescRect.anchoredPosition = new Vector2(670f, 0f); // always adjust anchoredPosition at last step
         currentPointDescRect.localScale = Vector2.one;
 
         var currentPointDescText = AddTextMeshProUGUIToUpItems(ref currentPointDescObj);
@@ -1193,10 +1285,10 @@ public class ModdingUIPracs : MonoBehaviour
         var currentDecButtonRect = AddAndGetRectComp(currentDecButtonObj);
         currentDecButtonRect.anchorMax = new Vector2(0f, 0.5f);
         currentDecButtonRect.anchorMin = new Vector2(0f, 0.5f);
-        currentDecButtonRect.offsetMax = new Vector2(960f, 25f);
-        currentDecButtonRect.offsetMin = new Vector2(910f, -25f);
-        currentDecButtonRect.pivot = new Vector2(0f, 0.5f);
-        currentDecButtonRect.anchoredPosition = new Vector2(910f, 0f); // always adjust anchoredPosition at last step
+        currentDecButtonRect.offsetMax = new Vector2(905f, 25f);
+        currentDecButtonRect.offsetMin = new Vector2(855f, -25f);
+        currentDecButtonRect.pivot = new Vector2(0.5f, 0.5f);
+        currentDecButtonRect.anchoredPosition = new Vector2(855f, 0f); // always adjust anchoredPosition at last step
         currentDecButtonRect.localScale = Vector2.one;
 
         Image currentDecButtonImage = currentDecButtonObj.AddComponent<Image>();
@@ -1228,10 +1320,10 @@ public class ModdingUIPracs : MonoBehaviour
         var currentIncButtonRect = AddAndGetRectComp(currentIncButtonObj);
         currentIncButtonRect.anchorMax = new Vector2(0f, 0.5f);
         currentIncButtonRect.anchorMin = new Vector2(0f, 0.5f);
-        currentIncButtonRect.offsetMax = new Vector2(1020f, 25f);
-        currentIncButtonRect.offsetMin = new Vector2(970f, -25f);
+        currentIncButtonRect.offsetMax = new Vector2(965f, 25f);
+        currentIncButtonRect.offsetMin = new Vector2(915f, -25f);
         currentIncButtonRect.pivot = new Vector2(0f, 0.5f);
-        currentIncButtonRect.anchoredPosition = new Vector2(970f, 0f); // always adjust anchoredPosition at last step
+        currentIncButtonRect.anchoredPosition = new Vector2(915f, 0f); // always adjust anchoredPosition at last step
         currentIncButtonRect.localScale = Vector2.one;
 
         Image currentIncButtonImage = currentIncButtonObj.AddComponent<Image>();
@@ -1362,5 +1454,7 @@ public class PermaUpgradeUIItemInfo
 
     // sepearted from above
     public TextMeshProUGUI titleText;
-        
+    public TextMeshProUGUI titleUnusedPointDesc;
+    public TextMeshProUGUI titleUnusedPointValueText;
+
 }
