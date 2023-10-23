@@ -568,9 +568,9 @@ public class ModdingUIPracs : MonoBehaviour
         currentExpInfoTextRect.anchorMax = new Vector2(0.5f, 0f);
         currentExpInfoTextRect.anchorMin = new Vector2(0.5f, 0f);
         currentExpInfoTextRect.offsetMax = new Vector2(175f, 40f);
-        currentExpInfoTextRect.offsetMin = new Vector2(-175f, 0f);
+        currentExpInfoTextRect.offsetMin = new Vector2(-175f, 10f);
         currentExpInfoTextRect.pivot = new Vector2(0.5f, 0f);
-        currentExpInfoTextRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentExpInfoTextRect.anchoredPosition = new Vector2(0f, 10f); // always adjust anchoredPosition at last step
         currentExpInfoTextRect.localScale = Vector2.one;
 
         TextMeshProUGUI currentExpInfoTextComp = currentExpInfoTextObj.AddComponent<TextMeshProUGUI>();
@@ -586,10 +586,10 @@ public class ModdingUIPracs : MonoBehaviour
 
         currentExpSliderRect.anchorMax = new Vector2(1f, 1f);
         currentExpSliderRect.anchorMin = new Vector2(0f, 1f);
-        currentExpSliderRect.offsetMax = new Vector2(-5f, 0f);
-        currentExpSliderRect.offsetMin = new Vector2(5f, -40f);
+        currentExpSliderRect.offsetMax = new Vector2(-5f, -5f);
+        currentExpSliderRect.offsetMin = new Vector2(5f, -35f);
         currentExpSliderRect.pivot = new Vector2(0.5f, 1f);
-        currentExpSliderRect.anchoredPosition = new Vector2(0f, 0f); // always adjust anchoredPosition at last step
+        currentExpSliderRect.anchoredPosition = new Vector2(0f, -5f); // always adjust anchoredPosition at last step
         currentExpSliderRect.localScale = Vector2.one;
 
         Slider currentExpSliderComp = currentExpSliderObj.AddComponent<Slider>();
