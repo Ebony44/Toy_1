@@ -152,12 +152,12 @@ public class ModdingUIPracs : MonoBehaviour
 
     private void Start()
     {
-        // InitSliderUI();
+        InitSliderUI();
         // InitBlockingCanvas();
 
         var currentRect = testDebugDisplayRect_2;
 
-        InitPermaUpgrade();
+        // InitPermaUpgrade();
 
     }
 
@@ -266,6 +266,19 @@ public class ModdingUIPracs : MonoBehaviour
         currentTitleTextUGUI.alignment = TextAlignmentOptions.Center;
 
         // var currentTitle
+
+
+        // child_3 translucent
+
+        GameObject currentTranslucentBackObj = CreateDefaultGameObject("Translucent", currentMaskRect);
+        var currentTranslucentBackRect = AddAndGetRectComp(currentTranslucentBackObj);
+        currentTranslucentBackRect.anchorMax = new Vector2(1f, 1f);
+        currentTranslucentBackRect.anchorMin = new Vector2(0f, 0f);
+        currentTranslucentBackRect.offsetMax = new Vector2(0f, -100f);
+        currentTranslucentBackRect.offsetMin = new Vector2(0f, 0f);
+        currentTranslucentBackRect.pivot = new Vector2(0.5f, 0.5f);
+        currentTranslucentBackRect.anchoredPosition = new Vector2(0f, -50f); // always adjust anchoredPosition at last step
+        currentTranslucentBackRect.localScale = Vector2.one;
 
 
         // child_3, tabs , it's empty gameobject
@@ -595,6 +608,7 @@ public class ModdingUIPracs : MonoBehaviour
         Slider currentExpSliderComp = currentExpSliderObj.AddComponent<Slider>();
         currentExpSliderComp.transition = Selectable.Transition.None;
         currentExpSliderComp.interactable = false;
+        
 
         // currentExpSliderComp.fillRect =
 
@@ -639,6 +653,8 @@ public class ModdingUIPracs : MonoBehaviour
 
         Image currentExpSliderFillImage = currentExpSliderFillObj.AddComponent<Image>();
         currentExpSliderFillImage.sprite = expSliderFillSprite;
+
+        currentExpSliderComp.fillRect = currentExpSliderFillRect;
 
         #region confirm button below bottom content
         // child 4
@@ -732,9 +748,10 @@ public class ModdingUIPracs : MonoBehaviour
     #region slider UI creation
     public void InitSliderUI()
     {
-        ProvideParamAndInit();
+        // ProvideParamAndInit();
+        //return;
+        InitSliderUIFromOutside(parentCanvas, backGroundSprite, fillMaskedGaugeSpriteForTwoDimention);
         return;
-        
 
         var currentSample = sampleBackgroundImage;
 
@@ -747,7 +764,7 @@ public class ModdingUIPracs : MonoBehaviour
         var parentRectTrans = currentObject.AddComponent<RectTransform>();
         if(parentRectTrans != null)
         {
-            parentRectTrans.anchoredPosition = new Vector2(-12f, 0f);
+            parentRectTrans.anchoredPosition = new Vector2(-35f, 0f);
         }
         // parentRectTrans.anchoredPosition = parentRect;
 
@@ -767,8 +784,8 @@ public class ModdingUIPracs : MonoBehaviour
 
         var currentSliderRect = sliderObject.GetComponent<RectTransform>();
         // currentSliderRect.anchoredPosition = sliderRectPos;
-        currentSliderRect.anchoredPosition = Vector2.zero;
-        currentSliderRect.sizeDelta = new Vector2(20f, 160f);
+        currentSliderRect.anchoredPosition = new Vector2(0f, 0.5f);
+        currentSliderRect.sizeDelta = new Vector2(50f, 320f);
         // currentSliderRect. = new Rect(0f, 0f, 20f, 180f);
         sliderObject.name = "Slider";
 
@@ -864,67 +881,49 @@ public class ModdingUIPracs : MonoBehaviour
     {
         // write down UI for fill bar gauge
 
-
-        // var currentSample = sampleBackgroundImage;
-
-        // Vector2 parentRect = new Vector2(255f, 0.5f);
-        // Vector2 sliderRectPos = new Vector2(255f, 0.5f);
-
-        var currentObject = new GameObject();
-        currentObject.name = "createdSliderParent";
-        currentObject.transform.parent = parentCanvas.transform;
-        var parentRectTrans = currentObject.AddComponent<RectTransform>();
-        if (parentRectTrans != null)
-        {
-            parentRectTrans.anchoredPosition = new Vector2(-12f, 0f);
-        }
-        // parentRectTrans.anchoredPosition = parentRect;
-
-        parentRectTrans.anchorMin = new Vector2(1f, 0.5f);
-        parentRectTrans.anchorMax = new Vector2(1f, 0.5f);
-
-
-
         var sliderObject = new GameObject();
-        sliderObject.transform.parent = currentObject.transform;
+        // sliderObject.transform.parent = currentObject.transform;
+        sliderObject.transform.parent = parentCanvas.transform;
+
         var sliderComponent = sliderObject.AddComponent<Slider>();
         sliderComponent.transition = Selectable.Transition.None;
         sliderComponent.direction = Slider.Direction.BottomToTop;
         sliderComponent.minValue = 0f;
         sliderComponent.maxValue = 1f;
+        sliderComponent.interactable = false;
 
 
         var currentSliderRect = sliderObject.GetComponent<RectTransform>();
-        // currentSliderRect.anchoredPosition = sliderRectPos;
-        currentSliderRect.anchoredPosition = Vector2.zero;
-        currentSliderRect.sizeDelta = new Vector2(20f, 160f);
-        // currentSliderRect. = new Rect(0f, 0f, 20f, 180f);
+        currentSliderRect.anchorMax = new Vector2(1f,0.5f);
+        currentSliderRect.anchorMin = new Vector2(1f,0.5f);
+        currentSliderRect.offsetMax = new Vector2(-10f,160.5f);
+        currentSliderRect.offsetMin = new Vector2(-60f, -159.5f);
+
+        currentSliderRect.anchoredPosition = new Vector2(-35f, 0.5f);
+        currentSliderRect.localScale = Vector3.one;
         sliderObject.name = "Slider";
 
         // background
         var backgroundObject = new GameObject();
         backgroundObject.transform.parent = sliderObject.transform;
-        // backgroundObject.name = "Background";
         backgroundObject.name = "Fill Area";
 
-        // var backgroundRect = backgroundObject.GetComponent<RectTransform>();
         var backgroundRect = backgroundObject.AddComponent<RectTransform>();
-        backgroundRect.anchorMin = new Vector2(0.25f, 0f);
         backgroundRect.anchorMax = new Vector2(0.75f, 1f);
+        backgroundRect.anchorMin = new Vector2(0.25f, 0f);
         backgroundRect.pivot = new Vector2(0.5f, 0.5f);
-        // WaitAndCall(0.1f, () => backgroundRect.sizeDelta = new Vector2(10f, 160f));
-        backgroundRect.anchoredPosition = Vector2.zero;
-        // backgroundRect.sizeDelta = new Vector2(10f, 160f);
-        backgroundRect.offsetMin = Vector2.zero;
         backgroundRect.offsetMax = Vector2.zero;
+        backgroundRect.offsetMin = Vector2.zero;
+
+        backgroundRect.anchoredPosition = Vector2.zero;
+        backgroundRect.localScale = Vector2.one;
 
 
         var backgroundImage = backgroundObject.AddComponent<Image>();
         backgroundImage.sprite = backGroundSprite;
         backgroundImage.type = Image.Type.Sliced;
 
-        var backgroundMask = backgroundObject.AddComponent<Mask>();
-
+        // var backgroundMask = backgroundObject.AddComponent<Mask>();
 
         // need to change background -> fill area
 
@@ -932,17 +931,20 @@ public class ModdingUIPracs : MonoBehaviour
         fillObject.transform.parent = backgroundObject.transform;
         fillObject.name = "Fill";
         var fillImage = fillObject.AddComponent<Image>();
-        fillImage.sprite = null;
-        // fillImage.type = Image.Type.Sliced;
+        fillImage.sprite = backGroundSprite;
+        fillImage.type = Image.Type.Sliced;
 
         var fillObjectMaskComp = fillObject.AddComponent<Mask>();
+        fillObjectMaskComp.showMaskGraphic = false;
         // var fillRect = fillObject.AddComponent<RectTransform>();
         var fillRect = AddAndGetRectComp(fillObject);
         sliderComponent.fillRect = fillRect;
-        fillRect.anchoredPosition = Vector2.zero;
-        fillRect.offsetMin = Vector2.zero;
-        fillRect.offsetMax = Vector2.zero;
+        fillRect.offsetMax = new Vector2(-1f, -1f);
+        fillRect.offsetMin = new Vector2(1f, 1f);
         fillRect.pivot = new Vector2(0.5f, 0f);
+
+        fillRect.anchoredPosition = new Vector2(0f, 1f);
+        fillRect.localScale = Vector3.one;
 
 
         var fillMaskedGaugeObject = new GameObject();
@@ -953,11 +955,18 @@ public class ModdingUIPracs : MonoBehaviour
         fillMaskedRawImageComp.texture = fillMaskedGaugeSprite;
 
         var fillMaskedrect = AddAndGetRectComp(fillMaskedGaugeObject);
-        fillMaskedrect.anchoredPosition = Vector2.zero;
-        fillMaskedrect.sizeDelta = new Vector2(10f, 200f);
+        
         fillMaskedrect.anchorMin = new Vector2(0.5f, 0f);
         fillMaskedrect.anchorMax = new Vector2(0.5f, 0f);
+        fillMaskedrect.offsetMax = new Vector2(25f, 320f);
+        fillMaskedrect.offsetMin = new Vector2(-25f, 0f);
+
+        // fillMaskedrect.sizeDelta = new Vector2(50f, 320f);
+
         fillMaskedrect.pivot = new Vector2(0.5f, 0f);
+
+        fillMaskedrect.anchoredPosition = Vector2.zero;
+        fillMaskedrect.localScale = Vector3.one;
 
 
         // test
