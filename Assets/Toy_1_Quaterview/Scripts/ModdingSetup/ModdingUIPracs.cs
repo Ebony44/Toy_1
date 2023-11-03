@@ -968,6 +968,76 @@ public class ModdingUIPracs : MonoBehaviour
         fillMaskedrect.anchoredPosition = Vector2.zero;
         fillMaskedrect.localScale = Vector3.one;
 
+        #region text for indicate current/max and button for decreasing slider value
+        // indicater text
+        var indicateTextObj = new GameObject();
+        indicateTextObj.transform.parent = sliderObject.transform;
+        indicateTextObj.name = "CurrentMaxCorruptPointText";
+
+        var indicateTextRect = AddAndGetRectComp(indicateTextObj);
+        indicateTextRect.anchorMax = new Vector2(0.5f, 1f);
+        indicateTextRect.anchorMin = new Vector2(0.5f, 1f);
+        indicateTextRect.pivot = new Vector2(0.5f, 0.5f);
+        indicateTextRect.offsetMax = new Vector2(15f, 37.5f);
+        indicateTextRect.offsetMin = new Vector2(-85f, -12.5f);
+
+        indicateTextRect.anchoredPosition = new Vector2(-35f, 12.5f);
+        indicateTextRect.localScale = Vector2.one;
+
+
+        var indicateTextComp = indicateTextObj.AddComponent<TextMeshProUGUI>();
+        indicateTextComp.alignment = TextAlignmentOptions.Right;
+        indicateTextComp.enableAutoSizing = true;
+        indicateTextComp.enableWordWrapping = false;
+        indicateTextComp.fontSizeMax = 22f;
+        indicateTextComp.fontSizeMin = 16f;
+        indicateTextComp.color = new Color(0.8f, 0.2f, 0.6f);
+
+        //
+        var purgeButtonObj = new GameObject();
+        purgeButtonObj.transform.parent = sliderObject.transform;
+        purgeButtonObj.name = "PurgeButton";
+
+        var purgeButtonRect = AddAndGetRectComp(purgeButtonObj);
+        purgeButtonRect.anchorMax = new Vector2(0.5f, 0f);
+        purgeButtonRect.anchorMin = new Vector2(0.5f, 0f);
+        purgeButtonRect.pivot = new Vector2(0.5f, 0.5f);
+        purgeButtonRect.offsetMax = new Vector2(30f, 0f);
+        purgeButtonRect.offsetMin = new Vector2(-30f, -30f);
+
+        purgeButtonRect.anchoredPosition = new Vector2(0f, -15f);
+        purgeButtonRect.localScale = Vector2.one;
+
+        var purgeButtonComp = purgeButtonObj.AddComponent<Button>();
+        var purgeButtonImage = purgeButtonObj.AddComponent<Image>();
+
+
+        var purgeButtonTextObj = new GameObject();
+        purgeButtonTextObj.transform.parent = sliderObject.transform;
+        purgeButtonTextObj.name = "PurgeButtonText";
+
+        var purgeButtonTextRect = AddAndGetRectComp(purgeButtonTextObj);
+        purgeButtonTextRect.anchorMax = new Vector2(1f, 1f);
+        purgeButtonTextRect.anchorMin = new Vector2(0f, 0f);
+        purgeButtonTextRect.pivot = new Vector2(0.5f, 0.5f);
+        purgeButtonTextRect.offsetMax = new Vector2(0f, 0f);
+        purgeButtonTextRect.offsetMin = new Vector2(0f, 0f);
+        
+        purgeButtonTextRect.anchoredPosition = new Vector2(0f, 0f);
+        purgeButtonTextRect.localScale = Vector2.one;
+
+
+        var purgeButtonTextComp = purgeButtonTextObj.AddComponent<TextMeshProUGUI>();
+        purgeButtonTextComp.alignment = TextAlignmentOptions.Center;
+        purgeButtonTextComp.fontSizeMax = 20f;
+        purgeButtonTextComp.fontSizeMin = 16f;
+
+        // var purgeButtonText = purgeButtonObj.AddComponent<TextMeshProUGUI>();
+
+
+        #endregion
+
+
 
         // test
         sliderComponent.value = 0.4f;
