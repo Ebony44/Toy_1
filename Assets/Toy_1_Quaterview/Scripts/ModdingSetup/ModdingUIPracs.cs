@@ -157,7 +157,7 @@ public class ModdingUIPracs : MonoBehaviour
 
         var currentRect = testDebugDisplayRect_2;
 
-        // InitPermaUpgrade();
+        InitPermaUpgrade();
 
     }
 
@@ -896,10 +896,10 @@ public class ModdingUIPracs : MonoBehaviour
         var currentSliderRect = sliderObject.GetComponent<RectTransform>();
         currentSliderRect.anchorMax = new Vector2(1f,0.5f);
         currentSliderRect.anchorMin = new Vector2(1f,0.5f);
-        currentSliderRect.offsetMax = new Vector2(-10f,160.5f);
-        currentSliderRect.offsetMin = new Vector2(-60f, -159.5f);
+        currentSliderRect.offsetMax = new Vector2(-10f,200f);
+        currentSliderRect.offsetMin = new Vector2(-60f, -120f);
 
-        currentSliderRect.anchoredPosition = new Vector2(-35f, 0.5f);
+        currentSliderRect.anchoredPosition = new Vector2(-35f, 40f);
         currentSliderRect.localScale = Vector3.one;
         sliderObject.name = "Slider";
 
@@ -977,11 +977,11 @@ public class ModdingUIPracs : MonoBehaviour
         var indicateTextRect = AddAndGetRectComp(indicateTextObj);
         indicateTextRect.anchorMax = new Vector2(0.5f, 1f);
         indicateTextRect.anchorMin = new Vector2(0.5f, 1f);
-        indicateTextRect.pivot = new Vector2(0.5f, 0.5f);
-        indicateTextRect.offsetMax = new Vector2(15f, 37.5f);
-        indicateTextRect.offsetMin = new Vector2(-85f, -12.5f);
+        indicateTextRect.pivot = new Vector2(1f, 0.5f);
+        indicateTextRect.offsetMax = new Vector2(10f, 50f);
+        indicateTextRect.offsetMin = new Vector2(-140f, 0f);
 
-        indicateTextRect.anchoredPosition = new Vector2(-35f, 12.5f);
+        indicateTextRect.anchoredPosition = new Vector2(10f, 25f);
         indicateTextRect.localScale = Vector2.one;
 
 
@@ -1010,10 +1010,12 @@ public class ModdingUIPracs : MonoBehaviour
 
         var purgeButtonComp = purgeButtonObj.AddComponent<Button>();
         var purgeButtonImage = purgeButtonObj.AddComponent<Image>();
+        // purgeButtonImage.sprite = 
+        // purgeButtonImage.pixelsPerUnitMultiplier = 2f;
 
 
         var purgeButtonTextObj = new GameObject();
-        purgeButtonTextObj.transform.parent = sliderObject.transform;
+        purgeButtonTextObj.transform.parent = purgeButtonRect;
         purgeButtonTextObj.name = "PurgeButtonText";
 
         var purgeButtonTextRect = AddAndGetRectComp(purgeButtonTextObj);
@@ -1031,8 +1033,37 @@ public class ModdingUIPracs : MonoBehaviour
         purgeButtonTextComp.alignment = TextAlignmentOptions.Center;
         purgeButtonTextComp.fontSizeMax = 20f;
         purgeButtonTextComp.fontSizeMin = 16f;
+        purgeButtonTextComp.enableAutoSizing = true;
+        purgeButtonTextComp.enableWordWrapping = false;
+
 
         // var purgeButtonText = purgeButtonObj.AddComponent<TextMeshProUGUI>();
+
+        // purgingPoint Text
+        var purgingPointTextObj = new GameObject();
+        purgingPointTextObj.transform.parent = sliderObject.transform;
+        purgingPointTextObj.name = "CurrentPurgingPointText";
+
+        var purgingPointTextRect = AddAndGetRectComp(purgingPointTextObj);
+        purgingPointTextRect.anchorMax = new Vector2(0.5f, 0f);
+        purgingPointTextRect.anchorMin = new Vector2(0.5f, 0f);
+        purgingPointTextRect.pivot = new Vector2(1f, 0.5f);
+        purgingPointTextRect.offsetMax = new Vector2(10f, -35f);
+        purgingPointTextRect.offsetMin = new Vector2(-140f, -85f);
+        
+        purgingPointTextRect.anchoredPosition = new Vector2(10f, -60f);
+        purgingPointTextRect.localScale = Vector2.one;
+
+
+        var purgingPointTextComp = purgingPointTextObj.AddComponent<TextMeshProUGUI>();
+        purgingPointTextComp.alignment = TextAlignmentOptions.Right;
+        purgingPointTextComp.enableAutoSizing = true;
+        purgingPointTextComp.enableWordWrapping = false;
+        purgingPointTextComp.fontSizeMax = 22f;
+        purgingPointTextComp.fontSizeMin = 16f;
+        purgingPointTextComp.color = Color.white;
+
+        //
 
 
         #endregion
