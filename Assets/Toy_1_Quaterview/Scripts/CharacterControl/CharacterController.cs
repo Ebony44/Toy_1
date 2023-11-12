@@ -40,6 +40,20 @@ namespace Toy_1
             }
             
         }
+        public void OnMovementQuaterView(InputAction.CallbackContext value)
+        {
+            Vector2 inputMovement = value.ReadValue<Vector2>();
+            // rawInputMovement = new Vector3(inputMovement.x, 0, inputMovement.y);
+            rawInputMovement = new Vector3(inputMovement.x, 0, inputMovement.y);
+            Debug.Log(Vector3.Distance(Vector3.zero, rawInputMovement)
+                + " and " + rawInputMovement);
+            rawInputMovement.Normalize();
+            if (Vector3.Distance(Vector3.zero, rawInputMovement) > 0)
+            {
+                lastMoveDirection = rawInputMovement;
+            }
+
+        }
 
         void CalculateMovementInputSmoothing()
         {

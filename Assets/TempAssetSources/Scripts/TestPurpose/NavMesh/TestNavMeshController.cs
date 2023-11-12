@@ -53,7 +53,7 @@ public class TestNavMeshController : MonoBehaviour
             Agent.SetDestination(Hits[0].point);
         }
 
-        SetAimDirection(hitPoint);
+        // SetAimDirection(hitPoint);
 
     }
 
