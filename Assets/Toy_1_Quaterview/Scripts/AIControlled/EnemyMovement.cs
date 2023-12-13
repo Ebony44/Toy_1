@@ -10,6 +10,10 @@ public class EnemyMovement : MonoBehaviour
 
     private NavMeshAgent agent;
 
+
+    public Transform[] waypointPaths;
+
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -35,6 +39,13 @@ public class EnemyMovement : MonoBehaviour
 
             yield return wait;
         }
+    }
+
+    private IEnumerator RotateToWayPoints()
+    {
+        // TODO
+        yield return null;
+
     }
 
 }
