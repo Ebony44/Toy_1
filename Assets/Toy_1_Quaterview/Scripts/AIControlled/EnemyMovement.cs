@@ -45,6 +45,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if(waypointPaths.Length == 0)
         {
+            Debug.LogError("there are no waypoint paths");
             yield break;
         }
         int currentIndex = 0;
@@ -60,11 +61,15 @@ public class EnemyMovement : MonoBehaviour
                 {
                     currentIndex = 0;
                 }
+                yield return new WaitForSeconds(1f);
+                currentPath = waypointPaths[currentIndex];
                 
             }
         }
         yield return null;
 
     }
+
+
 
 }
