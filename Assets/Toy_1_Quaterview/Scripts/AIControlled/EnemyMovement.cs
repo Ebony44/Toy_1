@@ -43,7 +43,26 @@ public class EnemyMovement : MonoBehaviour
 
     private IEnumerator RotateToWayPoints()
     {
+        if(waypointPaths.Length == 0)
+        {
+            yield break;
+        }
+        int currentIndex = 0;
+        var currentPath = waypointPaths[currentIndex];
         // TODO
+        while(enabled)
+        {
+            agent.SetDestination(currentPath.position);
+            if(Vector3.Distance(agent.transform.position,currentPath.position) <= 1f)
+            {
+                currentIndex++;
+                if(currentIndex > waypointPaths.Length)
+                {
+                    currentIndex = 0;
+                }
+                
+            }
+        }
         yield return null;
 
     }
