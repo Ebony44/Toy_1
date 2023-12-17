@@ -9,14 +9,14 @@
                unitycodemonkey.com
     --------------------------------------------------
  */
- 
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using V_AnimationSystem;
 using CodeMonkey.Utils;
 
-public class PlayerAim : MonoBehaviour, Enemy.IEnemyTargetable, EnemyHandler.IEnemyTargetable, EnemyAim.IEnemyTargetable {
+public class PlayerAim : MonoBehaviour, CodeMonkey.Utils.Enemy.IEnemyTargetable, EnemyHandler.IEnemyTargetable, EnemyAim.IEnemyTargetable {
     
     public static PlayerAim instance;
 
@@ -97,7 +97,7 @@ public class PlayerAim : MonoBehaviour, Enemy.IEnemyTargetable, EnemyHandler.IEn
         return healthSystem.IsDead();
     }
 
-    public void Damage(Enemy enemy) { }
+    public void Damage(CodeMonkey.Utils.Enemy enemy) { }
 
     public void Damage(EnemyHandler enemy) { }
 
@@ -115,4 +115,6 @@ public class PlayerAim : MonoBehaviour, Enemy.IEnemyTargetable, EnemyHandler.IEn
             transform.position += bloodDir * 2.5f;
         }
     }
+
+    
 }
