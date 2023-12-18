@@ -24,12 +24,6 @@ public class EnemyMovement : MonoBehaviour
         StartCoroutine(FollowTarget());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private IEnumerator FollowTarget()
     {
         WaitForSeconds wait = new WaitForSeconds(updateSpeed);
