@@ -31,12 +31,22 @@ public class ItemCreateManager : MonoBehaviour
         lifeTier2.currentType = EItemOptionType.MaxLife;
         lifeTier2.weight = 100;
 
+        List<ItemWeightInfo> testList = new List<ItemWeightInfo>(16);
+        testList.Add(lifeTier3);
+        testList.Add(lifeTier2);
+
 
     }
 
     public void SortOutWeight(List<ItemWeightInfo> paramList)
     {
-
+        var currentWeight = 0;
+        foreach (var currentItem in paramList)
+        {
+            currentItem.currentWeightRangeMin = currentWeight;
+            currentItem.currentWeightRangeMax = currentWeight + currentItem.weight;
+            currentWeight += currentItem.weight;
+        }
     }
 
     // Start is called before the first frame update
