@@ -11,7 +11,7 @@ public class ItemCreateManager : MonoBehaviour
     {
 
     }
-
+    [TestMethod(false)]
     public void InitializeWeights()
     {
         // TODO: 
@@ -34,6 +34,10 @@ public class ItemCreateManager : MonoBehaviour
         List<ItemWeightInfo> testList = new List<ItemWeightInfo>(16);
         testList.Add(lifeTier3);
         testList.Add(lifeTier2);
+
+        SortOutWeight(testList);
+        Debug.Log("tier 2 weight min and max is " + testList[1].currentWeightRangeMin
+            + ", " + testList[1].currentWeightRangeMax);
 
 
     }
