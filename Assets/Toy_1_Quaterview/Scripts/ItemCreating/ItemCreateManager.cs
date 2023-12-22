@@ -66,6 +66,11 @@ public class ItemCreateManager : MonoBehaviour
     }
 }
 
+// It goes like this, 
+// 1. first decide category
+// 2. then option's tier
+// ex) if Maximum life -> then make it which tier option selected to items
+
 public enum EItemType
 {
     None = 0,
@@ -75,6 +80,10 @@ public enum EItemOptionType
 {
     None = 0,
     MaxLife,
+}
+public class ItemCategoryInfo
+{
+    public EItemOptionType currentCategoryType;
 }
 public class ItemGeneralTypeInfo
 {
