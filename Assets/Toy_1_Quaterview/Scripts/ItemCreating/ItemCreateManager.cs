@@ -5,6 +5,8 @@ using UnityEngine;
 public class ItemCreateManager : MonoBehaviour
 {
 
+    Dictionary<EItemType, ItemCategoryInfo> itemCategoryInfos = new Dictionary<EItemType, ItemCategoryInfo>();
+
     Dictionary<EItemType, ItemGeneralTypeInfo> itemInfos = new Dictionary<EItemType, ItemGeneralTypeInfo>();
 
     public void RollItem()
@@ -39,6 +41,9 @@ public class ItemCreateManager : MonoBehaviour
         Debug.Log("tier 2 weight min and max is " + testList[1].currentWeightRangeMin
             + ", " + testList[1].currentWeightRangeMax);
 
+        // TODO
+
+        // replace with category info
 
     }
 
