@@ -85,6 +85,10 @@ public enum EItemOptionType
 {
     None = 0,
     MaxLife,
+    MinDamage,
+    MaxDamage,
+    FlatDamageReduction
+
 }
 public class ItemCategoryInfo
 {
