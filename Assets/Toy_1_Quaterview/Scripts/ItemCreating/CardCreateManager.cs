@@ -10,8 +10,8 @@ public class CardCreateManager : MonoBehaviour
 
 public abstract class CardFrame
 {
-    public ECardType currentCardType;
-    public int cardCost;
+    protected ECardType currentCardType;
+    protected int cardCost;
 }
 
 
@@ -22,3 +22,18 @@ public enum ECardType
     Spell,
 
 }
+
+#region 
+public abstract class MinionFrame
+{
+    protected EMinionType currentType;
+    protected float moveSpeed; // 0 is immovable
+    protected float damage;
+
+}
+public enum EMinionType
+{
+    None = 0,
+    Farharbinger,
+}
+#endregion

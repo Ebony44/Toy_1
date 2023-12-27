@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemCreateManager : MonoBehaviour
 {
 
-    Dictionary<EItemType, ItemCategoryInfo> itemCategoryInfos = new Dictionary<EItemType, ItemCategoryInfo>();
+    Dictionary<EItemType, ItemGroupInfo> itemCategoryInfos = new Dictionary<EItemType, ItemGroupInfo>();
 
     Dictionary<EItemType, ItemGeneralTypeInfo> itemInfos = new Dictionary<EItemType, ItemGeneralTypeInfo>();
 
@@ -26,11 +26,11 @@ public class ItemCreateManager : MonoBehaviour
         // test
 
         ItemWeightInfo lifeTier3 = new ItemWeightInfo();
-        lifeTier3.currentType = EItemOptionType.MaxLife;
+        lifeTier3.currentType = EItemGroupType.MaxLife;
         lifeTier3.weight = 200;
 
         ItemWeightInfo lifeTier2 = new ItemWeightInfo();
-        lifeTier2.currentType = EItemOptionType.MaxLife;
+        lifeTier2.currentType = EItemGroupType.MaxLife;
         lifeTier2.weight = 100;
 
         List<ItemWeightInfo> testList = new List<ItemWeightInfo>(16);
@@ -81,7 +81,7 @@ public enum EItemType
     None = 0,
     BionicJewel,
 }
-public enum EItemOptionType
+public enum EItemGroupType
 {
     None = 0,
     MaxLife,
@@ -90,9 +90,9 @@ public enum EItemOptionType
     FlatDamageReduction
 
 }
-public class ItemCategoryInfo
+public class ItemGroupInfo
 {
-    public EItemOptionType currentCategoryType;
+    public EItemGroupType currentCategoryType;
 }
 public class ItemGeneralTypeInfo
 {
@@ -105,7 +105,7 @@ public class ItemGeneralTypeInfo
 
 public class ItemWeightInfo
 {
-    public EItemOptionType currentType;
+    public EItemGroupType currentType;
     public int weight;
 
     // modify AFTER instantiate
