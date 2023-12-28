@@ -12,6 +12,9 @@ public abstract class CardFrame
 {
     protected ECardType currentCardType;
     protected int cardCost;
+    
+    protected MinionFrame currentMinionInfo;
+    protected SpellFrame currentSpellInfo;
 }
 
 
@@ -35,5 +38,10 @@ public enum EMinionType
 {
     None = 0,
     Farharbinger,
+}
+
+public abstract class SpellFrame
+{
+    
 }
 #endregion
