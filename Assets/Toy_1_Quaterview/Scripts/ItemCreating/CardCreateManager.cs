@@ -13,6 +13,7 @@ public abstract class CardFrame
     protected ECardType currentCardType;
     // protected int cardCost;
     protected CharacterStat cardCost;
+    protected CharacterStat cardPower; // related to minion/spell's damage, healing scale, or etc...
 
     protected MinionFrame currentMinionInfo;
     protected SpellFrame currentSpellInfo;
@@ -33,6 +34,9 @@ public abstract class MinionFrame
     protected EMinionType currentType;
     protected CharacterStat moveSpeed; // 0 is immovable
     protected CharacterStat damage;
+
+    protected CharacterStat summonCount;
+
     //protected float moveSpeed; // 0 is immovable
     //protected float damage;
 
