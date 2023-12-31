@@ -28,12 +28,12 @@ public enum ECardType
 
 }
 
-#region 
+#region Abstracts
 public abstract class MinionFrame
 {
     protected EMinionType currentType;
     protected CharacterStat moveSpeed; // 0 is immovable
-    protected CharacterStat damage;
+    // protected CharacterStat damage;
 
     protected CharacterStat summonCount;
 
@@ -44,7 +44,9 @@ public abstract class MinionFrame
 public enum EMinionType
 {
     None = 0,
-    Farharbinger,
+    Harbinger,
+    Demon,
+    Native
 }
 
 public abstract class SpellFrame
