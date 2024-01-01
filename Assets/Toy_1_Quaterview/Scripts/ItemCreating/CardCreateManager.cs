@@ -5,7 +5,10 @@ using UnityEngine;
 // from this script, when working is going depper, seperate each parts into cs files
 public class CardCreateManager : MonoBehaviour
 {
+    public void InstantiateCard(CardFrame targetPrefab)
+    {
 
+    }
 }
 
 public abstract class CardFrame
