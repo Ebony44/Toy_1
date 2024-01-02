@@ -40,6 +40,11 @@ public abstract class MinionFrame
 
     protected CharacterStat summonCount;
 
+    protected CharacterStat attackRange;
+
+    protected CharacterStat damageReduction;
+
+
     //protected float moveSpeed; // 0 is immovable
     //protected float damage;
 
@@ -50,6 +55,13 @@ public enum EMinionType
     Harbinger,
     Demon,
     Native
+}
+public enum EAttackRangeType
+{
+    None = 0,
+    Melee,
+    Ranged,
+
 }
 
 public abstract class SpellFrame
