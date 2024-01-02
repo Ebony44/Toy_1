@@ -9,6 +9,7 @@ public class CardCreateManager : MonoBehaviour
     {
 
     }
+    public void 
 }
 
 public abstract class CardFrame
