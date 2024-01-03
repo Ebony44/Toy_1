@@ -9,7 +9,7 @@ public class CardCreateManager : MonoBehaviour
     {
 
     }
-    public void 
+    
 }
 
 public abstract class CardFrame
@@ -35,7 +35,7 @@ public enum ECardType
 #region Abstracts
 public abstract class MinionFrame
 {
-    protected EMinionType currentType;
+    protected EMinionRaceType currentType;
     protected CharacterStat moveSpeed; // 0 is immovable
     // protected CharacterStat damage;
 
@@ -50,16 +50,32 @@ public abstract class MinionFrame
     //protected float damage;
 
 }
-public enum EMinionType
+public enum EMinionRaceType
 {
     None = 0,
     Harbinger,
     Demon,
     Native
 }
+public enum EMinionTagType
+{
+    Normal,
+    Tower, // maybe move speed is zero, or tanky
+    Duration,
+    Stealth,
+    Packs, // equal to or more than 10
+
+    OnsummonSkill,
+    OnDeathSkill,
+
+
+
+
+
+
+}
 public enum EAttackRangeType
 {
-    None = 0,
     Melee,
     Ranged,
 
