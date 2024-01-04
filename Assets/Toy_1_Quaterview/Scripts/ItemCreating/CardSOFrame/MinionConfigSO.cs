@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MinionConfig", menuName = "CardFrame/Minion")]
-public class MinionConfigSO : ScriptableObject
+public class MinionConfigSO : ScriptableObject,ICardTypeSO
 {
     [Tooltip("General variables")]
     [SerializeField] private float  _initialCardCost;

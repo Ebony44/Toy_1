@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
+[CreateAssetMenu(fileName = "CardConfig", menuName = "CardFrame/Card")]
 public class CardConfigSO : SerializableScriptableObject
 {
 	[Tooltip("The name of the item")]
@@ -20,7 +21,7 @@ public class CardConfigSO : SerializableScriptableObject
 	private ECardType _eCardType = default;
 
 	// interface and 
-	[SerializeField]
+	// [SerializeField]
 	private ICardTypeSO _currentCardInfo = default;
 
 
@@ -32,6 +33,11 @@ public class CardConfigSO : SerializableScriptableObject
 
 	public ICardTypeSO CurrentCardInfo => _currentCardInfo;
 
+
+	public void Initialize(ICardTypeSO paramCardInfo)
+    {
+		_currentCardInfo = paramCardInfo;
+    }
 
     public ICardTypeSO TellCardInfo()
     {
