@@ -21,6 +21,8 @@ public class MinionConfigSO : ScriptableObject,ICardTypeSO
 
     [SerializeField] private float _initialAttackRange;
 
+    [SerializeField] private HealthConfigSO _initialHealthConfig;
+
 
     public EMinionRaceType InitialMinionType=> _initialMinionType;
 

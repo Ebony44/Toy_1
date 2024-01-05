@@ -7,7 +7,8 @@ public class CardCreateManager : MonoBehaviour
 {
     public void InstantiateCard(CardFrame targetPrefab)
     {
-
+        // MinionConfigSO tempClass = new MinionConfigSO();
+        // var tempDesc = tempClass.Description;
     }
     
 }
