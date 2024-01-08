@@ -87,7 +87,8 @@ public enum EItemGroupType
     MaxLife,
     MinDamage,
     MaxDamage,
-    FlatDamageReduction
+    FlatDamageReduction, // physical defence type
+    PercentileDamageReduction, // arcane/arts/magic,... call it whatever suits
 
 }
 public class ItemGroupInfo
