@@ -33,6 +33,14 @@ public enum ECardType
 
 }
 
+public enum ECardRarity
+{
+    Normal = 0,
+    Uncommon,
+    Rare,
+    Unique,
+}
+
 #region Abstracts
 public abstract class MinionFrame
 {
@@ -68,10 +76,6 @@ public enum EMinionTagType
 
     OnsummonSkill,
     OnDeathSkill,
-
-
-
-
 
 
 }

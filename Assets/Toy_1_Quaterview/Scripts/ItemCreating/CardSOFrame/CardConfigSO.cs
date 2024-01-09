@@ -22,10 +22,15 @@ public class CardConfigSO : SerializableScriptableObject
 
 	// interface and 
 	// [SerializeField]
+	[Tooltip("Info which is minion or spell")]
 	private ICardTypeSO _currentCardInfo = default;
 
+	[Header("Modifier which applied after config created by player")]
 
-    public LocalizedString Name => _name;
+	private float modifiedValue = default;
+
+
+	public LocalizedString Name => _name;
 	public Sprite PreviewImage => _previewImage;
 	public LocalizedString Description => _description;
 
