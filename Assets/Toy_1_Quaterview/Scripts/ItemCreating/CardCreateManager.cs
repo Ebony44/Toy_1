@@ -59,6 +59,13 @@ public abstract class MinionFrame
     //protected float damage;
 
 }
+
+// does this need to be enum?
+// some consideration might be needed
+public enum EMinion
+{
+    SimpleFootMan = 0,
+}
 public enum EMinionRaceType
 {
     None = 0,

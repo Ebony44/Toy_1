@@ -5,10 +5,14 @@ using UnityEngine;
 public class MinionModifierFrame : MonoBehaviour
 {
     [Tooltip("General variables")]
+    [SerializeField] private EMinion currentMinion;
+    // [SerializeField] private string minionName;
     [SerializeField] private CharacterStat cardCost;
     [SerializeField] private CharacterStat cardPower;
 
-    [Tooltip("Minion specific variables")]
+    // [Tooltip("Minion specific variables")]
+
+    [Header("Modifier which applied after config created by player")]
 
     [SerializeField] private EMinionRaceType minionType;
 
@@ -19,6 +23,7 @@ public class MinionModifierFrame : MonoBehaviour
     [SerializeField] private CharacterStat moveSpeed;
 
     [SerializeField] private CharacterStat attackRange;
+    
 
     // [SerializeField] private HealthConfigSO _initialHealthConfig;
 }
