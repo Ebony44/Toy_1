@@ -13,6 +13,7 @@ public class CardCreateManager : MonoBehaviour
     
 }
 
+// feature is moved to SO
 public abstract class CardFrame
 {
     protected ECardType currentCardType;
@@ -42,6 +43,8 @@ public enum ECardRarity
 }
 
 #region Abstracts
+
+// feature is moved to SO
 public abstract class MinionFrame
 {
     protected EMinionRaceType currentType;
@@ -65,6 +68,7 @@ public abstract class MinionFrame
 public enum EMinion
 {
     SimpleFootMan = 0,
+
 }
 public enum EMinionRaceType
 {
