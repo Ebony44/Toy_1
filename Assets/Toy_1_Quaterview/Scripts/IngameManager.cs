@@ -26,7 +26,7 @@ public class IngameManager : MonoBehaviour
 
     private void Start()
     {
-        Intialize();
+        Initialize();
     }
     private void OnEnable()
     {
@@ -59,7 +59,7 @@ public class IngameManager : MonoBehaviour
         
     }
 
-    public void Intialize()
+    public void Initialize()
     {
         var currentItems = System.Enum.GetValues(typeof(EInGameResources));
         foreach (EInGameResources item in currentItems)
