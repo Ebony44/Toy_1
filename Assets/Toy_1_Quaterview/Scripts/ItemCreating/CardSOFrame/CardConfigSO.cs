@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-[CreateAssetMenu(fileName = "CardConfig", menuName = "CardFrame/Card")]
+[CreateAssetMenu(fileName = "CardConfig", menuName = "Toy1/CardFrame/Card")]
 public class CardConfigSO : SerializableScriptableObject
 {
 	[Tooltip("The name of the item")]

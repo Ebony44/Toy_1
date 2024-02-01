@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MinionConfig", menuName = "CardFrame/Minion")]
+[CreateAssetMenu(fileName = "MinionConfig", menuName = "Toy1/CardFrame/Minion")]
 public class MinionConfigSO : ScriptableObject,ICardTypeSO
 {
     [Tooltip("General variables")]
