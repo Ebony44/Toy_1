@@ -7,12 +7,32 @@ using UnityEngine.Events;
 public class IngameResourceChannelSO : ScriptableObject
 {
 	// public readonly EInGameResources resourceType;
-    public UnityAction<EInGameResources, float> OnEventRaised;
+    public UnityAction<EInGameResources, float> OnSpentEventRaised;
 
-	public void RaiseEvent(EInGameResources resourceType, float value)
+	public UnityAction<EInGameResources, IngameResourceModInfo> OnInfoChangeEventRaised;
+
+
+	public void RaiseResourceSpentEvent(EInGameResources resourceType, float spentValue)
 	{
-		if (OnEventRaised != null)
-			OnEventRaised.Invoke(resourceType,value);
+		if (OnSpentEventRaised != null)
+			OnSpentEventRaised.Invoke(resourceType,spentValue);
 	}
+	public void RaiseResourceInfoChangedEvent(EInGameResources resourceType, IngameResourceModInfo paramInfo)
+    {
+		OnInfoChangeEventRaised?.Invoke(resourceType, paramInfo);
+    }
+
+}
+
+public class IngameResourceModInfo
+{
+	EInGameResources currentType;
+	// CharacterStat currentResourceIncreaseSpeed;
+
+	float modStartResource; // use it with operator +=
+	float modMaxLimit; // use it with operator +=
+	float modIncreaseSpeed; // use it with operator +=
+
+	// CharacterStat currentResourceIncreaseSpeed;
 
 }

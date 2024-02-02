@@ -19,7 +19,7 @@ public class TestIngameManagerBroadCast : MonoBehaviour
     [TestMethod(false)]
     public void TestEventInvoke(float testValue)
     {
-        broadcastSO.RaiseEvent(testResourceType,testValue);
+        broadcastSO.RaiseResourceSpentEvent(testResourceType,testValue);
         Debug.Log("[TestEventInvoke], value is " + testValue);
     }
 }
