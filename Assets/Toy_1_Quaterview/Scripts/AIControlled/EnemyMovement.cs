@@ -7,12 +7,8 @@ public class EnemyMovement : MonoBehaviour
 {
     public Transform target;
     public float updateSpeed = 0.1f;
-
     private NavMeshAgent agent;
-
-
     public Transform[] waypointPaths;
-
 
     private void Awake()
     {
@@ -20,6 +16,12 @@ public class EnemyMovement : MonoBehaviour
     }
     // Start is called before the first frame update
     void Start()
+    {
+        StartCoroutine(FollowTarget());
+    }
+
+    [TestMethod(false)]
+    public void TestStartFollow()
     {
         StartCoroutine(FollowTarget());
     }
