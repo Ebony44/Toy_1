@@ -3,69 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovement : MonoBehaviour
+namespace LlamAcademy
 {
-    public Transform target;
-    public float updateSpeed = 0.1f;
-    private NavMeshAgent agent;
-    public Transform[] waypointPaths;
 
-    private void Awake()
+    public class EnemyMovement : MonoBehaviour
     {
-        agent = GetComponent<NavMeshAgent>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCoroutine(FollowTarget());
-    }
+        public Transform target;
+        public float updateRate = 0.1f;
+        private NavMeshAgent agent;
+        public Transform[] waypointPaths;
 
-    [TestMethod(false)]
-    public void TestStartFollow()
-    {
-        StartCoroutine(FollowTarget());
-    }
-
-    private IEnumerator FollowTarget()
-    {
-        WaitForSeconds wait = new WaitForSeconds(updateSpeed);
-        while(enabled)
+        private void Awake()
         {
-            agent.SetDestination(target.transform.position);
-
-            yield return wait;
+            agent = GetComponent<NavMeshAgent>();
         }
-    }
-
-    private IEnumerator RotateToWayPoints()
-    {
-        if(waypointPaths.Length == 0)
+        // Start is called before the first frame update
+        void Start()
         {
-            Debug.LogError("there are no waypoint paths");
-            yield break;
+            StartCoroutine(FollowTarget());
         }
-        int currentIndex = 0;
-        var currentPath = waypointPaths[currentIndex];
-        // TODO
-        while(enabled)
+
+        [TestMethod(false)]
+        public void TestStartFollow()
         {
-            agent.SetDestination(currentPath.position);
-            if(Vector3.Distance(agent.transform.position,currentPath.position) <= 1f)
+            StartCoroutine(FollowTarget());
+        }
+
+        private IEnumerator FollowTarget()
+        {
+            WaitForSeconds wait = new WaitForSeconds(updateRate);
+            while (enabled)
             {
-                currentIndex++;
-                if(currentIndex > waypointPaths.Length)
-                {
-                    currentIndex = 0;
-                }
-                yield return new WaitForSeconds(1f);
-                currentPath = waypointPaths[currentIndex];
-                
+                agent.SetDestination(target.transform.position);
+
+                yield return wait;
             }
         }
-        yield return null;
+
+        private IEnumerator RotateToWayPoints()
+        {
+            if (waypointPaths.Length == 0)
+            {
+                Debug.LogError("there are no waypoint paths");
+                yield break;
+            }
+            int currentIndex = 0;
+            var currentPath = waypointPaths[currentIndex];
+            // TODO
+            while (enabled)
+            {
+                agent.SetDestination(currentPath.position);
+                if (Vector3.Distance(agent.transform.position, currentPath.position) <= 1f)
+                {
+                    currentIndex++;
+                    if (currentIndex > waypointPaths.Length)
+                    {
+                        currentIndex = 0;
+                    }
+                    yield return new WaitForSeconds(1f);
+                    currentPath = waypointPaths[currentIndex];
+
+                }
+            }
+            yield return null;
+
+        }
+
+
 
     }
-
-
-
 }
