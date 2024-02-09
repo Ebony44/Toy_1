@@ -9,13 +9,26 @@ namespace LlamAcademy
     public class EnemyMovement : MonoBehaviour
     {
         public Transform target;
+        [SerializeField] private Animator animator;
         public float updateRate = 0.1f;
         private NavMeshAgent agent;
         public Transform[] waypointPaths;
 
+        private const string isWalking = "isWalking";
+
+
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
+        }
+        private void Update()
+        {
+            if(animator != null)
+            {
+                animator.SetBool(isWalking, (agent.velocity.magnitude > 0.01f));
+                Debug.Log("is walking? " + animator.GetBool(isWalking)
+                    + " agent velocity is? " + (agent.velocity.magnitude > 0.01f));
+            }
         }
         // Start is called before the first frame update
         void Start()
