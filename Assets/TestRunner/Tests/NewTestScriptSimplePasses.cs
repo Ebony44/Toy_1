@@ -41,4 +41,24 @@ public class NewTestScriptSimplePasses
         Assert.AreEqual("I am testing\\nwith new line\\n", stringWriterUnderTest.ToString());
     }
 
+    [Test]
+    public void ListRemoveFromList()
+    {
+        List<int> tempList = new List<int> { 1, 2, 3, 4 };
+        List<int> listToDelete = new List<int> { 2, 3 };
+
+        RemoveListFromList<int>(listToDelete, tempList);
+
+        Assert.IsFalse(tempList.Contains(2));
+        Debug.Log("temp list first and second " + tempList[0] + ", " + tempList[1]);
+
+    }
+    public static void RemoveListFromList<T>(List<T> listToDelete, List<T> srcList)
+    {
+        for (int i = 0; i < listToDelete.Count; i++)
+        {
+            srcList.Remove(listToDelete[i]);
+        }
+    }
+
 }

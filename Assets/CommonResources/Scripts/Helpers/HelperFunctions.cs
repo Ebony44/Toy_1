@@ -343,5 +343,17 @@ public static class HelperFunctions
     }
 
 
+    public static T GetRandomValueWithExcluding<T>(this T src)
+    {
+        return src;
+    }
+    public static void RemoveListFromList<T>(List<T> listToDelete, List<T> srcList)
+    {
+        for (int i = 0; i < listToDelete.Count; i++)
+        {
+            srcList.Remove(listToDelete[i]);
+        }
+    }
+
 
 }
