@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
+using UnityEngine.VFX;
+using UnityEngine.VFX.Utility;
 
 namespace VFXLightningTargeting
 {
@@ -19,6 +20,9 @@ namespace VFXLightningTargeting
 
         public float chainingRadius = 2;
 
+        public VisualEffect lightningFX;
+        public VFXPropertyBinder positionInfo;
+
 
         public void FireLightning()
         {
@@ -29,6 +33,12 @@ namespace VFXLightningTargeting
         public void startFindingRoutine(int iterationCount, float waitTime)
         {
             StartCoroutine(FindingRoutine(iterationCount, waitTime, strokePoint.position));
+        }
+        [TestMethod(false)]
+        public void GetPositionBinding()
+        {
+            Debug.Log("asdf");
+            // positionInfo.GetPropertyBinders<>
         }
 
         public IEnumerator FindingRoutine(int iterationCount, float waitTime, Vector3 startPoint)
