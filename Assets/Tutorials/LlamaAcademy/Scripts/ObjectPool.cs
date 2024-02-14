@@ -74,6 +74,12 @@ namespace LlamAcademy
             
         }
 
+        public T GetObject<T>()
+        {
+            var currentObject = GetObject();
+            var result = currentObject.GetComponent<T>(); // this one somewhat expensive?
+            return result;
+        }
         
         
     }
