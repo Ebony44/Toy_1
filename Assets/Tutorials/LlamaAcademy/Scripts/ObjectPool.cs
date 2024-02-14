@@ -59,13 +59,14 @@ namespace LlamAcademy
                 // 2. expand the size of the pool
                 if(prefab != null)
                 {
-
+                    Debug.LogError("[GetObject] pool size empty, expand value " + ExpandValue);
                     CreateInstance(prefab, ExpandValue);
                     var currentObject = GetObject();
                     return currentObject;
                 }
                 else
                 {
+                    Debug.LogError("[GetObject] prefab is null ");
                     return null;
                 }
                 // availableObjects.Add()

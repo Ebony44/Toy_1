@@ -44,7 +44,9 @@ namespace VFXLightningTargeting
 
         private void Awake()
         {
-            lightningFXPools = new ObjectPool(lightningFXPrefab, 16);
+            // lightningFXPools = new ObjectPool(lightningFXPrefab, 16);
+            lightningFXPools = ObjectPool.CreateInstance(lightningFXPrefab, 16);
+            // lightningFXPools.create
         }
         private void Start()
         {
@@ -61,7 +63,8 @@ namespace VFXLightningTargeting
         [TestMethod(false)]
         public void startFindingRoutine(int iterationCount, float waitTime, bool bHitAgain)
         {
-            StartCoroutine(FireLightningRoutine(iterationCount, waitTime, strokePoint.position,bHitAgain));
+            // StartCoroutine(FireLightningRoutineWithSingleFX(iterationCount, waitTime, strokePoint.position,bHitAgain));
+            StartCoroutine(FireLightningRoutine(iterationCount, waitTime, strokePoint.position, bHitAgain));
         }
 
         //[TestMethod(false)]
@@ -77,10 +80,12 @@ namespace VFXLightningTargeting
         //    // var temp3 = temp2.getpro
 
         //    VisualEffect tempFx = new VisualEffect();
-            
+
         //}
 
-        public IEnumerator FireLightningRoutine(int iterationCount, float waitTime, Vector3 endPoint, bool bHitAgain)
+        #region obsolete
+
+        public IEnumerator FireLightningRoutineWithSingleFX(int iterationCount, float waitTime, Vector3 endPoint, bool bHitAgain)
         {
             int currentIteration = 0;
             List<Collider> cachedColliders = new List<Collider>(iterationCount + 1);
@@ -122,6 +127,66 @@ namespace VFXLightningTargeting
                     HelperFunctions.RemoveListFromList<Collider>(cachedColliders, tempColliders);
                 }
                 if(tempColliders.Count == 0)
+                {
+                    Debug.LogError("no more target to hit");
+                    break;
+                }
+                currentIteration++;
+
+
+
+            }
+        }
+
+        #endregion
+
+        public IEnumerator FireLightningRoutine(int iterationCount, float waitTime, Vector3 endPoint, bool bHitAgain)
+        {
+            int currentIteration = 0;
+            List<Collider> cachedColliders = new List<Collider>(iterationCount + 1);
+
+            var tempColliders = GetAllColliderWithinArea(endPoint, chainingRadius, targetingLayerMask);
+
+            Vector3 startPoint = strokePoint.position;
+
+            while (iterationCount >= currentIteration)
+            {
+                // yield return new WaitForSeconds(waitTime);
+
+                var selectedIndex = Random.Range(0, tempColliders.Count);
+                var selectedCollider = tempColliders[selectedIndex];
+
+                Debug.Log("[FindingRoutine], iteration is " + currentIteration
+                    + " selected object name is " + tempColliders[selectedIndex].gameObject.name);
+                cachedColliders.Add(selectedCollider);
+
+                endPoint = selectedCollider.transform.position;
+
+
+                // setting up fx start/end point
+                var currentFX = lightningFXPools.GetObject<VFXLightningPoolObject>();
+                if(currentFX == null)
+                {
+                    Debug.LogError("something is wrong ");
+                    yield break;
+                }
+                currentFX.srcTransform.position  = startPoint;
+                currentFX.dstTransform.position = endPoint;
+                currentFX.lightningFX.Play();
+
+                Debug.Log("[FireLightningRoutine], start pos is " + startPoint);
+
+                yield return new WaitForSeconds(waitTime);
+                
+
+                startPoint = endPoint;
+                tempColliders = GetAllColliderWithinArea(selectedCollider.gameObject.transform.position, chainingRadius, targetingLayerMask);
+
+                if (bHitAgain == false)
+                {
+                    HelperFunctions.RemoveListFromList<Collider>(cachedColliders, tempColliders);
+                }
+                if (tempColliders.Count == 0)
                 {
                     Debug.LogError("no more target to hit");
                     break;

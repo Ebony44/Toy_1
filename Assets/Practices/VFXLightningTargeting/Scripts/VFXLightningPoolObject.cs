@@ -20,17 +20,31 @@ public class VFXLightningPoolObject : PoolableObject
     public LayerMask targetingLayerMask;
 
     public float dissipateTime = 1f;
+    private float currentPassedTime = 0f;
 
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        currentPassedTime = 0;
+    }
+    private void Update()
+    {
+        if(gameObject.activeInHierarchy)
+        {
+            currentPassedTime += Time.deltaTime;
+        }
+        if(currentPassedTime >= dissipateTime)
+        {
+            gameObject.SetActive(false);
+        }
     }
     public override void OnDisable()
     {
-        base.OnDisable();
+        if(Parent != null)
+        {
+            base.OnDisable();
+        }
         lightningFX.Stop();
         // Agent.enabled = false;
     }
