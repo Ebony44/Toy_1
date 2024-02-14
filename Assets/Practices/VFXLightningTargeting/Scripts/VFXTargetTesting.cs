@@ -45,7 +45,7 @@ namespace VFXLightningTargeting
         private void Awake()
         {
             // lightningFXPools = new ObjectPool(lightningFXPrefab, 16);
-            lightningFXPools = ObjectPool.CreateInstance(lightningFXPrefab, 16);
+            lightningFXPools = ObjectPool.CreateInstance(lightningFXPrefab, 4);
             // lightningFXPools.create
         }
         private void Start()
@@ -149,6 +149,9 @@ namespace VFXLightningTargeting
 
             Vector3 startPoint = strokePoint.position;
 
+            float waitTimeForCreate = 0.2f;
+            int currentWaitCountForCreate = 0;
+            int maxWaitCountForCreate = 4;
             while (iterationCount >= currentIteration)
             {
                 // yield return new WaitForSeconds(waitTime);
@@ -167,8 +170,17 @@ namespace VFXLightningTargeting
                 var currentFX = lightningFXPools.GetObject<VFXLightningPoolObject>();
                 if(currentFX == null)
                 {
-                    Debug.LogError("something is wrong ");
                     yield break;
+                    //Debug.LogError("something is wrong ");
+                    //if (maxWaitCountForCreate <= currentWaitCountForCreate)
+                    //{
+                    //    Debug.LogError("unidentified break");
+                    //    yield break;
+                    //}
+                    ////yield break;
+                    //yield return new WaitForSeconds(waitTimeForCreate);
+                    //currentWaitCountForCreate++;
+                    
                 }
                 currentFX.srcTransform.position  = startPoint;
                 currentFX.dstTransform.position = endPoint;

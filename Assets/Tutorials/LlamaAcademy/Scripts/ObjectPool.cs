@@ -10,6 +10,8 @@ namespace LlamAcademy
         private List<PoolableObject> availableObjects;
         public int ExpandValue = 4;
 
+        public Transform poolParent;
+
         public ObjectPool(PoolableObject prefab, int size)
         {
             this.prefab = prefab;
@@ -37,10 +39,25 @@ namespace LlamAcademy
                 poolableObject.gameObject.SetActive(false);
             }
         }
+        private PoolableObject GetObjectWhenPoolFilled()
+        {
+            PoolableObject poolableObject = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+            poolableObject.Parent = this;
+            poolableObject.gameObject.SetActive(true);
+            
+            if(poolParent != null)
+            {
+                poolableObject.transform.SetParent(poolParent);
+            }
+            return poolableObject;
+        }
 
         public void ReturnObjectToPool(PoolableObject poolableObject)
         {
-            availableObjects.Add(poolableObject);
+            if(availableObjects.Contains(poolableObject) == false)
+            {
+                availableObjects.Add(poolableObject);
+            }
             poolableObject.gameObject.SetActive(false);
         }
 
@@ -60,8 +77,10 @@ namespace LlamAcademy
                 if(prefab != null)
                 {
                     Debug.LogError("[GetObject] pool size empty, expand value " + ExpandValue);
-                    CreateInstance(prefab, ExpandValue);
-                    var currentObject = GetObject();
+                    //CreateInstance(prefab, ExpandValue);
+
+                    // var currentObject = GetObject();
+                    var currentObject = GetObjectWhenPoolFilled();
                     return currentObject;
                 }
                 else
