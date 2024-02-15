@@ -27,15 +27,16 @@ public class LineVisualForMathPractice : MonoBehaviour
     {
         
         // Setup(5,5);
-        SetupWithStartPoint(
-            firstX: 0,
-            firstY: 0,
-            secondX: 5,
-            secondY: 10,
-            modX: 1,
-            modY: 1,
-            secondLineLength: 15
-            );
+
+        //SetupWithStartPoint(
+        //    firstX: 0,
+        //    firstY: 0,
+        //    secondX: 5,
+        //    secondY: 10,
+        //    modX: 1,
+        //    modY: 1,
+        //    secondLineLength: 15
+        //    );
     }
 
     [TestMethod(false)]

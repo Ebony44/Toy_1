@@ -1,0 +1,28 @@
+
+* https://math.stackexchange.com/questions/414776/what-is-the-use-of-the-dot-product-of-two-vectors
+
+
+The original motivation is a geometric one: The dot product can be used for computing the angle α
+between two vectors a and b
+
+:
+
+a⋅b=|a|⋅|b|⋅cos(α)
+
+a⋅b = AxBx+AyBy
+
+
+cos(α) = a⋅b / |a|⋅|b|
+
+
+
+
+.
+
+Note the sign of this expression depends only on the angle's cosine, therefore the dot product is
+
+<0 if the angle is obtuse,
+>0 if the angle is acute,
+=0 if the a and b are orthogonal.
+
+
