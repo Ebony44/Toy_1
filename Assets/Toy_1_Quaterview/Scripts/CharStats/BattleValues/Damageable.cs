@@ -11,6 +11,9 @@ public class Damageable : MonoBehaviour
     [Header("Broadcasting On")]
     [SerializeField] private VoidEventChannelSO _updateHealthUI = default;
 
+    public bool GetHit { get; set; } // if object has invincible time
+    public bool IsDead { get; set; }
+
 
     private void Awake()
     {

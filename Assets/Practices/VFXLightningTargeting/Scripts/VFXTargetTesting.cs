@@ -17,10 +17,11 @@ namespace VFXLightningTargeting
 
         public CircleCollider2D tempCollider;
 
-        public Transform strokePoint;
+        public Transform strokePoint; // if first strike is fake
+        public Transform firePoint; // if caster and target set
 
-        public float chainingRadius = 2;
-        public float intervalTimeBetweenLightning = 0.3f;
+        // public float chainingRadius = 2;
+
         public LayerMask targetingLayerMask;
 
         public VisualEffect lightningFX;
@@ -30,11 +31,20 @@ namespace VFXLightningTargeting
 
         public PoolableObject lightningFXPrefab;
         public ObjectPool lightningFXPools;
-        
+
 
         // public VFXPropertyBinder positionInfo; // https://github.com/Unity-Technologies/Graphics/blob/master/Packages/com.unity.visualeffectgraph/Runtime/Utilities/PropertyBinding/Implementation/VFXMultiplePositionBinder.cs
 
         public MyMultiplePositionBinder myMultiplePositionBinder;
+
+        [Header("IngameStatRelatedVariables")]
+        public float arcaneCost = 3;
+        public float damageAmount = 100;
+        public float chainingRadius = 2;
+        public int maxChain = 5;
+        public float castingDelay = 2000; // / 1000
+        public float intervalTimeBetweenLightning = 0.3f;
+
 
 
 
@@ -89,7 +99,7 @@ namespace VFXLightningTargeting
         {
             int currentIteration = 0;
             List<Collider> cachedColliders = new List<Collider>(iterationCount + 1);
-            
+
             var tempColliders = GetAllColliderWithinArea(endPoint, chainingRadius, targetingLayerMask);
 
             Vector3 startPoint = strokePoint.position;
@@ -97,7 +107,7 @@ namespace VFXLightningTargeting
             while (iterationCount >= currentIteration)
             {
                 // yield return new WaitForSeconds(waitTime);
-                
+
                 var selectedIndex = Random.Range(0, tempColliders.Count);
                 var selectedCollider = tempColliders[selectedIndex];
 
@@ -111,7 +121,7 @@ namespace VFXLightningTargeting
                 srcTransform.position = startPoint;
                 dstTransform.position = endPoint;
                 Debug.Log("[FireLightningRoutine], start pos is " + startPoint);
-                
+
                 // lightningFX.Play();
                 lightningFX.Reinit();
 
@@ -121,12 +131,12 @@ namespace VFXLightningTargeting
 
                 startPoint = endPoint;
                 tempColliders = GetAllColliderWithinArea(selectedCollider.gameObject.transform.position, chainingRadius, targetingLayerMask);
-                
-                if(bHitAgain == false)
+
+                if (bHitAgain == false)
                 {
                     HelperFunctions.RemoveListFromList<Collider>(cachedColliders, tempColliders);
                 }
-                if(tempColliders.Count == 0)
+                if (tempColliders.Count == 0)
                 {
                     Debug.LogError("no more target to hit");
                     break;
@@ -149,9 +159,13 @@ namespace VFXLightningTargeting
 
             Vector3 startPoint = strokePoint.position;
 
-            float waitTimeForCreate = 0.2f;
-            int currentWaitCountForCreate = 0;
-            int maxWaitCountForCreate = 4;
+            //float waitTimeForCreate = 0.2f;
+            //int currentWaitCountForCreate = 0;
+            //int maxWaitCountForCreate = 4;
+
+            // lightning chain loop
+            // first strike always fake, it will strike ground floor
+            // then check
             while (iterationCount >= currentIteration)
             {
                 // yield return new WaitForSeconds(waitTime);
@@ -168,28 +182,19 @@ namespace VFXLightningTargeting
 
                 // setting up fx start/end point
                 var currentFX = lightningFXPools.GetObject<VFXLightningPoolObject>();
-                if(currentFX == null)
+                if (currentFX == null)
                 {
                     yield break;
-                    //Debug.LogError("something is wrong ");
-                    //if (maxWaitCountForCreate <= currentWaitCountForCreate)
-                    //{
-                    //    Debug.LogError("unidentified break");
-                    //    yield break;
-                    //}
-                    ////yield break;
-                    //yield return new WaitForSeconds(waitTimeForCreate);
-                    //currentWaitCountForCreate++;
-                    
+
                 }
-                currentFX.srcTransform.position  = startPoint;
+                currentFX.srcTransform.position = startPoint;
                 currentFX.dstTransform.position = endPoint;
                 currentFX.lightningFX.Play();
 
                 Debug.Log("[FireLightningRoutine], start pos is " + startPoint);
 
                 yield return new WaitForSeconds(waitTime);
-                
+
 
                 startPoint = endPoint;
                 tempColliders = GetAllColliderWithinArea(selectedCollider.gameObject.transform.position, chainingRadius, targetingLayerMask);
@@ -210,10 +215,21 @@ namespace VFXLightningTargeting
             }
         }
 
+        public IEnumerator FireFireBallRoutine()
+        {
+            yield return null;
+        }
+
+
+
+        #region common functions
+
+
+
         List<Collider> GetAllColliderWithinArea(Vector3 center, float radius)
         {
-            
-            return GetAllColliderWithinArea(center,radius,null);
+
+            return GetAllColliderWithinArea(center, radius, null);
         }
         List<Collider> GetAllColliderWithinArea(Vector3 center, float radius, LayerMask? includingLayer)
         {
@@ -234,7 +250,7 @@ namespace VFXLightningTargeting
 
             Debug.Log("objects in colliders' count is " + hitColliders.Count);
             var removeList = new List<Collider>(16);
-            
+
             foreach (var hitCollider in hitColliders)
             {
                 // hitCollider.SendMessage("AddDamage");
@@ -242,7 +258,18 @@ namespace VFXLightningTargeting
             return hitColliders;
         }
 
+        #endregion
 
+    }
+
+    public class ChainSpellFireInfo : SpellFrame
+    {
+        public int chainCount;
+        public float chainRange;
+        public Vector3 startPoint;
+        public Vector3 endPoint;
+
+        public bool bCanHitAgainSameTarget;
     }
 
 }

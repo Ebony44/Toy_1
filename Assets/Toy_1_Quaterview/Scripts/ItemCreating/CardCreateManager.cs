@@ -45,7 +45,7 @@ public enum ECardRarity
 #region Abstracts
 
 // feature is moved to SO
-public abstract class MinionFrame
+public abstract class MinionFrame : CardFrame
 {
     protected EMinionRaceType currentType;
     protected CharacterStat moveSpeed; // 0 is immovable
@@ -97,8 +97,10 @@ public enum EAttackRangeType
 
 }
 
-public abstract class SpellFrame
+public abstract class SpellFrame : CardFrame
 {
-    
+    public float damage;
+    // public float effectArea; // could this always be there?
+    public float castingDelay;
 }
 #endregion
