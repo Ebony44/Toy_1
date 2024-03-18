@@ -9,6 +9,12 @@ namespace LlamAcademy
     public class EnemyScriptableObject : ScriptableObject
     {
         public int Health = 100;
+
+        public float AttackDelay = 1f;
+        public int Damage = 5;
+        public float AttackRadius = 1.5f;
+
+
         public float AIUpdateInterval = 0.1f;
         public float Acceleration = 8;
         public float AngularSpeed = 120;
