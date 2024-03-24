@@ -1950,6 +1950,39 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &421971910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421971903}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf75004dea849c24d9446767716df963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RadiusCollider: {fileID: 421971909}
+  AttackDelay: 0.4
+  DamageValue: 0
+--- !u!114 &421971911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421971903}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc287804909ee8246b7631c60fd6a93b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRadius: {fileID: 421971910}
+  animator: {fileID: 421971907}
+  Movement: {fileID: 421971905}
+  Agent: {fileID: 421971904}
+  EnemyScriptableObject: {fileID: 11400000, guid: 791e0f6fb1f63664fbeec8a4398b7704, type: 2}
+  Health: 100
 --- !u!1 &467234698
 GameObject:
   m_ObjectHideFlags: 0
