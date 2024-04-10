@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,35 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 
     private Plane tempGround;
 
+    public UnitDeployChecker deployChecker;
+    public Action<bool> onCollided;
+    // public BoxCollider unitLocateCollider; // if unit is more than 1, calculate it's size?
+
+    // public delegate void OnCollideSomething();
+    // public event OnCollideSomething onCollided;
+
+
+    private void OnEnable()
+    {
+        // onCollided += deployChecker.CheckUnitDeploy;
+        deployChecker.onCollided += DoUnitMaterialChanging;
+    }
+    private void OnDisable()
+    {
+        // onCollided -= deployChecker.CheckUnitDeploy;
+        deployChecker.onCollided -= DoUnitMaterialChanging;
+    }
+
+    public void DoUnitMaterialChanging(bool bIsNormalState)
+    {
+        Debug.Log("[DoUnitMaterialChanging], changing units' texture, which indicates they can be deployed or not" +
+            " currently " + bIsNormalState);
+    }
+
     private void Start()
     {
         cam = Camera.main;
+        
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -66,5 +93,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
     public void DisplayPos()
     {
         Debug.Log("[DisplayPos], " + tempTestObj.transform.position);
-    }    
+    }
+
+    
+
 }
