@@ -14,6 +14,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
 
     public UnitDeployChecker deployChecker;
     public Action<bool> onCollided;
+    public Material currentDragMat;
     // public BoxCollider unitLocateCollider; // if unit is more than 1, calculate it's size?
 
     // public delegate void OnCollideSomething();
@@ -31,10 +32,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
         deployChecker.onCollided -= DoUnitMaterialChanging;
     }
 
-    public void DoUnitMaterialChanging(bool bIsNormalState)
+    public void DoUnitMaterialChanging(bool bIsDeployable)
     {
         Debug.Log("[DoUnitMaterialChanging], changing units' texture, which indicates they can be deployed or not" +
-            " currently " + bIsNormalState);
+            " currently " + bIsDeployable);
+        if(currentDragMat != null)
+        {
+            currentDragMat.color = bIsDeployable == true ? Color.green : Color.red;
+        }
     }
 
     private void Start()

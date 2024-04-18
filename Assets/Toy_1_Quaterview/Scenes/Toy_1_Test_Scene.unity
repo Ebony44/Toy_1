@@ -214,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tempTestObj: {fileID: 580754376}
   deployChecker: {fileID: 580754381}
+  currentDragMat: {fileID: 2100000, guid: 5bb7e2b78285e1f4e9b9ccef3a779e31, type: 2}
 --- !u!43 &159332194
 Mesh:
   m_ObjectHideFlags: 0
@@ -1396,7 +1397,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5bb7e2b78285e1f4e9b9ccef3a779e31, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
