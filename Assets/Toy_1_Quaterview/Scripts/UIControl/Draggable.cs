@@ -30,16 +30,25 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDra
     {
         // onCollided -= deployChecker.CheckUnitDeploy;
         deployChecker.onCollided -= DoUnitMaterialChanging;
+        ChangeDragMatColor(Color.white);
+    }
+
+    private void ChangeDragMatColor(Color paramColor)
+    {
+        if (currentDragMat != null)
+        {
+            // currentDragMat.color = bIsDeployable == true ? Color.green : Color.red;
+            currentDragMat.color = paramColor;
+        }
     }
 
     public void DoUnitMaterialChanging(bool bIsDeployable)
     {
         Debug.Log("[DoUnitMaterialChanging], changing units' texture, which indicates they can be deployed or not" +
             " currently " + bIsDeployable);
-        if(currentDragMat != null)
-        {
-            currentDragMat.color = bIsDeployable == true ? Color.green : Color.red;
-        }
+        var currentColor = bIsDeployable == true ? Color.green : Color.red;
+        ChangeDragMatColor(currentColor);
+
     }
 
     private void Start()
