@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +15,24 @@ namespace InventoryLab
         Vector2 positionOnTheGrid = new Vector2();
         Vector2Int tileGridPosition = new Vector2Int();
 
+        InventoryItem[,] inventoryItemSlot;
+
+        [SerializeField] int gridSizeWidth = 20;
+        [SerializeField] int gridSizeHeight = 10;
+
         private void Start()
         {
             rectTransform = GetComponent<RectTransform>();
+            Init(gridSizeWidth, gridSizeHeight);
 
         }
 
+        private void Init(int width, int height)
+        {
+            inventoryItemSlot = new InventoryItem[width,height];
+            Vector2 size = new Vector2(width * tileSizeWidth, height * tileSizeHeight);
+            rectTransform.sizeDelta = size;
+        }
 
         public Vector2Int GetTileGridPosition(Vector2 mousePos)
         {
