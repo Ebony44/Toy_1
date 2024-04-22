@@ -20,10 +20,17 @@ namespace InventoryLab
         [SerializeField] int gridSizeWidth = 20;
         [SerializeField] int gridSizeHeight = 10;
 
+        [SerializeField] GameObject itemPrefab;
+
         private void Start()
         {
             rectTransform = GetComponent<RectTransform>();
             Init(gridSizeWidth, gridSizeHeight);
+
+            var currentPrefab = Instantiate(itemPrefab);
+            currentPrefab.name = "createdItem";
+            var currentInventoryItem = currentPrefab.GetComponent<InventoryItem>();
+            PlaceItem(currentInventoryItem, 4, 5);
 
         }
 
@@ -45,6 +52,36 @@ namespace InventoryLab
 
             return tileGridPosition;
         }
+
+        // if 20 x 10
+        // left top is 0,0
+        // left bottom is 0,-9
+        // right most is 19,0
+        // right bottom is 19,-9
+
+        public void PlaceItem(InventoryItem inventoryItem, int posX, int posY)
+        {
+            RectTransform currentRectTransform = inventoryItem.GetComponent<RectTransform>();
+            currentRectTransform.SetParent(rectTransform);
+            inventoryItemSlot[posX, posY] = inventoryItem;
+
+
+            Vector2 currentPosition = new Vector2();
+            // currentPosition.x = posX * tileSizeWidth + gridSizeWidth / 2;
+            currentPosition.x = Math.Clamp(posX * tileSizeWidth, 1 * tileSizeWidth, gridSizeWidth * tileSizeWidth);
+            // currentPosition.y = posY * tileSizeHeight + gridSizeHeight / 2;
+            currentPosition.y = posY * tileSizeHeight * -1;
+
+            Debug.Log("pos x and y are " + posX + " " + posY
+                + " current x and y " + currentPosition.x + " " + currentPosition.y);
+
+            currentRectTransform.localPosition = currentPosition;
+
+
+
+            
+        }
+
     }
 
 }
