@@ -34,6 +34,15 @@ namespace InventoryLab
 
         }
 
+        public InventoryItem PickUpItem(int x, int y)
+        {
+            Debug.Log("x and y is " + x + " " + y);
+            InventoryItem result = inventoryItemSlot[x, y];
+            inventoryItemSlot[x, y] = null;
+            return result;
+            
+        }
+
         private void Init(int width, int height)
         {
             inventoryItemSlot = new InventoryItem[width,height];

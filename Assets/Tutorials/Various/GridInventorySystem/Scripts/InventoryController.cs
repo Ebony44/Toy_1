@@ -9,6 +9,8 @@ namespace InventoryLab
     {
         [SerializeField] ItemGrid selectedItemGrid;
 
+        InventoryItem selectedItem;
+
 
         private void Update()
         {
@@ -21,6 +23,25 @@ namespace InventoryLab
             {
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
+                    Vector2Int tileGridPos = selectedItemGrid.GetTileGridPosition(readValue);
+                    if(tileGridPos.x < 0)
+                    {
+                        tileGridPos.x *= -1;
+                    }
+                    if(tileGridPos.y < 0)
+                    {
+                        tileGridPos.y *= -1;
+                    }
+                    Debug.Log("tileGridPos is " + tileGridPos.ToString());
+                    if(selectedItem == null)
+                    {
+                        selectedItem = selectedItemGrid.PickUpItem(tileGridPos.x, tileGridPos.y);
+                    }
+                    else
+                    {
+                        selectedItemGrid.PlaceItem(selectedItem,tileGridPos.x,tileGridPos.y);
+                    }
+
                     Debug.Log(selectedItemGrid.GetTileGridPosition(readValue));
                 }
             }
