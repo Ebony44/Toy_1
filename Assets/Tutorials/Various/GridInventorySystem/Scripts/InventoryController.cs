@@ -40,6 +40,7 @@ namespace InventoryLab
                     else
                     {
                         selectedItemGrid.PlaceItem(selectedItem,tileGridPos.x,tileGridPos.y);
+                        selectedItem = null;
                     }
 
                     Debug.Log(selectedItemGrid.GetTileGridPosition(readValue));

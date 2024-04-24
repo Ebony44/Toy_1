@@ -32,6 +32,13 @@ namespace InventoryLab
             var currentInventoryItem = currentPrefab.GetComponent<InventoryItem>();
             PlaceItem(currentInventoryItem, 4, 5);
 
+            var currentInventoryItem2 = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+            PlaceItem(currentInventoryItem2, 2, 1);
+
+            var currentInventoryItem3 = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+            PlaceItem(currentInventoryItem3, 1, 4);
+
+
         }
 
         public InventoryItem PickUpItem(int x, int y)
