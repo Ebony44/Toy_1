@@ -11,12 +11,21 @@ namespace InventoryLab
 
         InventoryItem selectedItem;
 
+        RectTransform currentItemRect;
+
 
         private void Update()
         {
+            if(selectedItem != null)
+            {
+                currentItemRect.position = Mouse.current.position.ReadValue();
+            }
             if (selectedItemGrid == null) { return; }
 
             Vector3 readValue = Mouse.current.position.ReadValue();
+
+
+            
             
 
             if (Application.isFocused && Mouse.current.leftButton.isPressed)
@@ -36,6 +45,10 @@ namespace InventoryLab
                     if(selectedItem == null)
                     {
                         selectedItem = selectedItemGrid.PickUpItem(tileGridPos.x, tileGridPos.y);
+                        if(selectedItem != null)
+                        {
+                            currentItemRect = selectedItem.GetComponent<RectTransform>();
+                        }
                     }
                     else
                     {
