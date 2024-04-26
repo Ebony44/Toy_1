@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,54 +14,89 @@ namespace InventoryLab
 
         RectTransform currentItemRect;
 
+        [SerializeField] List<GridItemData> items;
+
+        [SerializeField] GameObject itemPrefab;
+        [SerializeField] Transform canvasTransform;
+
 
         private void Update()
         {
-            if(selectedItem != null)
+            ItemIconDrag();
+
+            if(Application.isFocused && Keyboard.current.qKey.wasPressedThisFrame)
             {
-                currentItemRect.position = Mouse.current.position.ReadValue();
+                Debug.Log("Q key pressed");
+                CreateRandomItem();
             }
+
             if (selectedItemGrid == null) { return; }
 
             Vector3 readValue = Mouse.current.position.ReadValue();
 
 
-            
-            
-
             if (Application.isFocused && Mouse.current.leftButton.isPressed)
             {
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
-                    Vector2Int tileGridPos = selectedItemGrid.GetTileGridPosition(readValue);
-                    if(tileGridPos.x < 0)
-                    {
-                        tileGridPos.x *= -1;
-                    }
-                    if(tileGridPos.y < 0)
-                    {
-                        tileGridPos.y *= -1;
-                    }
-                    Debug.Log("tileGridPos is " + tileGridPos.ToString());
-                    if(selectedItem == null)
-                    {
-                        selectedItem = selectedItemGrid.PickUpItem(tileGridPos.x, tileGridPos.y);
-                        if(selectedItem != null)
-                        {
-                            currentItemRect = selectedItem.GetComponent<RectTransform>();
-                        }
-                    }
-                    else
-                    {
-                        selectedItemGrid.PlaceItem(selectedItem,tileGridPos.x,tileGridPos.y);
-                        selectedItem = null;
-                    }
-
-                    Debug.Log(selectedItemGrid.GetTileGridPosition(readValue));
+                    LeftMouseButtonPress(readValue);
                 }
             }
 
 
+        }
+
+        private void CreateRandomItem()
+        {
+            InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+            selectedItem = inventoryItem;
+
+            currentItemRect = inventoryItem.GetComponent<RectTransform>();
+            currentItemRect.SetParent(canvasTransform);
+
+            int selectedItemID = UnityEngine.Random.Range(0, items.Count);
+            inventoryItem.Set(items[selectedItemID]);
+
+        }
+
+        private void LeftMouseButtonPress(Vector3 readValue)
+        {
+            Vector2Int tileGridPos = selectedItemGrid.GetTileGridPosition(readValue);
+            
+            Debug.Log("tileGridPos is " + tileGridPos.ToString());
+            if (selectedItem == null)
+            {
+                PickUpItem(tileGridPos);
+            }
+            else
+            {
+                PlaceItem(tileGridPos);
+            }
+
+            Debug.Log(selectedItemGrid.GetTileGridPosition(readValue));
+        }
+
+        private void PlaceItem(Vector2Int tileGridPos)
+        {
+            selectedItemGrid.PlaceItem(selectedItem, tileGridPos.x, tileGridPos.y);
+            selectedItem = null;
+        }
+
+        private void PickUpItem(Vector2Int tileGridPos)
+        {
+            selectedItem = selectedItemGrid.PickUpItem(tileGridPos.x, tileGridPos.y);
+            if (selectedItem != null)
+            {
+                currentItemRect = selectedItem.GetComponent<RectTransform>();
+            }
+        }
+
+        private void ItemIconDrag()
+        {
+            if (selectedItem != null)
+            {
+                currentItemRect.position = Mouse.current.position.ReadValue();
+            }
         }
     }
 

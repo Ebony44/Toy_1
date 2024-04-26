@@ -27,16 +27,17 @@ namespace InventoryLab
             rectTransform = GetComponent<RectTransform>();
             Init(gridSizeWidth, gridSizeHeight);
 
-            var currentPrefab = Instantiate(itemPrefab);
-            currentPrefab.name = "createdItem";
-            var currentInventoryItem = currentPrefab.GetComponent<InventoryItem>();
-            PlaceItem(currentInventoryItem, 4, 5);
+            //var currentPrefab = Instantiate(itemPrefab);
+            //currentPrefab.name = "createdItem";
 
-            var currentInventoryItem2 = Instantiate(itemPrefab).GetComponent<InventoryItem>();
-            PlaceItem(currentInventoryItem2, 2, 1);
+            //var currentInventoryItem = currentPrefab.GetComponent<InventoryItem>();
+            //PlaceItem(currentInventoryItem, 4, 5);
 
-            var currentInventoryItem3 = Instantiate(itemPrefab).GetComponent<InventoryItem>();
-            PlaceItem(currentInventoryItem3, 1, 4);
+            //var currentInventoryItem2 = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+            //PlaceItem(currentInventoryItem2, 2, 1);
+
+            //var currentInventoryItem3 = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+            //PlaceItem(currentInventoryItem3, 1, 4);
 
 
         }
@@ -65,6 +66,16 @@ namespace InventoryLab
 
             tileGridPosition.x = (int)(positionOnTheGrid.x / tileSizeWidth);
             tileGridPosition.y = (int)(positionOnTheGrid.y / tileSizeHeight);
+
+            if (tileGridPosition.x < 0)
+            {
+                tileGridPosition.x *= -1;
+            }
+            if (tileGridPosition.y < 0)
+            {
+                tileGridPosition.y *= -1;
+            }
+
 
             return tileGridPosition;
         }
