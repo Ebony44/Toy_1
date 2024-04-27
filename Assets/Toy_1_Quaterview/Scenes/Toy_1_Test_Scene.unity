@@ -635,6 +635,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedItemGrid: {fileID: 1264069201}
+  items:
+  - {fileID: 0}
+  itemPrefab: {fileID: 4869680404526865070, guid: 4f41903bffdebed44bc201925e0c3f4e, type: 3}
+  canvasTransform: {fileID: 1995358451}
 --- !u!1 &540359524
 GameObject:
   m_ObjectHideFlags: 0
