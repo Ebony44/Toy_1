@@ -636,7 +636,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedItemGrid: {fileID: 1264069201}
   items:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 240404db46ef60c4cacb6b85ad89142e, type: 2}
+  - {fileID: 11400000, guid: 0a26e3199803e30498f01194de7382d9, type: 2}
+  - {fileID: 11400000, guid: c53714c328a229d47b643ef48d361b40, type: 2}
   itemPrefab: {fileID: 4869680404526865070, guid: 4f41903bffdebed44bc201925e0c3f4e, type: 3}
   canvasTransform: {fileID: 1995358451}
 --- !u!1 &540359524
