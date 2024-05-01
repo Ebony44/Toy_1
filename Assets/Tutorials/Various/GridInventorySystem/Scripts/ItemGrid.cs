@@ -8,8 +8,8 @@ namespace InventoryLab
     public class ItemGrid : MonoBehaviour
     {
 
-        const float tileSizeWidth = 32;
-        const float tileSizeHeight = 32;
+        public const float tileSizeWidth = 32;
+        public const float tileSizeHeight = 32;
         RectTransform rectTransform;
 
         Vector2 positionOnTheGrid = new Vector2();
