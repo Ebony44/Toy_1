@@ -22,6 +22,9 @@ namespace InventoryLab
             Vector2 size = new Vector2();
             size.x = itemData.width * ItemGrid.tileSizeWidth;
             size.y = itemData.height * ItemGrid.tileSizeHeight;
+            // ..
+            var currentRect = GetComponent<RectTransform>();
+            currentRect.sizeDelta = size;
 
         }
     }
