@@ -479,7 +479,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34184
+  m_Name: pb_Mesh31118
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5696,7 +5696,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34338
+  m_Name: pb_Mesh31272
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6471,7 +6471,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34202
+  m_Name: pb_Mesh31136
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15496,7 +15496,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34048
+  m_Name: pb_Mesh30982
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -18641,13 +18641,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3208217981845088370, guid: d59cdeb107ea39b44ac52f2945f4ed64, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679640096557623619, guid: d59cdeb107ea39b44ac52f2945f4ed64, type: 3}
+      propertyPath: m_Time
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679640096557623619, guid: d59cdeb107ea39b44ac52f2945f4ed64, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7679640096557623619, guid: d59cdeb107ea39b44ac52f2945f4ed64, type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8545078568380210834, guid: d59cdeb107ea39b44ac52f2945f4ed64, type: 3}
       propertyPath: m_RootOrder
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8545078568380210834, guid: d59cdeb107ea39b44ac52f2945f4ed64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.07026
+      value: -46
       objectReference: {fileID: 0}
     - target: {fileID: 8545078568380210834, guid: d59cdeb107ea39b44ac52f2945f4ed64, type: 3}
       propertyPath: m_LocalPosition.y
