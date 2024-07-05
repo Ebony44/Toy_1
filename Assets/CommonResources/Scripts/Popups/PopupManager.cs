@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OneLine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ public class PopupInfo {
 public class PopupManager : MonoBehaviour// MonoSingleton<PopupManager> 
 {
 
-    // [OneLine][HideLabel]
+    [OneLine][HideLabel]
     public List<PopupInfo> popupList;
 
     // [OneLine][HideLabel][Header ("너무많아서 길드만 분리")]
@@ -285,20 +286,24 @@ public class PopupManager : MonoBehaviour// MonoSingleton<PopupManager>
         }
     }
 
-    //[TestMethod]
-    ////테스트용
-    //public void TestOpen (string id) {
-    //    if (id == "Reward") {
-    //        RewardInfo rewardInfo = new RewardInfo {
-    //        gold = 2000,
-    //        after = 3000,
-    //        title = "title",
-    //        content = "content"
-    //        };
-    //        ForwardCanvasManager.Instance.rewardPanel.Initialize (rewardInfo);
-    //    } else
-    //        Open (id, null);
-    //}
+    [TestMethod]
+    //테스트용
+    public void TestOpen(string id)
+    {
+        if (id == "Reward")
+        {
+            //RewardInfo rewardInfo = new RewardInfo
+            //{
+            //    gold = 2000,
+            //    after = 3000,
+            //    title = "title",
+            //    content = "content"
+            //};
+            // ForwardCanvasManager.Instance.rewardPanel.Initialize(rewardInfo);
+        }
+        else
+            Open(id, null);
+    }
 
     //[TestMethod]
     ////테스트용
