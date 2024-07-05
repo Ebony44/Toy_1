@@ -41,7 +41,7 @@ public class PopupInfo {
 
 public class PopupManager : MonoBehaviour// MonoSingleton<PopupManager> 
 {
-
+    public static PopupManager Instance;
     [OneLine][HideLabel]
     public List<PopupInfo> popupList;
 
