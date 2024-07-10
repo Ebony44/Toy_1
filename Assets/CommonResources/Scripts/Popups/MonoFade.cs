@@ -13,6 +13,12 @@ public class MonoFade : MonoBehaviour //MonoSingleton<MonoFade>
     public void Awake() {
         _fadeImage = GetComponent<Image>();
         _fadeImage.color = Color.black;
+
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+
     }
 
     /// <summary>

@@ -11,7 +11,15 @@ public class MonoBlur : MonoBehaviour// MonoSingleton<MonoBlur>
     private readonly float sizeMaxValue = 2f;
     public Image image;
     public bool isUse = false;
-    
+
+    public void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
     [TestMethod]
     public Coroutine Blur(float b, float time){
         if(!isUse)
