@@ -133,7 +133,7 @@ public class PopupManager : MonoBehaviour// MonoSingleton<PopupManager>
                 go.SendMessage ("Initialize");
 
             if (m_popupStack.Count == 0) {
-                MonoBlur.Instance.Blur (1f, 0.3f);
+                // MonoBlur.Instance.Blur (1f, 0.3f);
                 MonoFade.Instance.Fade (fadeValue, 0.3f);
             }
 
@@ -194,7 +194,7 @@ public class PopupManager : MonoBehaviour// MonoSingleton<PopupManager>
 
     private IEnumerator CloseRoutine (string targetId = "", bool closeSimple = false) {
         if (m_popupStack.Count == 1) {
-            MonoBlur.Instance.Blur (0f, 0.3f);
+            // MonoBlur.Instance.Blur (0f, 0.3f);
             MonoFade.Instance.Fade (0f, 0.3f);
         }
 
