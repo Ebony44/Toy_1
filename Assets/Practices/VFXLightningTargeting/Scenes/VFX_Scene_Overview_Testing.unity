@@ -1494,7 +1494,7 @@ GameObject:
   - component: {fileID: 1034162071}
   - component: {fileID: 1034162070}
   - component: {fileID: 1034162069}
-  - component: {fileID: 1034162068}
+  - component: {fileID: 1034162072}
   m_Layer: 0
   m_Name: VFXCPUEvent
   m_TagString: Untagged
@@ -1502,22 +1502,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1034162068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1034162067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be40d2f3409385a48a27caa844ebf5d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeInEditor: 1
-  outputEvent:
-    m_Name: On Received Event
-  audioSource: {fileID: 0}
 --- !u!73398921 &1034162069
 VFXRenderer:
   serializedVersion: 1
@@ -1566,7 +1550,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034162067}
   m_Enabled: 1
-  m_Asset: {fileID: 0}
+  m_Asset: {fileID: 8926484042661614526, guid: 227ac4c9c0d2d044aa87b17a1a54c078, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -1610,6 +1594,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1034162072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034162067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f80eebf640d61f749974347bfef96ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeInEditor: 1
+  outputEvent:
+    m_Name: On Received Event
+  onEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1575030197}
+        m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
+        m_MethodName: TestDebugLog
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1074462822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8081,7 +8095,7 @@ VisualEffect:
         m_Overridden: 1
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 11849455}
+      - m_Value: {fileID: 0}
         m_Name: PositionMap
         m_Overridden: 1
     m_Bool:

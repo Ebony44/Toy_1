@@ -384,4 +384,10 @@ public class PopupManager : MonoBehaviour// MonoSingleton<PopupManager>
     public void GetActiveCountAsLog () {
         Debug.Log ("current popup count " + ActiveCount);
     }
+
+    public void TestDebugLog()
+    {
+        Debug.Log("[TestDebugLog]");
+    }
+
 }
