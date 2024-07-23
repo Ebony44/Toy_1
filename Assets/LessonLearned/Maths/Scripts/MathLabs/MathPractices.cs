@@ -91,6 +91,9 @@ public class MathPractices : MonoBehaviour
         
 
     }
+
+    List<GameObject> cachedObject = new List<GameObject>(32);
+
     [TestMethod(false)]
     public void TestRotationMatrixAtThree(float paramDegree)
     {
@@ -119,7 +122,7 @@ public class MathPractices : MonoBehaviour
         // ok.. point of (1,2,3) and x-axis counter-clockwise, is result same as (1,)
         // in this case, it's x is 1
         // y is 0 + 1 - root(3) / 2 * 3
-        var radianTheta = 60 * Mathf.Deg2Rad;
+        var radianTheta = paramDegree * Mathf.Deg2Rad;
         Debug.Log("Second Start Point is " + secondStartPoint);
         var modifiedX = 1 * secondStartPoint.x + 0 * secondStartPoint.y + 0 * secondStartPoint.z;
         var modifiedY = 0 * secondStartPoint.x + Mathf.Cos(radianTheta) * secondStartPoint.y + -Mathf.Sin(radianTheta) * secondStartPoint.z;
@@ -136,6 +139,14 @@ public class MathPractices : MonoBehaviour
         // x should be 1
         // y should be -3
         // z should be 2
+        // 1,2,3 to 1,-3,2
+
+        var originObject = GameObject.Instantiate(firstIndicator, new Vector3(secondStartPoint.x, secondStartPoint.y, secondStartPoint.z), Quaternion.identity);
+        var movedObject = GameObject.Instantiate(firstIndicator, new Vector3(modifiedX, modifiedY, modifiedZ), Quaternion.identity);
+        originObject.SetActive(true);
+        movedObject.SetActive(true);
+        
+
 
     }
 
