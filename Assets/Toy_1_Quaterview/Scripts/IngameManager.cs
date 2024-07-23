@@ -59,7 +59,7 @@ public class IngameManager : MonoBehaviour
 
     private void Start()
     {
-        Initialize();
+        // Initialize();
     }
     private void Update()
     {
