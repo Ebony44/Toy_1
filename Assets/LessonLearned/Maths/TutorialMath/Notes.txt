@@ -1,0 +1,11 @@
+https://www.habrador.com/tutorials/math/
+
+computational math, learn it everytime until i done my first project
+
+
+sine, cosine, tangent
+// special degree
+// at 30, sine is 0.5, cosine is 0.866, tangent is 0.577
+// at 45, sine is 0.707, cosine is 0.707, tangent is 1 // which, sine is 1 /sqrt(2), cosine is 1/sqrt(2)
+// at 60, sine is 0.866, cosine is 0.5, tangent is 1.732 // which, sine is sqrt(3)/2, cosine is 1/2
+// at 90, sine is 1, cosine is 0, tangent is undefined
