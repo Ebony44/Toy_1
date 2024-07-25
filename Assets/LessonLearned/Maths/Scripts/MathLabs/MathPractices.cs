@@ -88,12 +88,11 @@ public class MathPractices : MonoBehaviour
 
         // Debug.Log($"Rotated Start Point: {rotatedStartX}, {rotatedStartY}");
 
-        
-
     }
 
     List<GameObject> cachedObject = new List<GameObject>(32);
 
+    #region rotation matrix
     [TestMethod(false)]
     public void TestRotationMatrixAtThree(float paramDegree)
     {
@@ -170,6 +169,30 @@ public class MathPractices : MonoBehaviour
 
         return result;
     }
+    #endregion rotation matrix end
+
+    #region dot product
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="srcVector"> source which standard </param>
+    /// <param name="dstVector"> target which tell it is in front or rear to standard object</param>
+    public bool TellObjectIsInfrontOf(Vector3 srcVector, Vector3 dstVector)
+    {
+        bool result = false;
+        // formula of dot product is 
+        // A . B = |A| * |B| * cos(theta)
+
+        // where A and B are vector, and theta is angle between A and B
+        // |A| and |B| are the magnitude of A and B
+
+        return result;
+
+
+    }
+    #endregion dot product end
+
+
 }
 
 
