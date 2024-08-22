@@ -80,12 +80,17 @@ namespace LinearAlgebra
             }
 
 
-
-
             // exception, if l.n == 0, the ray is parallel to the plane
 
 
         }
+
+        [TestMethod(false)]
+        public void CheckIntersectPlaneArea()
+        {
+
+        }
+
 
     }
 
