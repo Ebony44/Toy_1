@@ -511,7 +511,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31118
+  m_Name: pb_Mesh32724
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1758,7 +1758,7 @@ GameObject:
   m_Component:
   - component: {fileID: 344071085}
   m_Layer: 0
-  m_Name: 3:08
+  m_Name: 11:54
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3893,7 +3893,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608925084}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -59.1, y: 5.2, z: 0}
+  m_LocalPosition: {x: -60, y: 5.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5860,7 +5860,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31272
+  m_Name: pb_Mesh32890
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6635,7 +6635,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31136
+  m_Name: pb_Mesh32742
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20561,7 +20561,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30982
+  m_Name: pb_Mesh32584
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22134,7 +22134,10 @@ VisualEffect:
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 0.5, y: 0.5, z: 5}
+        m_Name: BloodVelocity
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:
@@ -22151,7 +22154,7 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array:
-      - m_Value: 0
+      - m_Value: 1
         m_Name: Loop
         m_Overridden: 1
 --- !u!1 &1939021471
