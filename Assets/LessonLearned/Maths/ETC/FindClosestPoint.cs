@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class FindClosestPoint : MonoBehaviour
 {
+    [SerializeField] GameObject startPoint;
+    [SerializeField] GameObject endPoint;
+    
+    [SerializeField] GameObject targetPoint;
+
+    [SerializeField] GameObject instantObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +20,13 @@ public class FindClosestPoint : MonoBehaviour
     [TestMethod(false)]
     public void TestShowClosestPoint()
     {
+        // Vector3 lineDir = endPoint.transform.position - startPoint.transform.position;
+        // Vector3 targetDir = targetPoint.transform.position - startPoint.transform.position;
+
+        var closestPoint = GetClosestPointOnFiniteLine(targetPoint.transform.position, startPoint.transform.position, endPoint.transform.position);
+        var indicateObject = Instantiate(instantObject, closestPoint, Quaternion.identity);
+        indicateObject.SetActive(true);
+        Debug.Log("Closest Point: " + closestPoint);
 
     }
 
