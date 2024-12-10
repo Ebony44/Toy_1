@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+// using System.Numerics;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -126,6 +127,35 @@ namespace LinearAlgebra
 
             return tempX + tempY + tempZ;
 
+        }
+
+        [TestMethod(false)]
+        private void FindOutLeftOrRightWithCrossProduct(Transform target, Transform origin)
+        {
+            target = enemyTrans;
+            origin = youTrans;
+            var direction = target.position - origin.position;
+
+            var temp = Vector3.right;
+
+            var rightVector = Quaternion.Euler(0, 90, 0) * origin.forward;
+            var crossValue = Vector3.Cross(rightVector, direction);
+
+            if(crossValue.y > 0)
+            {
+                Debug.Log("right");
+            }
+            else if(crossValue.y == 0)
+            {
+                Debug.Log("straight");
+            }
+            else
+            {
+                Debug.Log("left");
+            }
+            Debug.Log("direction " + direction + " right vector " + rightVector + " cross value " + crossValue);
+
+            // var rightVector = Vector3.Cross(direction, Vector3.up);
         }
 
 
