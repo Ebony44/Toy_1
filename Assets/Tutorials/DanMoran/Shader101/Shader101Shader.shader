@@ -16,28 +16,52 @@ Shader "Custom/Shader101Shader"
             struct appdata
             {
 				float4 vertex : POSITION;
-				// float2 uv : TEXCOORD0;
+				float2 uv: TEXCOORD0;
 			};
             struct v2f
             {
                 float4 vertex : SV_POSITION;
                 float2 uv: TEXCOORD0;
-            }
+            };
             v2f vert(appdata v)
 			{
 				v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
 				// o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = v.uv;
 				return o;
-			}
+			};
             float4 frag(v2f i) : SV_Target
 			{
                 // v2f i, potential pixels which are passed by 
 				// return float4(1,1,1,1);
-                return float4(1,0.6,0,1);
+                // return float4(1,0.6,0,1);
+
+                // return float4(i.uv.r, 
+                //     i.uv.b,
+                //     i.uv.g,
+                //     i.uv.a);
+
+                // return float4(i.uv.r, 
+                //     i.uv.g,
+                //     0,
+                //     1);
+
+                half4 c = frac( i.uv );
+            if (any(saturate(i.uv) - i.uv))
+                c.b = 0.5;
+            return c;
+        }
+
+                return float4(i.uv.g, 
+                i.uv.r,
+                0,
+                1);
+
+
                 // i, potential pixel will be turned into color, in this case, white
                 // float4(1,1,1,1),  red, blue, green, alpha
-			}
+			};
 
             // #pragma target 3.0
             ENDCG
