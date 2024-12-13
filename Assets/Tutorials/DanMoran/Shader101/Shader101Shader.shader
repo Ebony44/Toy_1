@@ -2,12 +2,28 @@
 
 // https://www.youtube.com/watch?app=desktop&v=T-HXmQAMhG0&t=1s&ab_channel=DanMoran
 
+// 0,1 1,1
+// 0,0 1,0
+
 Shader "Custom/Shader101Shader"
 {
+    Properties
+    {
+        _MainTex ("Texture", 2D) = "white" {}
+        _SecondTex("Second Texture", 2D) = "white" {}
+        _Color ("Color", Color) = (1,1,1,1)
+        _Tween("Tween", Range(0,1)) = 0
+    }
     SubShader
     {
+        Tags { "Queue"="Transparent" }
         Pass
         {
+            // how each pixel will blend with?
+            Blend srcAlpha OneMinusSrcAlpha
+            // srcColor * srcAlpha + destColor * (1 - srcAlpha)
+
+            //
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -26,11 +42,14 @@ Shader "Custom/Shader101Shader"
             v2f vert(appdata v)
 			{
 				v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
 				// o.vertex = UnityObjectToClipPos(v.vertex);
+                o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
                 o.uv = v.uv;
 				return o;
 			};
+
+            sampler2D _MainTex;
+
             float4 frag(v2f i) : SV_Target
 			{
                 // v2f i, potential pixels which are passed by 
@@ -47,20 +66,31 @@ Shader "Custom/Shader101Shader"
                 //     0,
                 //     1);
 
-                half4 c = frac( i.uv );
-            if (any(saturate(i.uv) - i.uv))
-                c.b = 0.5;
-            return c;
-        }
+            //     half4 c = frac( i.uv );
+            // if (any(saturate(i.uv) - i.uv))
+            // {
+            //     c.b = 0.5;
+            //     }
 
-                return float4(i.uv.g, 
-                i.uv.r,
-                0,
-                1);
+            // return c;
+
+                // return float4((i.uv.x - 0.25), 
+                // i.uv.y - 0.5,
+                // i.uv.y + i.uv.x,
+                // 1);
+
+                // return float4((i.uv.x), 
+                // i.uv.y,
+                // (1 - i.uv.y / 4 + i.uv.x),
+                // 1);
+
+                // float4 color = float4((i.uv.x), i.uv.y,1,1);
+                float4 color = tex2D(_MainTex,i.uv);
+                return color;
 
 
                 // i, potential pixel will be turned into color, in this case, white
-                // float4(1,1,1,1),  red, blue, green, alpha
+                // return float4(1,1,1,1);//  red, green,blue alpha, 3 colors of light
 			};
 
             // #pragma target 3.0
