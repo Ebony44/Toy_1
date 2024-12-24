@@ -1,5 +1,7 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // https://www.youtube.com/watch?app=desktop&v=T-HXmQAMhG0&t=1s&ab_channel=DanMoran
 
 // 0,1 1,1
@@ -43,7 +45,7 @@ Shader "Custom/Shader101Shader"
 			{
 				v2f o;
 				// o.vertex = UnityObjectToClipPos(v.vertex);
-                o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+                o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
 				return o;
 			};

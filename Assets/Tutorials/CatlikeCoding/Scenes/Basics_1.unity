@@ -1826,12 +1826,12 @@ GameObject:
   - component: {fileID: 1079924989}
   - component: {fileID: 1079924988}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: Plane_for_shader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1079924988
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11561,7 +11561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2068003256
 Transform:
   m_ObjectHideFlags: 0

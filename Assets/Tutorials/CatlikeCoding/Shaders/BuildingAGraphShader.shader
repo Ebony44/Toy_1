@@ -6,6 +6,8 @@ Shader "Custom/BuildingAGraphShader"
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
+        _Smoothness ("Smoothness", Range(0,1)) = 0.5
+
     }
     SubShader {
         CGPROGRAM
@@ -16,9 +18,12 @@ Shader "Custom/BuildingAGraphShader"
 			float3 worldPos;
 		};
 
+        float _Smoothness;
+
         void ConfigureSurface (Input input, inout SurfaceOutputStandard surface) 
         {
-
+            surface.Albedo = input.worldPos;
+            surface.Smoothness = _Smoothness;
         }
 
         ENDCG

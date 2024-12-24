@@ -35,7 +35,7 @@ namespace CatlikeCoding
             {
                 var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 
-                cube.transform.SetParent(parentObject.transform);
+                cube.transform.SetParent(parentObject.transform,false);
 
                 tempPos.x = (i + 0.5f) * step - 1f;
                 // tempPos.y = tempPos.x;
