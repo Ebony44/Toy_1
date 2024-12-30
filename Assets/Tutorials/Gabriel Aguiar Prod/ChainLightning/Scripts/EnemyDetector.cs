@@ -35,11 +35,13 @@ namespace GabrielAguiar
 
         public List<GameObject> GetEnemiesInRange()
         {
+            Debug.Log("Enemies in range: " + enemiesInRange.Count);
             return enemiesInRange;
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("OnTriggerEnter, current object name is " + this.gameObject.name);
             if (other.CompareTag("Enemy"))
             {
                 enemiesInRange.Add(other.gameObject);
@@ -56,6 +58,7 @@ namespace GabrielAguiar
 
         private void OnTriggerExit(Collider other)
         {
+            Debug.Log("OnTriggerExit, current object name is " + this.gameObject.name);
             if (other.CompareTag("Enemy"))
             {
                 enemiesInRange.Remove(other.gameObject);

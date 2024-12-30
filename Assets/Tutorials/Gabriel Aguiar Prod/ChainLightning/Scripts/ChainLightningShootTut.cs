@@ -70,7 +70,7 @@ namespace GabrielAguiar
 
         IEnumerator UpdateLineRenderer(GameObject lineRenderer, Transform startPos, Transform endPos)
         {
-            if(bIsShooting && bShot)
+            if(bIsShooting && bShot && lineRenderer != null)
             {
                 lineRenderer.GetComponent<LineRendererController>().SetPosition(startPos, endPos);
                 yield return new WaitForSeconds(refreshRate);
