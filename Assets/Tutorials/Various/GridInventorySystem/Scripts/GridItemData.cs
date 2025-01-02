@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Test/ScriptableObject/Enemy Configuration")]
 public class GridItemData : ScriptableObject
 {
     public int width = 1;
