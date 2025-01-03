@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LlamAcademy
 {
-    [CreateAssetMenu(fileName = "Trail Config", menuName = "Guns/Gun Trail Configuration", order = 4)]
+    [CreateAssetMenu(fileName = "Trail Config", menuName = "Test/Guns/Gun Trail Configuration", order = 4)]
     public class TrailConfigScriptableObject : ScriptableObject
     {
         public Material Material;

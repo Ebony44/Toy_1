@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LlamAcademy
 {
-    [CreateAssetMenu(fileName = "Shoot Config", menuName = "Guns/Shoot Configuration", order = 2)]
+    [CreateAssetMenu(fileName = "Shoot Config", menuName = "Test/Guns/Shoot Configuration", order = 2)]
     public class ShootConfigurationScriptableObject : ScriptableObject
     {
         public LayerMask HitMask;
