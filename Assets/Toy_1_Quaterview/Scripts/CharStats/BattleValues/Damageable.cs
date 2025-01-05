@@ -43,5 +43,21 @@ public class Damageable : MonoBehaviour
     }
 
 
+    // Attack.cs -> from character, how to call ReceiveAnAttack() method
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    // Avoid friendly fire!
+    //    if (!other.CompareTag(gameObject.tag))
+    //    {
+    //        if (other.TryGetComponent(out Damageable damageableComp))
+    //        {
+    //            if (!damageableComp.GetHit)
+    //                damageableComp.ReceiveAnAttack(_attackConfigSO.AttackStrength);
+    //        }
+    //    }
+    //}
+    // 
+
+
 
 }

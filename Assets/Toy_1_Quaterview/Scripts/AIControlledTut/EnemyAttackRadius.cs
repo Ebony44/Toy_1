@@ -12,6 +12,7 @@ public class EnemyAttackRadius : MonoBehaviour
     protected List<IDamageable> Damageables = new List<IDamageable>();
     public float AttackDelay = 0.4f;
 
+
     public int DamageValue;
 
     public delegate void AttackEvent(IDamageable Target);

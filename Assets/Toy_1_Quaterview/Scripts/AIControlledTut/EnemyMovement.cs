@@ -26,8 +26,8 @@ namespace LlamAcademy
             if(animator != null)
             {
                 animator.SetBool(isWalking, (agent.velocity.magnitude > 0.01f));
-                Debug.Log("is walking? " + animator.GetBool(isWalking)
-                    + " agent velocity is? " + (agent.velocity.magnitude > 0.01f));
+                //Debug.Log("is walking? " + animator.GetBool(isWalking)
+                //    + " agent velocity is? " + (agent.velocity.magnitude > 0.01f));
             }
         }
         // Start is called before the first frame update
