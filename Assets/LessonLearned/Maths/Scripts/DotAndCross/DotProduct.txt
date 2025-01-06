@@ -14,7 +14,18 @@ a⋅b = AxBx+AyBy
 
 cos(α) = a⋅b / |a|⋅|b|
 
+(α) = arccosine(a⋅b / |a|⋅|b|)
+float angle = Mathf.Acos(dotProduct / (vector1.magnitude * vector2.magnitude));
 
+
+//
+
+https://discussions.unity.com/t/get-angle-in-degress-between-two-vectors/799631/14
+
+float angle = Mathf.Rad2Deg * (Mathf.Atan2(pointB.y - pointA.y, pointB.x - pointA.x));
+
+Thanks a lot. Now all points works as charm. I just had to add following correction “-(90 - angle)”
+//
 
 
 .
