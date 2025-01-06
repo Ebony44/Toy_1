@@ -25,6 +25,7 @@ namespace LlamAcademy
 
         private void OnAttack(IDamageable target)
         {
+            var tempString = AnimationNamingInfos.ANIM_ATTACK;
             animator.SetTrigger(ATTACK_TRIGGER);
 
             if (lookCoroutine != null)
