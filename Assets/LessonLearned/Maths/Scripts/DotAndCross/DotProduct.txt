@@ -37,3 +37,9 @@ Note the sign of this expression depends only on the angle's cosine, therefore t
 =0 if the a and b are orthogonal.
 
 
+
+
+//
+
+angle between two vectors using both dot and cross product
+https://www.cuemath.com/geometry/angle-between-vectors/
