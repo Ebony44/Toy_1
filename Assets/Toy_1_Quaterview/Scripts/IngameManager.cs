@@ -2,146 +2,156 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EInGameResources
+
+namespace Toy_1
 {
-    Blood = 0,
-    Bone,
-    Flesh,
-}
-
-public class IngameResourceInfo
-{
-    public EInGameResources currentType;
-    // CharacterStat currentResourceIncreaseSpeed;
-
-    public float currentResource;
-    public float currentMaxLimit;
-    // public readonly float fixedMaxLimit;
-
-    public float startResourceValue;
-    public float increaseSpeed;
-
-    public IngameResourceInfo(EInGameResources currentType, float currentResource, float currentMaxLimit, float startResourceValue, float increaseSpeed)
+    public enum EInGameResources
     {
-        this.currentType = currentType;
-        this.currentResource = currentResource;
-        this.currentMaxLimit = currentMaxLimit;
-        this.startResourceValue = startResourceValue;
-        this.increaseSpeed = increaseSpeed;
+        Blood = 0,
+        Bone,
+        Flesh,
     }
 
-
-    // CharacterStat currentResourceIncreaseSpeed;
-
-}
-
-public class IngameManager : MonoBehaviour
-{
-
-    #region resources of ingame
-    // currently blood, flesh and bone
-    public Dictionary<EInGameResources, IngameResourceInfo> currentResourceInfos = new Dictionary<EInGameResources, IngameResourceInfo>(3);
-    // public Dictionary<EInGameResources, float> currentResources = new Dictionary<EInGameResources, float>(3);
-    // public Dictionary<EInGameResources, float> baseResourceIncreaseSpeed = new Dictionary<EInGameResources, float>(3);
-    // public Dictionary<EInGameResources, float> currentMaxLimitResources = new Dictionary<EInGameResources, float>(3);
-
-    public readonly Dictionary<EInGameResources, float> baseStarts = new Dictionary<EInGameResources, float>(3);
-    public readonly Dictionary<EInGameResources, float> baseMaxLimits = new Dictionary<EInGameResources, float>(3);
-    public readonly Dictionary<EInGameResources, float> baseIncreaseSpeeds= new Dictionary<EInGameResources, float>(3);
-
-
-    // use it as listener
-    // so no need to reference other components
-    public List<IngameResourceChannelSO> resourceEventChannels = new List<IngameResourceChannelSO>();
-
-    #endregion
-
-
-    private void Start()
+    public class IngameResourceInfo
     {
-        // Initialize();
-    }
-    private void Update()
-    {
-        
-    }
-    private void OnEnable()
-    {
-        foreach (var item in resourceEventChannels)
+        public EInGameResources currentType;
+        // CharacterStat currentResourceIncreaseSpeed;
+
+        public float currentResource;
+        public float currentMaxLimit;
+        // public readonly float fixedMaxLimit;
+
+        public float startResourceValue;
+        public float increaseSpeed;
+
+        public IngameResourceInfo(EInGameResources currentType, float currentResource, float currentMaxLimit, float startResourceValue, float increaseSpeed)
         {
-            item.OnSpentEventRaised += OnResourceChanged;
-            
+            this.currentType = currentType;
+            this.currentResource = currentResource;
+            this.currentMaxLimit = currentMaxLimit;
+            this.startResourceValue = startResourceValue;
+            this.increaseSpeed = increaseSpeed;
         }
+
+
+        // CharacterStat currentResourceIncreaseSpeed;
+
     }
-    private void OnDisable()
+
+    public class IngameManager : MonoBehaviour
     {
-        foreach (var item in resourceEventChannels)
+
+        #region resources of ingame
+        // currently blood, flesh and bone
+        public Dictionary<EInGameResources, IngameResourceInfo> currentResourceInfos = new Dictionary<EInGameResources, IngameResourceInfo>(3);
+        // public Dictionary<EInGameResources, float> currentResources = new Dictionary<EInGameResources, float>(3);
+        // public Dictionary<EInGameResources, float> baseResourceIncreaseSpeed = new Dictionary<EInGameResources, float>(3);
+        // public Dictionary<EInGameResources, float> currentMaxLimitResources = new Dictionary<EInGameResources, float>(3);
+
+        public readonly Dictionary<EInGameResources, float> baseStarts = new Dictionary<EInGameResources, float>(3);
+        public readonly Dictionary<EInGameResources, float> baseMaxLimits = new Dictionary<EInGameResources, float>(3);
+        public readonly Dictionary<EInGameResources, float> baseIncreaseSpeeds = new Dictionary<EInGameResources, float>(3);
+
+
+        // use it as listener
+        // so no need to reference other components
+        public List<IngameResourceChannelSO> resourceEventChannels = new List<IngameResourceChannelSO>();
+
+        // event which broadcast or listen
+        public VoidEventChannelSO OnEnemyDeath;
+
+        #endregion
+
+
+        private void Start()
         {
-            item.OnSpentEventRaised -= OnResourceChanged;
+            // Initialize();
         }
-    }
-    [TestMethod(false)]
-    public void TestBreakPoint()
-    {
-        // var tempCurrent = currentResources[EInGameResources.Blood];
-        var tempCurrent = currentResourceInfos[EInGameResources.Blood];
-
-    }
-
-    public void OnResourceChanged(EInGameResources resourceType,float settingValue)
-    {
-        Debug.Log(" current resource type " + resourceType
-            + " before value " + currentResourceInfos[resourceType].currentResource
-            + " after value " + (currentResourceInfos[resourceType].currentResource + settingValue) );
-        currentResourceInfos[resourceType].currentResource += settingValue;
-        
-    }
-
-    public void Initialize()
-    {
-        var currentItems = System.Enum.GetValues(typeof(EInGameResources));
-        foreach (EInGameResources item in currentItems)
+        private void Update()
         {
-            // currentResources.Add(item, 0);
-            var currentMaxLimit = baseMaxLimits[item];
-            var currentStartResource = baseStarts[item];
-            var currentIncreaseSpeed = baseIncreaseSpeeds[item];
-            IngameResourceInfo currentInfo = new IngameResourceInfo(item, 0, currentMaxLimit, currentStartResource, currentIncreaseSpeed);
-            
-            currentResourceInfos.Add(item, currentInfo);
+
         }
-    }
+        private void OnEnable()
+        {
+            foreach (var item in resourceEventChannels)
+            {
+                item.OnSpentEventRaised += OnResourceChanged;
 
-    //public void Initialize()
-    //{
+            }
+        }
+        private void OnDisable()
+        {
+            foreach (var item in resourceEventChannels)
+            {
+                item.OnSpentEventRaised -= OnResourceChanged;
+            }
+        }
+        [TestMethod(false)]
+        public void TestBreakPoint()
+        {
+            // var tempCurrent = currentResources[EInGameResources.Blood];
+            var tempCurrent = currentResourceInfos[EInGameResources.Blood];
 
-    //}
+        }
 
-    public void UpdateResources(EInGameResources targetResource, float settingValue)
-    {
-        
-    }
+        public void OnResourceChanged(EInGameResources resourceType, float settingValue)
+        {
+            Debug.Log(" current resource type " + resourceType
+                + " before value " + currentResourceInfos[resourceType].currentResource
+                + " after value " + (currentResourceInfos[resourceType].currentResource + settingValue));
+            currentResourceInfos[resourceType].currentResource += settingValue;
 
-    public void GameClear()
-    {
-        // reset max and current
-        //foreach (var item in currentMaxLimitResources)
+        }
+
+        public void Initialize()
+        {
+            var currentItems = System.Enum.GetValues(typeof(EInGameResources));
+            foreach (EInGameResources item in currentItems)
+            {
+                // currentResources.Add(item, 0);
+                var currentMaxLimit = baseMaxLimits[item];
+                var currentStartResource = baseStarts[item];
+                var currentIncreaseSpeed = baseIncreaseSpeeds[item];
+                IngameResourceInfo currentInfo = new IngameResourceInfo(item, 0, currentMaxLimit, currentStartResource, currentIncreaseSpeed);
+
+                currentResourceInfos.Add(item, currentInfo);
+            }
+        }
+
+        //public void Initialize()
         //{
-        //    var currentFixedLimitValue = baseMaxLimits[item.Key];
-        //    // item.Value = currentFixedLimitValue;
-        //    currentMaxLimitResources[item.Key] = currentFixedLimitValue;
-
-        //    currentResources[item.Key] = 0;
 
         //}
-        currentResourceInfos.Clear();
 
-        // clear other features
+        public void UpdateResources(EInGameResources targetResource, float settingValue)
+        {
+
+        }
+
+        public void GameClear()
+        {
+            // reset max and current
+            //foreach (var item in currentMaxLimitResources)
+            //{
+            //    var currentFixedLimitValue = baseMaxLimits[item.Key];
+            //    // item.Value = currentFixedLimitValue;
+            //    currentMaxLimitResources[item.Key] = currentFixedLimitValue;
+
+            //    currentResources[item.Key] = 0;
+
+            //}
+            currentResourceInfos.Clear();
+
+            // clear other features
+
+        }
+
+
 
     }
 
-    
 
 }
+
 
 

@@ -1,3 +1,20 @@
 Wall(also probuilder mesh) separated from probuilder prefabs(floors mostly) for shattering
 
 currently bound box is random...
+
+TODO:
+
+With event system, 
+creates
+1. Gamemanager class (Ingame Achievement, Ingame Record...etc )
+1.1. Ex) if enemy dies, record that kill-death count (Enemy object have to have event class which broadcast void event)
+
+
+Learning Notes:
+
+1. Event system is such a glue
+
+Broadcaster class -> call A(void event)
+Listener class -> listen A(void event)
+
+both can define how event A acts
