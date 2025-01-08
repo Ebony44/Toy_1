@@ -30,7 +30,15 @@ namespace LinearAlgebra
             Vector3 n = plainTrans.up; // I will fire this up
 
             // We are intrerested in calculating a point in this plane called p
-            // The vector between p and p0 and the normal is always perpendicular: (p - p_0) . n = 0
+            // The vector between p and p0 and the normal is always perpendicular:(p - p_0) . n = 0
+
+            // (p - p_0) . n = 0 (Eq 1)
+            // l_0 + l * t = p (Eq 2)
+
+            // get 't'
+            // l * t = p - l_0
+            // t = (p - l_0) / l
+            // t = 
 
             // ((l_0 + l * t) - p_0) . n = 0
             // (l_0 + l* t) . n - p_0.n

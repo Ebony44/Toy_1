@@ -5,6 +5,8 @@
 The original motivation is a geometric one: The dot product can be used for computing the angle α
 between two vectors a and b
 
+// |x| means magnitude
+
 :
 
 a⋅b=|a|⋅|b|⋅cos(α)
