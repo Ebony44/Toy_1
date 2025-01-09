@@ -10,6 +10,8 @@ namespace LinearAlgebra
         public Transform youTrans;
         public Transform plainTrans;
 
+        public GameObject indicateObject;
+
         // Update is called once per frame
         void Update()
         {
@@ -20,6 +22,9 @@ namespace LinearAlgebra
         [TestMethod(false)]
         public void CheckIntersectEach()
         {
+            // currently, this method consider it's plane's width is infinite...
+            // fix this?
+
             //Math from http://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-plane-and-ray-disk-intersection
             // A plane can be defined as:
             // a point representing how far the plane is from the world origin
@@ -38,13 +43,13 @@ namespace LinearAlgebra
             // get 't'
             // l * t = p - l_0
             // t = (p - l_0) / l
-            // t = 
 
-            // ((l_0 + l * t) - p_0) . n = 0
-            // (l_0 + l* t) . n - p_0.n
-            // l_0.n + (l * t).n - p_0.n = 0
-            // (l*t).n = p_0.n - l_0.n
-            // (l * t . n) = (p_0 - l_0) . n
+            // (a + l * t - b) . n = 0
+            // (l * t).n + (a-b).n = 0
+            // t . n + ((a-b).n / l) = 0
+            // t . n = - ((a-b) . n / l)
+            // t = - ((a-b) . n / l . n)
+            // t = - ((l_0 - p_0) . n / l . n)
 
             // t = ((p_0 - l_0) . n) / (l . n)
 
@@ -56,9 +61,15 @@ namespace LinearAlgebra
             // t is the length of the ray, which we can get by combining the above equations:
             // t = ((p_0 - l_0) . n) / (l . n)
 
+
             var temp = p_0 - l_0;
             var firstValue = Vector3.Dot(temp, n);
             var denominator = Vector3.Dot(l, n);
+
+            Debug.Log("p zero is " + p_0
+                + "l zero is " + l_0);
+
+
 
             Debug.Log("ray forward pos " + l
                 + " plane up pos " + n);

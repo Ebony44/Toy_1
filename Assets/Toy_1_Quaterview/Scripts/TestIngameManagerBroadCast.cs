@@ -2,24 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestIngameManagerBroadCast : MonoBehaviour
+namespace Toy_1
 {
-    public EInGameResources testResourceType;
-    public IngameResourceChannelSO broadcastSO;
+    public class TestIngameManagerBroadCast : MonoBehaviour
+    {
+        public EInGameResources testResourceType;
+        public IngameResourceChannelSO broadcastSO;
 
-    private void OnEnable()
-    {
-        
-    }
-    private void OnDisable()
-    {
-        
-    }
+        private void OnEnable()
+        {
 
-    [TestMethod(false)]
-    public void TestEventInvoke(float testValue)
-    {
-        broadcastSO.RaiseResourceSpentEvent(testResourceType,testValue);
-        Debug.Log("[TestEventInvoke], value is " + testValue);
+        }
+        private void OnDisable()
+        {
+
+        }
+
+        [TestMethod(false)]
+        public void TestEventInvoke(float testValue)
+        {
+            broadcastSO.RaiseResourceSpentEvent(testResourceType, testValue);
+            Debug.Log("[TestEventInvoke], value is " + testValue);
+        }
     }
 }
+
+
