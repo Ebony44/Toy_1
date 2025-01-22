@@ -110,6 +110,15 @@ namespace LinearAlgebra
 
         }
 
+        [TestMethod(false)]
+        public void GetNormalOfPlane()
+        {
+            Mesh mesh = new Mesh();
+            Debug.Log("current normal is " + mesh.normals);
+            Instantiate(indicateObject, mesh.normals[0], Quaternion.identity);
+            
+        }
+
 
     }
 

@@ -158,6 +158,49 @@ namespace LinearAlgebra
             // var rightVector = Vector3.Cross(direction, Vector3.up);
         }
 
+        public GameObject indicateObject;
+
+        [TestMethod(false)]
+        private void DoCrossProduct()
+        {
+            // right hand rule,
+            // mid finger - > B
+            // index finger -> A
+            // Thumb -> A X B
+
+            // A =>  (0,1, 4)
+            // B => (-4,1,0)
+            var vectorA = new Vector3(0, 1, -4);
+            var vectorB = new Vector3(-4, 1, 0);
+            // instantiate cube mesh
+            Instantiate(indicateObject, vectorA, Quaternion.identity);
+            Instantiate(indicateObject, vectorB, Quaternion.identity);
+            
+            // A X B = (A.y * B.z - A.z * B.y, A.z * B.x - A.x * B.z, A.x * B.y - A.y * B.x)
+            // A X B = (4, -16, 4)
+
+            // BXA is below, backward
+            // -(AXB) = BXA
+            
+            
+            // var tempVector = Vector3.Cross(new Vector3(0, 1, -4), new Vector3(-4, 1, 0));
+            var tempVector = Vector3.Cross(vectorA, vectorB);
+            Debug.Log("cross product is " + tempVector);
+            Instantiate(indicateObject, tempVector, Quaternion.identity);
+            // unity gives me (4,16,4)
+
+            vectorA = new Vector3(0, 0, -4);
+            vectorB = new Vector3(-4, 0, 0);
+            tempVector = Vector3.Cross(vectorA, vectorB);
+            Debug.Log(" 2nd calc cross product is " + tempVector);
+            // unity gives me (0,16,0)
+
+            // A X B = (A.y * B.z - A.z * B.y, A.z * B.x - A.x * B.z, A.x * B.y - A.y * B.x)
+            // A X B = (0, 16, 0)
+            
+            
+            
+        }
 
     }
 
