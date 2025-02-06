@@ -1,0 +1,10 @@
+part 4
+
+depth example,
+graph settings - Universal - depth test -> some kind of overwrap display(eg. inside of building on quater view)
+graph settings - Universal - allow material override -> if checked, can tweak above settings from material inspector
+
+if things are in transparent, they won't be in depth texture
+
+URP asset -> check "Depth texture
+
