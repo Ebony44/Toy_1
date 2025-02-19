@@ -28,11 +28,12 @@ namespace Toy_1
         public float bulletDistance = 20f;
 
         [TestMethod(false)]
-        public void TestSpawnBullet()
+        public void TestSpawnBullet(int bulletCount)
         {
-            SpawnBullet(srcTrans.position, dstTrans.position);
+            SpawnBullet(srcTrans.position, dstTrans.position, bulletCount);
         }
-        public void SpawnBullet(Vector3 srcPos, Vector3 dstPos)
+
+        public void SpawnBullet(Vector3 srcPos, Vector3 dstPos, int bulletCount)
         {
             var paramPos = dstPos - srcPos;
             paramPos.y = 0f;
@@ -54,7 +55,10 @@ namespace Toy_1
             // sin is + in 1st and 2nd quadrant
             // cos is + in 1st and 4th quadrant
 
-            
+            for (int i = 0; i < bulletCount; i++)
+            {
+                
+            }
 
             var tempObject = Instantiate(bulletIndicator, tempPos, tempRot);
 
