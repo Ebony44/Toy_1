@@ -4658,7 +4658,7 @@ MonoBehaviour:
   srcTrans: {fileID: 216329878}
   dstTrans: {fileID: 666412652}
   bulletIndicator: {fileID: 2026809705}
-  bulletDistance: 20
+  bulletDistance: 2
 --- !u!4 &2013136686
 Transform:
   m_ObjectHideFlags: 0

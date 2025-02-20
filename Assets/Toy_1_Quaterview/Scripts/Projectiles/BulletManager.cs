@@ -25,7 +25,8 @@ namespace Toy_1
         public Transform srcTrans;
         public Transform dstTrans;
         public GameObject bulletIndicator;
-        public float bulletDistance = 20f;
+        public float bulletDistance = 2f;
+        public float maxBulletSpreadAngle = 135f;
 
         [TestMethod(false)]
         public void TestSpawnBullet(int bulletCount)
@@ -44,23 +45,43 @@ namespace Toy_1
             var tempPos = new Vector3(0, 0, 0);
 
             // tempRot.y
-            var tempEulerAngle = tempRot.eulerAngles; 
+            var tempEulerAngle = tempRot.eulerAngles;
             
             // tempRot.z += bulletDistance;
 
-            tempPos.x = tempDistance * Mathf.Sin(tempEulerAngle.y * Mathf.Deg2Rad);
             // tempPos.y = tempDistance * Mathf.Cos(tempPos.y * Mathf.Deg2Rad);
-            tempPos.z = tempDistance * Mathf.Cos(tempEulerAngle.y * Mathf.Deg2Rad);
+            
 
             // sin is + in 1st and 2nd quadrant
             // cos is + in 1st and 4th quadrant
 
+            tempEulerAngle.y += -maxBulletSpreadAngle / 2;
             for (int i = 0; i < bulletCount; i++)
             {
                 
+                tempPos.x = tempDistance * Mathf.Sin(tempEulerAngle.y * Mathf.Deg2Rad);
+                tempPos.z = tempDistance * Mathf.Cos(tempEulerAngle.y * Mathf.Deg2Rad);
+                var tempObject = Instantiate(bulletIndicator, tempPos, tempRot);
+                tempObject.name = "Bullet_" + i;
+
+                Debug.Log(" Bullet: " + i + "'s "
+                    + " temp pos is " + tempPos
+                    + " temp angle is " + tempEulerAngle.y);
+
+                // tempEulerAngle.y += 360f / bulletCount;
+                // at one of second, bullet is on middle
+                var tempCount = bulletCount / 2;
+                
+                tempEulerAngle.y += maxBulletSpreadAngle / bulletCount;
+
+                //if(i == bulletCount / 2 )
+                //{
+                //    tempDistance += bulletDistance;
+                //}
+
             }
 
-            var tempObject = Instantiate(bulletIndicator, tempPos, tempRot);
+            
 
             Debug.Log("tempPos: " + tempPos
                 + " tempRot: " + tempRot
