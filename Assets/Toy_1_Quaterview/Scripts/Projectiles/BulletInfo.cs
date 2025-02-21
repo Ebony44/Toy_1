@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BulletInfo : MonoBehaviour
 {
+
+    public Vector3 progressDirection; // direction of the bullet, deltatime * speed
+    public float speed; // speed of the bullet
+
     // Start is called before the first frame update
     void Start()
     {
