@@ -128,13 +128,18 @@ namespace Toy_1
                         tempComp.progressDirection = tempPos;
                         tempComp.speed = 0.05f;
                     }
+                    else
+                    {
+                        tempComp = tempObject.AddComponent<BulletInfo>();
+                        tempComp.progressDirection = tempPos;
+                        tempComp.speed = 0.05f;
+
+                    }
                     
 
                     Debug.Log(" Bullet: " + k + "'s "
                         + " temp pos is " + tempPos
                         + " temp angle is " + tempEulerAngle.y);
-
-                    var tempCount = bulletCount / 2;
 
                     tempEulerAngle.y += maxBulletSpreadAngle / bulletCount;
                     yield return new WaitForSeconds(bulletFireRate);
