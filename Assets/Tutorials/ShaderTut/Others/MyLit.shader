@@ -3,7 +3,14 @@ Shader "Unlit/MyLit"
 // links : https://www.youtube.com/watch?v=KVWsAL37NGw&ab_channel=NedMakesGames
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        // _MainTex ("Texture", 2D) = "white" {}
+        
+        [Header(Surface options)] // 
+        // [MainTexture] and [MainColor] allows Material.mainTexture and Material.color to use the correct property(c# part..)
+        [MainTexture] _ColorMap("Color", 2D) = "white" {}
+        [MainColor] _ColorTint("Tint", Color) = (1,1,1,1)
+        // variable _ColorTint 
+        // name matches exactly in MyLitForwardLitPass.hlsl's _ColorTint
     }
     SubShader
     {

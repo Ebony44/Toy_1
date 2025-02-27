@@ -6,6 +6,14 @@
         float2 uv : TEXCOORD0;
         };
 
+        float4 _ColorTint;
+        // float4 _ColorMap; -> this variable is removed, below variable(?) will be used
+        TEXTURE2D(_ColorMap); SAMPLER(sampler_ColorMap);
+        //
+        // sampler_ColorMap -> sampler_xxx
+        // would match TEXTURE2D(xxx);
+        float4 _ColorMap_ST; // automatically set by unity
+
         // from Core.hlsl
         //struct VertexPositionInputs
         //{
@@ -36,8 +44,9 @@
         // when output from the vertex function. It will be transformed into pixel position of the current
         // fragment on the screen when read from the fragment function
 
-
             float4 positionCS : SV_POSITION;
+
+            float2 uv : TEXCOORD0;
         };
 
         Interpolators Vertex(Attributes input)
@@ -58,6 +67,11 @@
         float4 positionCS = positionInputs.positionCS;
 
         output.positionCS = positionCS;
+        output.uv = TRANSFORM_TEX(input.uv, _ColorMap);
+        // compute it once per vertex instead of once per pixel
+
+        // generally vertex function runs fewer times than fragment function
+
 
         return output;
         
@@ -73,7 +87,18 @@
             // This runs once per fragment, as a pixel on the screen
             // It must output the final color of this pixel
 
-            return float4(1, 1, 1, 1); // white
+
+            float2 uv = input.uv;
+
+            // SAMPLE_TEXTURE2D takes 3 arguments, the texture, the sampler, and the uv coordinates
+            float4 colorSample = SAMPLE_TEXTURE2D(_ColorMap,sampler_ColorMap, uv);
+
+            // can't grab uv out of the fragment stage...
+            // so make it variable to use it
+
+            // return float4(1, 1, 1, 1); // white
+            // return _ColorTint;
+            return colorSample * _ColorTint;
 
         }
 
