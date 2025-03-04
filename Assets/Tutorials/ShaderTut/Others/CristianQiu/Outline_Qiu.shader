@@ -1,4 +1,4 @@
-Shader "Hidden/Outline"
+Shader "Hidden/Outline_Qiu"
 {
     SubShader
     {
@@ -78,14 +78,25 @@ Shader "Hidden/Outline"
             HLSLPROGRAM
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+
             #include "./GaussianBlur.hlsl"
+
+            float4 _OutlineMaskColor;
+            
+            //TEXTURE2D_X(_BlitTexture);
+            //SAMPLER(sampler_BlitTexture);
+            //float4 _BlitTexture_TexelSize;
 
             #pragma vertex Vert
             #pragma fragment Frag
 
             int _BlurKernelRadius;
             float _BlurStandardDeviation;
+
+            // TEXTURE2D_X(_BlitTexture);
+            float4 _BlitTexture_TexelSize;
 
             float4 Frag(Varyings input) : SV_Target
             {
@@ -116,6 +127,7 @@ Shader "Hidden/Outline"
 
             int _BlurKernelRadius;
             float _BlurStandardDeviation;
+            float4 _BlitTexture_TexelSize;
 
             float4 Frag(Varyings input) : SV_Target
             {
