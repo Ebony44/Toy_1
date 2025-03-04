@@ -9,11 +9,15 @@ namespace Toy_1
 {
     public class BulletManager : MonoBehaviour
     {
-        ObjectPool<GameObject> bulletPool;
+        ObjectPool<BulletInfo> bulletPool;
+        List<BulletInfo> bulletsForUpdating = new List<BulletInfo>();
+        private bool mbIsGamePlaying = false;
         // Start is called before the first frame update
         void Start()
         {
-
+            bulletPool = new ObjectPool<BulletInfo>(CreateBullet, OnTakeBulletFromPool, OnReturnBulletToPool, OnDestroyBullet,
+                collectionCheck: true,
+                defaultCapacity: 64);
         }
 
         // Update is called once per frame
@@ -25,14 +29,48 @@ namespace Toy_1
         public Transform srcTrans;
         public Transform dstTrans;
         public GameObject bulletIndicator;
+        public BulletInfo bulletPrefab;
         public float bulletDistance = 2f;
         public float maxBulletSpreadAngle = 90f;
         public float bulletFireRate = 0.5f;
+        public float bulletSpeed = 1f;
+
+        public BulletInfo CreateBullet()
+        {
+
+            BulletInfo bullet = Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
+            bullet.SetPool(bulletPool);
+            bulletsForUpdating.Add(bullet);
+            return bullet;
+        }
+        public void OnTakeBulletFromPool(BulletInfo bulletInfo)
+        {
+            bulletInfo.gameObject.SetActive(true);
+            bulletInfo.bIsReleased = false;
+
+        }
+        public void OnReturnBulletToPool(BulletInfo bulletInfo)
+        {
+            bulletInfo.gameObject.SetActive(false);
+            bulletsForUpdating.Remove(bulletInfo);
+        }
+        public void OnDestroyBullet(BulletInfo bulletInfo)
+        {
+            Destroy(bulletInfo.gameObject);
+        }
+
 
         [TestMethod(false)]
         public void TestSpawnBullet(int bulletCount)
         {
             SpawnBullet(srcTrans.position, dstTrans.position, bulletCount);
+        }
+
+        [TestMethod(false)]
+        public void TestSpawnBulletWithRoutine(int bulletCount)
+        {
+            // SpawnBullet(srcTrans.position, dstTrans.position, bulletCount);
+            StartCoroutine(SpawnBulletRoutine(srcTrans.position, dstTrans.position, bulletCount, 2));
         }
 
         public void SpawnBullet(Vector3 srcPos, Vector3 dstPos, int bulletCount)
@@ -111,6 +149,16 @@ namespace Toy_1
             var tempPos = new Vector3(0, 0, 0);
             var tempEulerAngle = tempRot.eulerAngles;
 
+            // 
+            mbIsGamePlaying = true;
+            StartCoroutine(UpdateEveryBulletTick());
+
+            // temp
+            Invoke("StopGamePlaying", 10f);
+
+            //
+
+
             // if cone shape
             tempEulerAngle.y += -maxBulletSpreadAngle / 2;
             for (int i = 0; i < loopCount; i++)
@@ -119,27 +167,29 @@ namespace Toy_1
                 {
                     tempPos.x = tempDistance * Mathf.Sin(tempEulerAngle.y * Mathf.Deg2Rad);
                     tempPos.z = tempDistance * Mathf.Cos(tempEulerAngle.y * Mathf.Deg2Rad);
-                    var tempObject = Instantiate(bulletIndicator, srcPos, tempRot);
+                    // var tempObject = Instantiate(bulletIndicator, srcPos, tempRot);
+                    var tempObject = bulletPool.Get().gameObject;
                     tempObject.name = "Bullet_" + k;
                     BulletInfo tempComp;
-                    bulletIndicator.TryGetComponent<BulletInfo>(out tempComp);
+                    tempObject.TryGetComponent(out tempComp);
                     if(tempComp != null)
                     {
                         tempComp.progressDirection = tempPos;
-                        tempComp.speed = 0.05f;
+                        tempComp.speed = bulletSpeed;
                     }
                     else
                     {
                         tempComp = tempObject.AddComponent<BulletInfo>();
                         tempComp.progressDirection = tempPos;
-                        tempComp.speed = 0.05f;
+                        tempComp.speed = bulletSpeed;
 
                     }
                     
 
                     Debug.Log(" Bullet: " + k + "'s "
                         + " temp pos is " + tempPos
-                        + " temp angle is " + tempEulerAngle.y);
+                        + " temp angle is " + tempEulerAngle.y
+                        + " bullet position " + tempComp.transform.position);
 
                     tempEulerAngle.y += maxBulletSpreadAngle / bulletCount;
                     yield return new WaitForSeconds(bulletFireRate);
@@ -149,14 +199,42 @@ namespace Toy_1
 
             //
 
-            
             yield return null;
 
+
+        }
+
+        public void StopGamePlaying()
+        {
+            mbIsGamePlaying = false;
         }
 
         public IEnumerator UpdateEveryBulletTick()
         {
-            yield return null;
+            while(mbIsGamePlaying)
+            {
+                //if(bulletPool.CountActive == 0)
+                //{
+                //    yield break;
+                //    // yield return null;
+                //}
+                for (int i = 0; i < bulletsForUpdating.Count; i++)
+                {
+                    var tempBullet = bulletsForUpdating[i];
+                    if (tempBullet.gameObject.activeSelf == false)
+                    {
+                        continue;
+                    }
+                    tempBullet.transform.position += Time.deltaTime * tempBullet.progressDirection * tempBullet.speed;
+                    // tempBullet.transform.position +=  tempBullet.progressDirection * tempBullet.speed;
+                    if (Vector3.Distance(tempBullet.transform.position, dstTrans.position) < 0.1f)
+                    {
+                        tempBullet.Disable();
+                    }
+                }
+                yield return null;
+                // yield return new WaitForSeconds(2f);
+            }
         }
 
     }
