@@ -2827,7 +2827,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbdc673076efc604682cd8ea32c85084, type: 2}
+  - {fileID: 2100000, guid: f07e35d8a523d2c40b241bd5b63683fa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3606,7 +3606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1075995691
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4953,6 +4953,7 @@ MonoBehaviour:
   bulletDistance: 2
   maxBulletSpreadAngle: 60
   bulletFireRate: 0.2
+  bulletSpeed: 1
 --- !u!4 &2013136686
 Transform:
   m_ObjectHideFlags: 0

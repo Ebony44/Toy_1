@@ -7,6 +7,15 @@ using static UnityEditor.PlayerSettings;
 
 namespace Toy_1
 {
+
+    public class BulletFiringInfo
+    {
+        public int repeatCount = 1;
+        public float fireRate = 0.5f;
+        public bool bIsClockwise = true;
+        public bool bDoFireAtOnce = false;
+    }
+
     public class BulletManager : MonoBehaviour
     {
         ObjectPool<BulletInfo> bulletPool;
@@ -159,7 +168,7 @@ namespace Toy_1
             //
 
 
-            // if cone shape
+            // if cone to circle shape
             tempEulerAngle.y += -maxBulletSpreadAngle / 2;
             for (int i = 0; i < loopCount; i++)
             {
