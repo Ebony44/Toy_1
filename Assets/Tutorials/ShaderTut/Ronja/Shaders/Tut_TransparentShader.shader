@@ -31,8 +31,9 @@ Shader "Tutorial/006_Basic_Transparency"{
 			//the data thats passed from the vertex to the fragment shader and interpolated by the rasterizer
 			struct v2f{
 				float4 position : SV_POSITION;
-				float4 screenPos : TEXCOORD0;
+				// float4 screenPos : TEXCOORD0; // temp comment out
 				float3 ray : TEXCOORD1;
+				float2 uv : TEXCOORD10;
 				
 			};
 
@@ -44,7 +45,7 @@ Shader "Tutorial/006_Basic_Transparency"{
 			v2f vert(appdata v){
 				v2f o;
 				o.position = UnityObjectToClipPos(v.vertex);
-				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+				o.uv = TRANSFORM_TEX(v.uv, _MainTex); 
 				return o;
 			}
 
