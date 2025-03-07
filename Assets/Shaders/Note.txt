@@ -1,0 +1,46 @@
+Here's a comprehensive list of the common semantics that can be used in Unity shader structs:
+Position Semantics
+
+SV_POSITION / POSITION - Vertex position (clip space coordinates in fragment shader, object space in vertex shader)
+
+Texture Coordinate Semantics
+
+TEXCOORD0 through TEXCOORD7 - Texture coordinates or arbitrary data
+
+Color Semantics
+
+COLOR0 / COLOR - Primary vertex color
+COLOR1 - Secondary vertex color
+
+Tangent Space Semantics
+
+TANGENT - Tangent vector
+BINORMAL - Binormal/bitangent vector
+NORMAL - Normal vector
+
+System Value Semantics (SV_)
+
+SV_POSITION - Position in clip space (required for fragment shader input)
+SV_VertexID - Index of the current vertex
+SV_InstanceID - Instance ID for instanced rendering
+SV_PrimitiveID - Primitive (triangle) ID
+SV_Target / SV_Target0 through SV_Target7 - Render target outputs
+SV_Depth - Output depth value
+SV_Coverage - Coverage mask for MSAA
+SV_IsFrontFace - Boolean indicating if the triangle is front-facing
+
+Tessellation Semantics
+
+SV_TessFactor
+SV_InsideTessFactor
+SV_DomainLocation
+
+Compute Shader Semantics
+
+SV_DispatchThreadID
+SV_GroupID
+SV_GroupIndex
+SV_GroupThreadID
+
+Example Usage
+hlsl
