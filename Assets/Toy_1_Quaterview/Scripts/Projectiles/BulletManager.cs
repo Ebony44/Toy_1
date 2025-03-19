@@ -159,12 +159,12 @@ namespace Toy_1
             var tempEulerAngle = tempRot.eulerAngles;
 
             // 
-            mbIsGamePlaying = true;
+            // mbIsGamePlaying = true;
+            SetGamePlaying(true);
             StartCoroutine(UpdateEveryBulletTick());
 
             // temp
-            Invoke("StopGamePlaying", 10f);
-
+            // Invoke("StopGamePlaying", 10f);
             //
 
 
@@ -181,6 +181,9 @@ namespace Toy_1
                     tempObject.name = "Bullet_" + k;
                     BulletInfo tempComp;
                     tempObject.TryGetComponent(out tempComp);
+
+                    tempObject.transform.position = srcPos;
+
                     if(tempComp != null)
                     {
                         tempComp.progressDirection = tempPos;
@@ -211,6 +214,11 @@ namespace Toy_1
             yield return null;
 
 
+        }
+
+        public void SetGamePlaying(bool bIsPlaying)
+        {
+            mbIsGamePlaying = bIsPlaying;
         }
 
         public void StopGamePlaying()
