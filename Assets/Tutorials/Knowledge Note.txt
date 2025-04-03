@@ -1,0 +1,7 @@
+deltaTime
+-> always has a 1 frame delay
+-> The time elpased between the last frame and the one preceding it
+-> (wrong answer) The time elapsed between the frame currently being processed and the one preceding it -> there is case that program does NOT have the next frame yet
+-> so use "last" frame
+
+https://www.youtube.com/watch?v=yGhfUcPjXuE
