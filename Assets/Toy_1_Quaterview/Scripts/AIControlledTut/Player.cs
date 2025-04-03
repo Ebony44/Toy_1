@@ -9,7 +9,7 @@ namespace LlamAcademy
     public class Player : MonoBehaviour, IDamageable
     {
 
-        [SerializeField] private EnemyAttackRadius attackRadius;
+        [SerializeField] private AttackRadius attackRadius;
         [SerializeField] private Animator animator;
 
         private Coroutine lookCoroutine;

@@ -7,7 +7,7 @@ namespace LlamAcademy
 {
     public class Enemy : PoolableObject, IDamageable
     {
-        public EnemyAttackRadius attackRadius;
+        public AttackRadius attackRadius;
         public Animator animator;
         private Coroutine lookCoroutine;
 
