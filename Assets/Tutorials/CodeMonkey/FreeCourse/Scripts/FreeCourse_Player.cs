@@ -64,5 +64,31 @@ public class FreeCourse_Player : MonoBehaviour
 
 
     }
+    // fire related
+    [SerializeField] private GameObject bulletPrefab;
+
+    private void Shoot(Vector3 shootPosition, Vector3 targetPosition)
+    {
+        GameObject bullet = Instantiate(bulletPrefab, shootPosition, Quaternion.identity);
+        Vector3 shootDirection = (targetPosition - shootPosition).normalized;
+
+        bullet.GetComponent<FreeCourse_Projectile>().Setup(shootDirection);
+    }
+
+    public List<GameObject> targets = new List<GameObject>(8);
+    private void CheckHit()
+    {
+        // foreach (Target target in Target.targetsList)
+        foreach (GameObject target in targets)
+        {
+            if (Vector3.Distance(transform.position, target.transform.position) < 0.5f)
+            {
+                // target.Damage();
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    // fire related end
 
 }
