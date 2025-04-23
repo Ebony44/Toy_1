@@ -6,6 +6,7 @@ public class VelocityChecker : MonoBehaviour
 {
     SphereCollider sphereCollider;
     Rigidbody rb;
+    [TestMethod(false)]
     public void LogVelocity()
     {
         if (rb == null)
@@ -13,7 +14,18 @@ public class VelocityChecker : MonoBehaviour
             rb = GetComponent<Rigidbody>();
         }
         
+        Debug.Log("Current Velocity: " + rb.linearVelocity);
 
-        // Debug.Log("Current Velocity: " + rb.velocity);
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("OnTriggerEnter: " + other.name);
+        LogVelocity();
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        Debug.Log("OnTriggerExit: " + other.name);
+    }
+
 }
