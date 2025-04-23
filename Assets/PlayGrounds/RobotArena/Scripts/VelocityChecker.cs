@@ -8,10 +8,11 @@ public class VelocityChecker : MonoBehaviour
     [SerializeField] private Rigidbody rb;
 
     private bool bIsOnCollisionStayCalled = false;
+    [SerializeField] private float startInvokeDelay = 0.2f;
 
     private void Start()
     {
-        Invoke("LogVelocity", 0.5f);
+        Invoke("LogVelocity", startInvokeDelay);
     }
 
     [TestMethod(false)]
@@ -25,6 +26,18 @@ public class VelocityChecker : MonoBehaviour
         Debug.Log("Current Velocity: " + rb.linearVelocity
             + " object name is " + gameObject.name);
 
+    }
+
+    public void ReflectOnCollision(Collider other)
+    {
+        
+        // rb.angularVelocity
+        Vector3 incomingVelocity = new Vector3(1, -1, 0); // 들어오는 속도 벡터
+        Vector3 normal = new Vector3(0, 1, 0); // 수직 방향 (위쪽)
+
+        Vector3 reflectedVelocity = Vector3.Reflect(incomingVelocity, normal);
+        
+        Vector3.Reflect(rb.linearVelocity, other.transform.forward);
     }
 
     private void OnCollisionEnter(Collision collision)
