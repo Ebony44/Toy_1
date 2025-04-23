@@ -44,7 +44,7 @@ public class CharacterController2D_Simple : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        rigidbody2D.velocity = moveDir * MOVE_SPEED;
+        rigidbody2D.linearVelocity = moveDir * MOVE_SPEED;
 
         if (isDashButtonDown) {
             float dashAmount = 50f;

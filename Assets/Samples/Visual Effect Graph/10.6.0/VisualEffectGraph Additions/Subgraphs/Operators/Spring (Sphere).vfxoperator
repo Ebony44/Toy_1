@@ -12,6 +12,7 @@ VisualEffectResource:
     m_RendererSettings:
       motionVectorGenerationMode: 0
       shadowCastingMode: 0
+      rayTracingMode: 0
       receiveShadows: 0
       reflectionProbeUsage: 0
       lightProbeUsage: 0
@@ -20,6 +21,8 @@ VisualEffectResource:
     m_PreWarmDeltaTime: 0.05
     m_PreWarmStepCount: 0
     m_InitialEventName: OnPlay
+    m_InstancingMode: -1
+    m_InstancingCapacity: 64
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,10 +56,13 @@ MonoBehaviour:
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_UIInfos: {fileID: 3}
+  m_CustomAttributes: []
   m_ParameterInfo:
   - name: Position
     path: Position
     tooltip: 
+    space: 0
+    spaceable: 0
     sheetType: m_Vector3f
     realType: Vector3
     defaultValue:
@@ -71,6 +77,8 @@ MonoBehaviour:
   - name: Sphere
     path: 
     tooltip: 
+    space: 0
+    spaceable: 0
     sheetType: 
     realType: Sphere
     defaultValue:
@@ -84,6 +92,8 @@ MonoBehaviour:
   - name: center
     path: Sphere_center
     tooltip: The centre of the sphere.
+    space: 0
+    spaceable: 0
     sheetType: m_Vector3f
     realType: Vector3
     defaultValue:
@@ -98,6 +108,8 @@ MonoBehaviour:
   - name: radius
     path: Sphere_radius
     tooltip: The radius of the sphere.
+    space: 0
+    spaceable: 0
     sheetType: m_Float
     realType: Single
     defaultValue:
@@ -112,6 +124,8 @@ MonoBehaviour:
   - name: Strength
     path: Strength
     tooltip: 
+    space: 0
+    spaceable: 0
     sheetType: m_Float
     realType: Single
     defaultValue:
@@ -126,6 +140,8 @@ MonoBehaviour:
   - name: Easing
     path: Easing
     tooltip: 
+    space: 0
+    spaceable: 0
     sheetType: m_Float
     realType: Single
     defaultValue:
@@ -138,7 +154,7 @@ MonoBehaviour:
     enumValues: []
     descendantCount: 0
   m_ImportDependencies: []
-  m_GraphVersion: 9
+  m_GraphVersion: 18
   m_ResourceVersion: 1
   m_SubgraphDependencies:
   - {fileID: 5371698745253816930, guid: 9aed87ff356ac0243b69252685035a98, type: 3}
@@ -223,6 +239,7 @@ MonoBehaviour:
     position: {x: 7, y: -417}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
 --- !u!114 &28
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +269,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
@@ -286,7 +303,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -319,7 +336,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -352,7 +369,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -405,6 +422,7 @@ MonoBehaviour:
     position: {x: 1891, y: -472}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
 --- !u!114 &39
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,7 +452,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":0.0,"y":0.0,"z":0.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: i
     m_serializedType:
@@ -468,7 +486,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -501,7 +519,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -534,7 +552,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -596,7 +614,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":0.0,"y":0.0,"z":0.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -630,7 +648,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -663,7 +681,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -696,7 +714,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -730,7 +748,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: l
     m_serializedType:
@@ -792,7 +810,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: left
     m_serializedType:
@@ -827,7 +845,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: right
     m_serializedType:
@@ -888,7 +906,7 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: True
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: predicate
     m_serializedType:
@@ -926,7 +944,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: True
     m_serializedType:
@@ -959,7 +977,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -992,7 +1010,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -1025,7 +1043,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -1062,7 +1080,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: False
     m_serializedType:
@@ -1096,7 +1114,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1129,7 +1147,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -1162,7 +1180,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -1199,7 +1217,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -1233,7 +1251,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1266,7 +1284,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -1299,7 +1317,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -1361,7 +1379,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":0.0,"y":0.0,"z":0.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1395,7 +1413,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1428,7 +1446,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -1461,7 +1479,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -1495,7 +1513,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: l
     m_serializedType:
@@ -1559,7 +1577,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":1.0,"y":1.0,"z":1.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1593,7 +1611,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1626,7 +1644,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -1659,7 +1677,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -1696,7 +1714,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -1730,7 +1748,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1763,7 +1781,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -1796,7 +1814,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -1862,7 +1880,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 1
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: a
     m_serializedType:
@@ -1900,7 +1918,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":1.0,"y":1.0,"z":1.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: b
     m_serializedType:
@@ -1934,7 +1952,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -1967,7 +1985,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -2000,7 +2018,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -2037,7 +2055,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -2071,7 +2089,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -2104,7 +2122,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -2137,7 +2155,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -2190,6 +2208,7 @@ MonoBehaviour:
     position: {x: 502, y: -290}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
   - m_Id: 1
     linkedSlots:
     - outputSlot: {fileID: 104}
@@ -2198,6 +2217,7 @@ MonoBehaviour:
     expandedSlots:
     - {fileID: 103}
     expanded: 1
+    supecollapsed: 0
   - m_Id: 2
     linkedSlots:
     - outputSlot: {fileID: 104}
@@ -2205,6 +2225,7 @@ MonoBehaviour:
     position: {x: 1450, y: -439}
     expandedSlots: []
     expanded: 1
+    supecollapsed: 0
 --- !u!114 &103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2269,7 +2290,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: center
     m_serializedType:
@@ -2304,7 +2325,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -2337,7 +2358,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -2370,7 +2391,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -2403,7 +2424,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: radius
     m_serializedType:
@@ -2473,7 +2494,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":0.0,"y":0.0,"z":0.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: a
     m_serializedType:
@@ -2507,7 +2528,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -2540,7 +2561,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -2573,7 +2594,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -2610,7 +2631,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -2646,7 +2667,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -2679,7 +2700,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -2712,7 +2733,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -2749,7 +2770,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":0.0,"y":0.0,"z":0.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: b
     m_serializedType:
@@ -2783,7 +2804,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -2816,7 +2837,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -2849,7 +2870,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -2918,7 +2939,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":0.0,"y":0.0,"z":0.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: a
     m_serializedType:
@@ -2952,7 +2973,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -2985,7 +3006,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -3018,7 +3039,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -3055,7 +3076,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -3089,7 +3110,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -3122,7 +3143,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -3155,7 +3176,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -3192,7 +3213,7 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":0.0,"y":0.0,"z":0.0}'
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: b
     m_serializedType:
@@ -3226,7 +3247,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -3259,7 +3280,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -3292,7 +3313,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: 
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: z
     m_serializedType:
@@ -3352,7 +3373,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: Input
     m_serializedType:
@@ -3387,7 +3408,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 100
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: Stength
     m_serializedType:
@@ -3422,7 +3443,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 1
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: Easing
     m_serializedType:
@@ -3457,7 +3478,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: Output
     m_serializedType:
@@ -3492,7 +3513,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 1
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: Range
     m_serializedType:
@@ -3548,6 +3569,7 @@ MonoBehaviour:
     position: {x: 495, y: -368}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
 --- !u!114 &151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3574,7 +3596,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 10
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
@@ -3630,6 +3652,7 @@ MonoBehaviour:
     position: {x: 507, y: -328}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
 --- !u!114 &156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3656,7 +3679,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 1
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
@@ -3691,7 +3714,7 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: False
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:

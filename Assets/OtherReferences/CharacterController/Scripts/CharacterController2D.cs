@@ -80,7 +80,7 @@ public class CharacterController2D : MonoBehaviour {
     private void FixedUpdate() {
         switch (state) {
         case State.Normal:
-            rigidbody2D.velocity = moveDir * MOVE_SPEED;
+            rigidbody2D.linearVelocity = moveDir * MOVE_SPEED;
 
             if (isDashButtonDown) {
                 float dashAmount = 50f;
@@ -99,7 +99,7 @@ public class CharacterController2D : MonoBehaviour {
             }
             break;
         case State.Rolling:
-            rigidbody2D.velocity = rollDir * rollSpeed;
+            rigidbody2D.linearVelocity = rollDir * rollSpeed;
             break;
         }
     }

@@ -68,7 +68,7 @@ public class PlayerComplete : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        playerRigidbody2D.velocity = moveDir * SPEED;
+        playerRigidbody2D.linearVelocity = moveDir * SPEED;
     }
 
     private void OnCollisionStay2D(Collision2D collision) {

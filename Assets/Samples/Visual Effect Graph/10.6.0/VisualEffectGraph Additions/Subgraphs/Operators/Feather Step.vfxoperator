@@ -12,6 +12,7 @@ VisualEffectResource:
     m_RendererSettings:
       motionVectorGenerationMode: 0
       shadowCastingMode: 0
+      rayTracingMode: 0
       receiveShadows: 0
       reflectionProbeUsage: 0
       lightProbeUsage: 0
@@ -20,6 +21,8 @@ VisualEffectResource:
     m_PreWarmDeltaTime: 0.05
     m_PreWarmStepCount: 0
     m_InitialEventName: OnPlay
+    m_InstancingMode: -1
+    m_InstancingCapacity: 64
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,10 +54,13 @@ MonoBehaviour:
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_UIInfos: {fileID: 3}
+  m_CustomAttributes: []
   m_ParameterInfo:
   - name: In
     path: In
     tooltip: 
+    space: 0
+    spaceable: 0
     sheetType: m_Float
     realType: Single
     defaultValue:
@@ -69,6 +75,8 @@ MonoBehaviour:
   - name: Step Threshold
     path: Step Threshold
     tooltip: 
+    space: 0
+    spaceable: 0
     sheetType: m_Float
     realType: Single
     defaultValue:
@@ -83,6 +91,8 @@ MonoBehaviour:
   - name: Step Feather
     path: Step Feather
     tooltip: 
+    space: 0
+    spaceable: 0
     sheetType: m_Float
     realType: Single
     defaultValue:
@@ -95,7 +105,7 @@ MonoBehaviour:
     enumValues: []
     descendantCount: 0
   m_ImportDependencies: []
-  m_GraphVersion: 9
+  m_GraphVersion: 18
   m_ResourceVersion: 1
   m_SubgraphDependencies: []
   m_CategoryPath: Math/Arithmetic
@@ -214,6 +224,7 @@ MonoBehaviour:
     position: {x: 472, y: 631}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
   - m_Id: 1
     linkedSlots:
     - outputSlot: {fileID: 20}
@@ -221,6 +232,7 @@ MonoBehaviour:
     position: {x: 476, y: 129}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
 --- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +259,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
@@ -302,6 +314,7 @@ MonoBehaviour:
     position: {x: 1295, y: 215}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
 --- !u!114 &25
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,7 +341,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: i
     m_serializedType:
@@ -382,6 +395,7 @@ MonoBehaviour:
     position: {x: -79, y: 544}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
   - m_Id: 1
     linkedSlots:
     - outputSlot: {fileID: 28}
@@ -389,6 +403,7 @@ MonoBehaviour:
     position: {x: 493, y: -54}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
 --- !u!114 &28
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,7 +430,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0.05
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
@@ -482,7 +497,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -517,7 +532,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 1
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: y
     m_serializedType:
@@ -552,7 +567,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0.5
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: s
     m_serializedType:
@@ -587,7 +602,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -654,7 +669,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 1
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: a
     m_serializedType:
@@ -689,7 +704,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0.5
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: b
     m_serializedType:
@@ -723,7 +738,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -784,7 +799,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: x
     m_serializedType:
@@ -819,7 +834,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -875,6 +890,7 @@ MonoBehaviour:
     position: {x: 157, y: 365}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
   - m_Id: 1
     linkedSlots:
     - outputSlot: {fileID: 42}
@@ -882,6 +898,7 @@ MonoBehaviour:
     position: {x: 474, y: 186}
     expandedSlots: []
     expanded: 0
+    supecollapsed: 0
 --- !u!114 &42
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -908,7 +925,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0.5
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
@@ -977,7 +994,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: a
     m_serializedType:
@@ -1012,7 +1029,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: b
     m_serializedType:
@@ -1047,7 +1064,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -1114,7 +1131,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: a
     m_serializedType:
@@ -1149,7 +1166,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: b
     m_serializedType:
@@ -1184,7 +1201,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -1246,7 +1263,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: left
     m_serializedType:
@@ -1281,7 +1298,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: right
     m_serializedType:
@@ -1315,7 +1332,7 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: False
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: o
     m_serializedType:
@@ -1377,7 +1394,7 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: True
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: predicate
     m_serializedType:
@@ -1412,7 +1429,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: True
     m_serializedType:
@@ -1447,7 +1464,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: False
     m_serializedType:
@@ -1482,7 +1499,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
@@ -1545,7 +1562,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: Value
     m_serializedType:
@@ -1580,7 +1597,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0.5
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: Threshold
     m_serializedType:
@@ -1615,7 +1632,7 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 
-    m_Space: 2147483647
+    m_Space: -1
   m_Property:
     name: 
     m_serializedType:
