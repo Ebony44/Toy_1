@@ -44,3 +44,525 @@ SV_GroupThreadID
 
 Example Usage
 hlsl
+
+
+Execute(ScriptableRenderContext, ref RenderingData)
+
+Execute the pass. This is where custom rendering occurs. Specific details are left to the implementation
+Declaration
+
+public abstract void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+
+
+
+public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
+        {
+            var resourceData = frameData.Get<UniversalResourceData>();
+
+            using var builder = renderGraph.AddRasterRenderPass<PassData>("Edge Detection", out _);
+
+            builder.SetRenderAttachment(resourceData.activeColorTexture, 0);
+            builder.UseAllGlobalTextures(true);
+            builder.AllowPassCulling(false);
+            builder.SetRenderFunc((PassData _, RasterGraphContext context) => { Blitter.BlitTexture(context.cmd, Vector2.one, material, 0); });
+        }
+
+
+// 2023 
+public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+        {
+            var outlineCmd = CommandBufferPool.Get();
+
+            using (new ProfilingScope(outlineCmd, profilingSampler))
+            {
+                CoreUtils.SetRenderTarget(outlineCmd, renderingData.cameraData.renderer.cameraColorTargetHandle);
+                context.ExecuteCommandBuffer(outlineCmd);
+                outlineCmd.Clear();
+                   
+                Blitter.BlitTexture(outlineCmd, Vector2.one, material, 0);
+            }
+
+            context.ExecuteCommandBuffer(outlineCmd);
+            CommandBufferPool.Release(outlineCmd);
+        }
+        
+
+
+
+
+6
+
+using (var builder = renderGraph.AddRasterRenderPass<PassData>(passName, out var passData, profilingSampler))
+        {
+            // UniversalResourceData contains all the texture handles used by the renderer, including the active color and depth textures.
+            // The active color and depth textures are the main color and depth buffers that the camera renders into.
+            UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
+
+            var cameraData = frameData.Get<UniversalCameraData>();
+
+            // CullContextData contains the culling APIs. 
+            var cullContextData = frameData.Get<CullContextData>();
+
+            // Retrieve the culling parameters for the camera used.
+            cameraData.camera.TryGetCullingParameters(false, out var cullingParameters);
+
+            // Perform culling using the CullContextData API.
+            var cullingResults = cullContextData.Cull(ref cullingParameters);
+
+            // Fill up the passData with the data needed by the pass
+            InitRendererLists(cullingResults, frameData, ref passData, renderGraph);
+
+            // Make sure the renderer list is valid
+            if (!passData.rendererListHandle.IsValid())
+                  return;
+
+            // We declare the RendererList we just created as an input dependency to this pass, via UseRendererList().
+            builder.UseRendererList(passData.rendererListHandle);
+
+            // Setup as a render target via UseTextureFragment and UseTextureFragmentDepth, which are the equivalent of using the old cmd.SetRenderTarget(color,depth).
+            builder.SetRenderAttachment(resourceData.activeColorTexture, 0);
+            builder.SetRenderAttachmentDepth(resourceData.activeDepthTexture, AccessFlags.Write);
+
+            // Assign the ExecutePass function to the render pass delegate, which will be called by the render graph when executing the pass.
+            builder.SetRenderFunc((PassData data, RasterGraphContext context) => ExecutePass(data, context));
+        }
+
+
+
+
+Packages/com.unity.render-pipelines.universal/Runtime/Passes/MainLightShadowCasterPass.cs
+
+
+UnassignedReferenceException: The variable userPicture of MessageScroll has not been assigned.
+You probably need to assign the userPicture variable of the MessageScroll script in the inspector.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <b5bf0c891ea345fe93688f835df32fdc>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <b5bf0c891ea345fe93688f835df32fdc>:0)
+UnityEngine.GameObject.SetActive (System.Boolean value) (at <b5bf0c891ea345fe93688f835df32fdc>:0)
+MessageScroll+<MessageRoutine>d__27.MoveNext () (at Assets/Main/Scripts/MessageScroll.cs:72)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <b5bf0c891ea345fe93688f835df32fdc>:0)
+
+
+[ImageCache] error count(0), error : HTTP/1.1 404 Not Found url 
+which tried https://svr22.wooridev.com/_upload/sm_photo/auth/M%2fM86F6E976160842A791AABF9ACB0AA0522651.jpg
+UnityEngine.Debug:Log (object)
+WooriImageCache/<RunOrder>d__14:MoveNext () (at Assets/Scripts/RePlay/WooriImageCache.cs:180)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+
+
+
+11:08
+TALK
+A 192.168.0.88:8745 + @
+ill $55
+192.168.0.88:8745 내용:
+An error occurred running the Unity content on this page. See your browser JavaScript console for more info. The error was:
+RuntimeError: memory access out of bounds 
+at Dictionary_2_FindEntry_m8CC2A0AA639D 
+CA8E5AB97A0911A46ACB1154C14A_gshared (http://192.168.0.88:8745/Build/WebBuild .wasm:wasm-function[195843]:0x278faa5)
+
+at
+Dictionary_2_ContainsKey_m703047C213F7A B55C9DC346596287773A1F670CD_gshared
+(http://192.168.0.88:8745/Build/WebBuild .wasm:wasm-function[195851]:0x2790218)
+at ButtonManager_Set_m73A89437C6BE6
+32C205513521FD6573B22AA93B4 (http://192
+.168.0.88:8745/Build/WebBuild.wasm:wasm
+-function[86760]:0x121b119)
+at cSocketProcess__rec_LobbyInfo_m093B 3EE6D42925531A2CB7E6A1E295A134D4B444
+Parain
+
+
+
+WebSocketInvalidStateException: WebSocket is already closing. 
+Coroutine couldn't be started because the the game object 'B_Snail' is inactive! 
+Coroutine couldn't be started because the the game object 'L_Result(TMP) is inactive! 
+Coroutine couldn't be started because the the game object 'B_HighLow' is inactive! 
+Coroutine couldn't be started because the the game object 'B_AnimalDice' is inactivel
+|||
+Clear
+Close
+확인
+J
+P
+Development Build
+
+
+
+
+#if UNITY_WEBGL
+					//  좌표 확인...
+					float cardEdgeX = 480f + cCards[rayPickIndex - 101].GetEdgeX();
+					float cardEdgeY = 320f + cCards[rayPickIndex - 101].GetEdgeY();
+
+					bool isLand = ScreenForceLandscapeWebGL.isLand;
+
+					float ax = Input.mousePosition.x - rayMousePosX;
+					float ay = Input.mousePosition.y - rayMousePosY;
+
+					var dpr = WebGLScreenController.GetDPR();
+					ax /= dpr;
+					ay /= dpr;
+
+					float rootWidth = ScreenSet.nUserScreenSetX; // 960
+					float rootHeight = ScreenSet.nUserScreenSetY; // 640
+					var webSize = ScreenForceLandscapeWebGL.Instance.GetScreenSize();
+					float heightRatio = webSize.y / rootHeight;
+					ax /= heightRatio;
+					ay /= heightRatio;
+
+					//  좌표 확인...
+					cardEdgeX = 480f + cCards[rayPickIndex - 101].GetEdgeX();
+					cardEdgeY = 320f + cCards[rayPickIndex - 101].GetEdgeY();
+					cardEdgeX *= dpr;
+					cardEdgeY *= dpr;
+
+					cardEdgeX *= (webSize.x / rootWidth);
+					cardEdgeY *= heightRatio;
+					
+					if (isLand == false)
+					{
+						float temp = ax;
+						ax = -ay;
+						ay = temp;
+
+						temp = cardEdgeX;
+						cardEdgeX = cardEdgeY;
+						cardEdgeY = -temp;
+						cardEdgeY += (webSize.x * dpr);
+					}
+					cCards[rayPickIndex - 101].AutoMove(1, ax, ay);
+
+
+
+
+Build completed with a result of 'Failed' in 388 seconds (387754 ms)
+Building Builds\WebBuild\manifest.webmanifest failed with output:
+
+C:\Program Files\Unity\Hub\Editor\6000.0.24f1\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\Preprocess.js:70
+    throw "Preprocessor error \"" + e + "\" occured in file \"" 
+    + locals.inputPath + "\" when evaluating expression \"" + expression + "\"";
+    ^
+Preprocessor error "ReferenceError: PRODUCT_DESCRIPTION is not defined" 
+occured in file "D:/Workspace/IndoPlay_2024_12_Unity_6_WEBGL_Conversion/
+Assets/WebGLTemplates/Wooriline/manifest.webmanifest" 
+when evaluating expression " JSON.stringify(PRODUCT_DESCRIPTION) "
+
+(Use `node --trace-uncaught ...` to show where the exception was thrown)
+
+UnityEngine.GUIUtility:ProcessEvent (int,intptr,bool&)
+
+
+36cc8994-ec5f-40aa-b9d2-7ef8b2ceae9c:9 NullReferenceException: Object reference not set to an instance of an object.
+  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x00000] in <00000000000000000000000000000000>:0 
+
+
+
+
+
+WebSocketInvalidStateException: WebSocket is already closing.
+  at NativeWebSocket.WebSocket.Close (NativeWebSocket.WebSocketCloseCode code, System.String reason) [0x00000] in <00000000000000000000000000000000>:0 
+--- End of stack trace from previous location where exception was thrown ---
+
+
+_JS_Log_Dump	@	WebBuild_3.framework.js:3016
+$WebGLPrintfConsolev(LogType, char const*, void*)	@	WebBuild_3.wasm:0x45d58c1
+$printf_consolev(LogType, char const*, void*, bool, LineEndInfoHint)	@	WebBuild_3.wasm:0x45d617f
+$InternalErrorConsoleWithNewline(char const*, ...)	@	WebBuild_3.wasm:0x45d7777
+$DebugStringToFilePostprocessedStacktrace(DebugStringToFileData const&)	@	WebBuild_3.wasm:0x45d74e3
+$DebugStringToFile(DebugStringToFileData const&)	@	WebBuild_3.wasm:0x45d6909
+$Scripting::LogExceptionFromManaged(ScriptingExceptionPtr, int, char const*, bool, Scripting::LogExceptionFromMangedSettings const*)	@	WebBuild_3.wasm:0x452aede
+$ScriptingInvocation::Invoke(ScriptingExceptionPtr*, bool)	@	WebBuild_3.wasm:0x452d48e
+$void ScriptingInvocation::Invoke<void>(ScriptingExceptionPtr*, bool)	@	WebBuild_3.wasm:0x452d52c
+$Scripting::UnityEngine::UnitySynchronizationContextProxy::ExecuteTasks(ScriptingExceptionPtr*)	@	WebBuild_3.wasm:0x45384fb
+$InitPlayerLoopCallbacks()::UpdateScriptRunDelayedTasksRegistrator::Forward()	@	WebBuild_3.wasm:0x348e48e
+$ExecutePlayerLoop(NativePlayerLoopSystem*)	@	WebBuild_3.wasm:0x45ccd4c
+$ExecutePlayerLoop(NativePlayerLoopSystem*)	@	WebBuild_3.wasm:0x45cce03
+$PlayerLoop()	@	WebBuild_3.wasm:0x45cd0f1
+$MainLoop()	@	WebBuild_3.wasm:0x4514c7b
+$dynCall_v	@	WebBuild_3.wasm:0x45f98f6
+(anonymous)	@	WebBuild_3.framework.js:998
+(anonymous)	@	WebBuild_3.framework.js:2489
+_JS_CallAsLongAsNoExceptionsSeen	@	WebBuild_3.framework.js:2489
+$UpdateUnityFrame()	@	WebBuild_3.wasm:0x4514ae5
+$dynCall_v	@	WebBuild_3.wasm:0x45f98f6
+(anonymous)	@	WebBuild_3.framework.js:998
+browserIterationFunc	@	WebBuild_3.framework.js:6871
+callUserCallback	@	WebBuild_3.framework.js:6143
+runIter	@	WebBuild_3.framework.js:6201
+Browser_mainLoop_runner	@	WebBuild_3.framework.js:6841
+requestAnimationFrame		
+requestAnimationFrame	@	WebBuild_3.framework.js:6480
+Browser_mainLoop_scheduler_rAF	@	WebBuild_3.framework.js:6727
+Browser_mainLoop_runner	@	WebBuild_3.framework.js:6854
+requestAnimationFrame		
+Browser_mainLoop_runner	@	WebBuild_3.framework.js:6854
+requestAnimationFrame		
+requestAnimationFrame	@	WebBuild_3.framework.js:6480
+Browser_mainLoop_scheduler_rAF	@	WebBuild_3.framework.js:6727
+Browser_mainLoop_runner
+
+
+
+WebBuild_3.framework.js:3025 [UpdateRay], GetMouseButtonDown
+
+11:34:45.944 WebBuild_3.framework.js:3025 [UpdateRay], 
+cardEdgeX : 668, 
+cardEdgeY : 298, 
+ax : 2.341463, 
+ay : -19.5122, 
+dpr : 1, 
+rootWidth : 960, 
+rootHeight : 640, 
+webSize : (1340.00, 820.00), 
+heightRatio : 1.28125, isLand : True
+
+
+11:34:59.489 WebBuild_3.framework.js:3025 [UpdateRay], GetMouseButtonDown
+
+11:34:59.719 WebBuild_3.framework.js:3025 [UpdateRay], 
+cardEdgeX : 668, 
+cardEdgeY : 298, 
+ax : 5.463415, 
+ay : -17.95122, 
+dpr : 1, 
+rootWidth : 960, 
+rootHeight : 640, 
+webSize : (1850.00, 820.00), 
+heightRatio : 1.28125, isLand : True
+
+
+
+Building Builds\WebBuild_3\manifest.webmanifest failed with output:
+
+C:\Program Files\Unity\Hub\Editor\6000.0.24f1\Editor\Data\PlaybackEngines\WebGLSupport\BuildTools\Preprocess.js:70
+    throw "Preprocessor error \"" + e + "\" occured in file \"" 
+    + locals.inputPath + "\" when evaluating expression \"" + expression + "\"";
+    ^
+Preprocessor error "ReferenceError: PRODUCT_DESCRIPTION is not defined" occured in file "D:/Workspace/IndoPlay_2024_12_Unity_6_WEBGL_Conversion/Assets/WebGLTemplates/Wooriline/manifest.webmanifest" when evaluating expression " JSON.stringify(PRODUCT_DESCRIPTION) "
+(Use `node --trace-uncaught ...` to show where the exception was thrown)
+
+UnityEditor.GenericMenu:CatchMenu (object,string[],int)
+
+
+
+
+// somewhat fit
+WebBuild_3.framework.js:3025 [UpdateRay], GetMouseButtonDown
+
+14:25:14.997 WebBuild_3.framework.js:3025 [UpdateRay], 
+cardEdgeX : 668, 
+cardEdgeY : 298, 
+ax : -21.85366, 
+ay : -3.902439, 
+dpr : 1, 
+rootWidth : 960, rootHeight : 640, 
+webSize : (1576.00, 820.00), 
+heightRatio : 1.28125, isLand : True
+
+14:25:14.997 WebBuild_3.framework.js:3025 [UpdateRay], after processing,  
+cardEdgeX : 1096.633, 
+cardEdgeY : 381.8125, 
+ax : -21.85366, 
+ay : -3.902439, 
+dpr : 1, 
+rootWidth : 960, 
+rootHeight : 640, 
+webSize : (1576.00, 820.00), 
+heightRatio : 1.28125, isLand : True 
+ray mouse pos x and y 1120 305
+
+668 to 1096
+1096 to 1120
+
+ScreenForceLandscapeWebGL
+
+// not fit
+14:25:19.314 WebBuild_3.framework.js:3025 [UpdateRay], GetMouseButtonDown
+
+14:25:19.464 WebBuild_3.framework.js:3025 [UpdateRay], 
+cardEdgeX : 488, 
+cardEdgeY : 298, 
+ax : 38.2439, 
+ay : -3.121951, 
+dpr : 1, 
+rootWidth : 960, 
+rootHeight : 640, 
+webSize : (2408.00, 820.00), 
+heightRatio : 1.28125, isLand : True
+
+14:25:19.464 WebBuild_3.framework.js:3025 [UpdateRay], after processing,  
+cardEdgeX : 1224.067, 
+cardEdgeY : 381.8125, 
+ax : 38.2439, 
+ay : -3.121951, 
+dpr : 1, 
+rootWidth : 960, 
+rootHeight : 640, 
+webSize : (2408.00, 820.00), 
+heightRatio : 1.28125, isLand : True
+ray mouse pos x and y 1257 311
+
+
+488 to 1224, 
+
+1257 1224
+33
+
+
+
+
+ArgumentNullException: Value cannot be null.
+Parameter name: obj
+  at UnityEngine.Bindings.ThrowHelper.ThrowArgumentNullException 
+  (System.Object obj, System.String parameterName) [0x00000] in <00000000000000000000000000000000>:0 
+--- End of stack trace from previous location where exception was thrown ---
+
+
+Uncaught RuntimeError: memory access out of bounds
+    at DoStopCoroutine(:8745/Coroutine*) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at MonoBehaviour::StopAllCoroutines(:8745/) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at MonoBehaviour_CUSTOM_StopAllCoroutines(:8745/void*) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at MonoBehaviour_StopAllCoroutines_m872033451D42013A99867D09337490017E9ED318 (WebBuild_Mobile_2.wasm:0x3ad2842)
+    at GameBtnManager_SetupInfo_m8E2A6DA33DDF2468569E398C0CE2CE422C9851E7 (WebBuild_Mobile_2.wasm:0x26ee0cf)
+    at Main_MainGameList_Func_m143F205BF69653F34BDE6C925121AD909FA6C040 (WebBuild_Mobile_2.wasm:0x26cf339)
+    at U3CSocketProcessU3Ed__33_MoveNext_mE3F4CD24ED4628DE7439929433D41B6F6585B80C (WebBuild_Mobile_2.wasm:0x26fd546)
+    at AsyncVoidMethodBuilder_Start_TisRuntimeObject_m3CA145CBB6CFE8B4ADD6148BF98E85899F95DCEA_gshared (WebBuild_Mobile_2.wasm:0x2a58f8d)
+    at cSocketProcess_Update_m2606B492A868B0ECACA7AB6DBD28E07FCFE1533A (WebBuild_Mobile_2.wasm:0x213e4d9)
+    at RuntimeInvoker_TrueVoid_t4861ACF8F4594C3437BB48B6E56783494B843915(:8745/void (*)(), MethodInfo const*, void*, void**, void*) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at il2cpp::vm::Runtime::InvokeWithThrow(:8745/MethodInfo const*, void*, void**) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at il2cpp::vm::Runtime::Invoke(:8745/MethodInfo const*, void*, void**, Il2CppException**) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at il2cpp_runtime_invoke (WebBuild_Mobile_2.wasm:0x3e91444)
+    at scripting_method_invoke(:8745/ScriptingMethodPtr, ScriptingObjectPtr, ScriptingArguments&, ScriptingExceptionPtr*, bool) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at ScriptingInvocation::Invoke(:8745/ScriptingExceptionPtr*, bool) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at MonoBehaviour::CallUpdateMethod(:8745/int) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at MonoBehaviour::Update(:8745/) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at void BaseBehaviourManager::CommonUpdate<BehaviourManager>(:8745/) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at BehaviourManager::Update(:8745/) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at InitPlayerLoopCallbacks(:8745/)::UpdateScriptRunBehaviourUpdateRegistrator::Forward() (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at ExecutePlayerLoop(:8745/NativePlayerLoopSystem*) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at ExecutePlayerLoop(:8745/NativePlayerLoopSystem*) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at PlayerLoop(:8745/) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at MainLoop(:8745/) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at _JS_CallAsLongAsNoExceptionsSeen (WebBuild_Mobile_2.framework.js:2464:28)
+    at MainLoopUpdateFromBackground(:8745/void*) (http://localhost:8745/Build/WebBuild_Mobile_2.wasm)
+    at WebBuild_Mobile_2.framework.js:12946:32
+    at callUserCallback (WebBuild_Mobile_2.framework.js:6124:9)
+    at WebBuild_Mobile_2.framework.js:12945:9
+
+    
+
+    (index):59 Uncaught (in promise) 
+    NotAllowedError: Failed to execute 'prompt' on 'BeforeInstallPromptEvent': 
+    The prompt() method must be called with a user gesture
+
+
+
+
+
+    
+
+--
+
+WebBuild_Mobile.framework.js:2994 NullReferenceException: Object reference not set to an instance of an object.
+  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) 
+  [0x00000] in <00000000000000000000000000000000>:0 
+
+  _JS_Log_Dump	@	WebBuild_Mobile.framework.js:2994
+$WebGLPrintfConsolev(LogType, char const*, void*)	@	WebBuild_Mobile.wasm:0x1280a2e
+$printf_consolev(LogType, char const*, void*, bool, LineEndInfoHint)	@	WebBuild_Mobile.wasm:0x1281395
+$InternalErrorConsoleWithNewline(char const*, ...)	@	WebBuild_Mobile.wasm:0x1282ae1
+$DebugStringToFilePostprocessedStacktrace(DebugStringToFileData const&)	@	WebBuild_Mobile.wasm:0x12827f0
+$DebugStringToFile(DebugStringToFileData const&)	@	WebBuild_Mobile.wasm:0x1281ba8
+$Scripting::LogExceptionFromManaged(ScriptingExceptionPtr, int, char const*, bool, Scripting::LogExceptionFromMangedSettings const*)	@	WebBuild_Mobile.wasm:0x11d115b
+$ScriptingInvocation::Invoke(ScriptingExceptionPtr*, bool)	@	WebBuild_Mobile.wasm:0x11d3a5b
+$ScriptingInvocation::InvokeChecked(ScriptingExceptionPtr*)	@	WebBuild_Mobile.wasm:0x11d395d
+$SerializableManagedRef::CallMethod(Object&, ScriptingMethodPtr)	@	WebBuild_Mobile.wasm:0x1157965
+$MonoBehaviour::WillDestroyComponent()	@	WebBuild_Mobile.wasm:0x116346b
+$GameObject::WillDestroyGameObject()	@	WebBuild_Mobile.wasm:0x119a73c
+$PreDestroyRecursive(GameObject&, unsigned long*)	@	WebBuild_Mobile.wasm:0x10d56d0
+$PreDestroyRecursive(GameObject&, unsigned long*)	@	WebBuild_Mobile.wasm:0x10d5724
+$PreDestroyRecursive(GameObject&, unsigned long*)	@	WebBuild_Mobile.wasm:0x10d5724
+$DestroyObjectHighLevel_Internal(Object*, bool)	@	WebBuild_Mobile.wasm:0x10d65a7
+$DestroyObjectHighLevel(Object*, bool)	@	WebBuild_Mobile.wasm:0x10d668b
+$RuntimeSceneManager::UnloadSceneInternal(UnityScene*, UnloadSceneOptions)	@	WebBuild_Mobile.wasm:0x2c0392
+$UnloadSceneOperation::IntegrateMainThread()	@	WebBuild_Mobile.wasm:0x2c8e6b
+$PreloadManager::UpdatePreloadingSingleStep(PreloadManager::UpdatePreloadingFlags, int)	@	WebBuild_Mobile.wasm:0x2c7c2d
+$PreloadManager::UpdatePreloading()	@	WebBuild_Mobile.wasm:0x2c7f9b
+$InitPlayerLoopCallbacks()::EarlyUpdateUpdatePreloadingRegistrator::Forward()	@	WebBuild_Mobile.wasm:0x2f24a1
+$ExecutePlayerLoop(NativePlayerLoopSystem*)	@	WebBuild_Mobile.wasm:0x1277b33
+$ExecutePlayerLoop(NativePlayerLoopSystem*)	@	WebBuild_Mobile.wasm:0x1277bfe
+$PlayerLoop()	@	WebBuild_Mobile.wasm:0x1277f5a
+$MainLoop()	@	WebBuild_Mobile.wasm:0x11b9504
+_JS_CallAsLongAsNoExceptionsSeen	@	WebBuild_Mobile.framework.js:2464
+$UpdateUnityFrame()	@	WebBuild_Mobile.wasm:0x11b931d
+callUserCallback	@	WebBuild_Mobile.framework.js:6124
+runIter	@	WebBuild_Mobile.framework.js:6182
+
+-----
+
+timing, which delayed start
+file changed
+
+
+using UnityEditor;
+using UnityEditor.Build;
+using UnityEditor.Build.Reporting;
+using UnityEngine;
+
+public class MemoryPostBuildForiOS : IPreprocessBuildWithReport
+{
+    public int callbackOrder { get { return 0; } }
+    public void OnPreprocessBuild(BuildReport report)
+    {
+        Debug.Log("MemeoryPostBuild.OnPreprocessBuild for target " + report.summary.platform + " at path " + report.summary.outputPath);
+        PlayerSettings.WebGL.emscriptenArgs = "--memoryprofiler --profiling-funcs";
+    }
+}
+
+
+
+{
+  "mcpServers": {
+    "mcp-unity": {
+      "command": "node",
+      "args": [
+        "D:/Workspace/IndoPlay_2024_12_Unity_6_WEBGL_Conversion/Library/PackageCache/com.gamelovers.mcp-unity/Server/build/index.js"
+      ],
+      "env": {
+        "UNITY_PORT": "8090"
+      }
+    }
+  }
+}
+
+
+
+        cSceneManager.LoadLevel(cGlobalInfos.GetLoginSceneName());
+
+//#if UNITY_WEBGL && !UNITY_EDITOR && !FORCELOGINSCENE
+//		var nextSceneName= "WebFirstLoadingScene";
+//		yield return AssetBundleManager.LoadSceneDependentBundle(nextSceneName);
+//		SceneManager.LoadScene(nextSceneName);
+//#else
+//        cSceneManager.LoadLevel (cGlobalInfos.GetLoginSceneName());
+//#endif
+//		Debug.Log ("bundles in package are loaded completely.");
+
+
+
+#216
+occur in domino
+search with below 
+[MessagePopup] Show type
+#216 end
+
+
+
+
+
+
+
+
+on upload photo to web from main
+when failed -> anything do it? 
+or return anything? 

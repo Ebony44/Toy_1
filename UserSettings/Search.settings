@@ -10,6 +10,9 @@ scopes = {
 	"last_search.2138236A" = "SO"
 	"OpenInspectorPreview.2138236A" = "0"
 	"currentGroup.2138236A" = "menu"
+	"last_search.DA94955A" = "glob:\"Assets/**/*.fbx\""
+	"OpenInspectorPreview.DA94955A" = "0"
+	"currentGroup.DA94955A" = "all"
 }
 providers = {
 	adb = {
@@ -52,10 +55,21 @@ providers = {
 		priority = 50
 		defaultAction = null
 	}
+	at = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
+	st = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
 }
 objectSelectors = {
 }
 recentSearches = [
+	"glob:\"Assets/**/*.fbx\""
 ]
 searchItemFavorites = [
 ]
