@@ -26,6 +26,14 @@ public class VelocityChecker : MonoBehaviour
         Debug.Log("Current Velocity: " + rb.linearVelocity
             + " object name is " + gameObject.name);
 
+        
+
+    }
+
+    public void RotateWithTorque(float torqueForce)
+    {
+        rb.AddTorque(Vector3.up * torqueForce, ForceMode.VelocityChange);
+        // rb.AddTorque(Vector3.up * 10f, ForceMode.VelocityChange);
     }
 
     public void ReflectOnCollision(Collider other)
