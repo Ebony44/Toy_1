@@ -329,7 +329,7 @@
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.LastSize.Cube",
-                "value": "{\"m_Value\":{\"x\":-7.777777671813965,\"y\":1.368463397026062,\"z\":-3.264545440673828}}"
+                "value": "{\"m_Value\":{\"x\":1.5144691467285157,\"y\":1.2304353713989258,\"z\":-1.9291820526123047}}"
             },
             {
                 "type": "UnityEditor.ProBuilder.Actions.OffsetElements+CoordinateSpace, Unity.ProBuilder.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
