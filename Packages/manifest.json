@@ -1,4 +1,14 @@
 {
+  "scopedRegistries": [
+        {
+            "name": "package.openupm.com",
+            "url": "https://package.openupm.com",
+            "scopes": [
+                "com.gamedevware.charon"
+            ]
+        }
+    ],
+    
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "2.4.1",
@@ -51,6 +61,7 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
+    "com.unity.modules.xr": "1.0.0",
+    "com.gamedevware.charon": "2025.2.2"
   }
 }
