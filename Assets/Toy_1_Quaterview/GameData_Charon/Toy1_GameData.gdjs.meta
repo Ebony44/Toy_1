@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: a9d851781c4355f4b9cc757f167ceba4
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: f0e49fd118724bbf95155212238d3d7a, type: 3}
+  lastImportSettings:
+    codeGenerationPath: Assets/Toy_1_Quaterview/GameData_Charon
+    gameDataFileGuid: a9d851781c4355f4b9cc757f167ceba4
+    gameDataClassName: Toy1_GameData
+    gameDataNamespace: Assets.Toy_1_Quaterview.GameData_Charon
+    gameDataDocumentClassName: Document
+    defineConstants: 
+    publishLanguages: []
+    publishFormat: 0
+    optimizations: 0
+    lineEnding: 2
+    indentation: 0
+    splitSourceCodeFiles: 0
+    clearOutputDirectory: 0
+    serverAddress: 
+    projectId: 
+    projectName: 
+    branchName: 
+    branchId: 
+  lastImportAssetPath: Assets/Toy_1_Quaterview/GameData_Charon/Toy1_GameData.asset
