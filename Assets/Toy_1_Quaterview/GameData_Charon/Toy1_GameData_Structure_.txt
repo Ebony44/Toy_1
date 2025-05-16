@@ -1,0 +1,88 @@
+//
+// 
+// 
+//
+//------------------------------------------------------------------------------
+// 
+//	 
+//	 Changes to this file may cause incorrect behavior and will be lost if
+//	 the code is regenerated.
+// 
+//------------------------------------------------------------------------------
+
+// ReSharper disable All
+
+
+https://www.reddit.com/r/LastEpoch/comments/1b361or/psa_explanation_of_resistances/
+
+https://forum.lastepoch.com/t/this-easy-game-is-hard/36304/11
+// resistances mitigation on Last Epoch
+// LE -> math is enemy damage *( 1 + enemy Penetration - your resistance ) * ( 1 - your resistance )
+// // LE -> 75% resistance, 120 dmg, 120 * (1 + 0.75 - 0.75) * (1 - 0.75) = 30 dmg
+// // LE -> 50% resistance, 120 dmg, 120 * (1 + 0.75 - 0.5) * (1 - 0.5) = 75 dmg
+
+// LE -> math is enemy damage *( 1 + enemy Penetration - your resistance )
+// incoming damage = 100
+// at 50% -> 100 * (1 + 0.75 - 0.5) = 125
+// at 75% -> 100 * (1 + 0.75 - 0.75) = 100
+
+
+
+--- battle phase
+
+-- core
+health
+// power(attack or spell)
+// power speed(attack or spell)
+--
+
+
+-- minion
+health
+// power(attack or spell)
+// power speed(attack or spell)
+--
+
+-- offence layer
+attack damage
+spell damage
+
+elemental damage
+fire damage
+cold damage
+lightning damage
+
+chaos damage
+
+area damage
+projectile damage
+
+
+core damage
+minion damage
+
+--
+
+-- defence layer
+armor
+evasion
+energy shield
+
+elemental resistances
+fire resistance
+cold resistance
+lightning resistance
+
+--
+
+
+--- comp phase
+
+-- breeder
+
+--
+
+--
+
+
+
