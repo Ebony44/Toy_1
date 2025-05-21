@@ -1,7 +1,7 @@
 { 
 	"ToolsVersion": "2025.3.2.0", 
-	"RevisionHash": "68259ab04a0954de38ddbf42", 
-	"ChangeNumber": 2, 
+	"RevisionHash": "682d8e53cbb941d8f84ae669", 
+	"ChangeNumber": 10, 
 	"Collections": { 
 		"ProjectSettings": [ 
 			{ 
@@ -251,6 +251,70 @@
 				] 
 			}, 
 			{ 
+				"Id": "682d74f5cbb941d8f84ae65d", 
+				"Name": "CommonBattleStats", 
+				"DisplayName": "Common Battle Stats", 
+				"Type": 0, 
+				"Description": "", 
+				"IdGenerator": 0, 
+				"Specification": "group=Battle%20Phase", 
+				"Properties": [ 
+					{ 
+						"Id": "682d74f5cbb941d8f84ae65c", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 3, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "682d75f2cbb941d8f84ae663", 
+						"SharedProperty": null, 
+						"Name": "Value", 
+						"DisplayName": "Value", 
+						"Description": "", 
+						"DataType": 12, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "" 
+					} 
+				] 
+			}, 
+			{ 
+				"Id": "682d8de3cbb941d8f84ae668", 
+				"Name": "MinionSpecificBattleStats", 
+				"DisplayName": "Minion Specific Battle Stats", 
+				"Type": 0, 
+				"Description": "", 
+				"IdGenerator": 0, 
+				"Specification": "group=Battle%20Phase", 
+				"Properties": [ 
+					{ 
+						"Id": "682d8de3cbb941d8f84ae667", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 3, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "" 
+					} 
+				] 
+			}, 
+			{ 
 				"Id": "d40d8eb1a23248b69b252eea", 
 				"Name": "SchemaProperty", 
 				"DisplayName": "Properties", 
@@ -437,6 +501,14 @@
 			} 
 		], 
 		"SchemaProperty": [ 
+		], 
+		"CommonBattleStats": [ 
+			{ 
+				"Id": "Health", 
+				"Value": 0 
+			} 
+		], 
+		"MinionSpecificBattleStats": [ 
 		] 
 	} 
 }
