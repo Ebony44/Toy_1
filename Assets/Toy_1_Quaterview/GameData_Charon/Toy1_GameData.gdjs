@@ -1,7 +1,7 @@
 { 
 	"ToolsVersion": "2025.3.2.0", 
-	"RevisionHash": "682d8e53cbb941d8f84ae669", 
-	"ChangeNumber": 10, 
+	"RevisionHash": "682eecd532f868f08c8e2716", 
+	"ChangeNumber": 13, 
 	"Collections": { 
 		"ProjectSettings": [ 
 			{ 
@@ -276,9 +276,9 @@
 					{ 
 						"Id": "682d75f2cbb941d8f84ae663", 
 						"SharedProperty": null, 
-						"Name": "Value", 
-						"DisplayName": "Value", 
-						"Description": "", 
+						"Name": "MinValue", 
+						"DisplayName": "Min Value", 
+						"Description": "Minimum value for this attribute", 
 						"DataType": 12, 
 						"DefaultValue": "0", 
 						"Uniqueness": 0, 
@@ -286,6 +286,34 @@
 						"ReferenceType": null, 
 						"Size": 4, 
 						"Specification": "" 
+					}, 
+					{ 
+						"Id": "682eeca232f868f08c8e2713", 
+						"SharedProperty": null, 
+						"Name": "MaxValue", 
+						"DisplayName": "Max Value", 
+						"Description": "Maximum value for this attribute", 
+						"DataType": 12, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "682eeca232f868f08c8e2714", 
+						"SharedProperty": null, 
+						"Name": "ValueKind", 
+						"DisplayName": "Value Kind", 
+						"Description": "", 
+						"DataType": 18, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.Integer=0&pick.Number=1&pick.Percent=2" 
 					} 
 				] 
 			}, 
@@ -505,7 +533,9 @@
 		"CommonBattleStats": [ 
 			{ 
 				"Id": "Health", 
-				"Value": 0 
+				"MinValue": 0, 
+				"MaxValue": 0, 
+				"ValueKind": 0 
 			} 
 		], 
 		"MinionSpecificBattleStats": [ 

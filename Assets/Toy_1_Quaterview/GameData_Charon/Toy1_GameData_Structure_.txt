@@ -23,6 +23,7 @@ https://forum.lastepoch.com/t/this-easy-game-is-hard/36304/11
 
 // LE -> math is enemy damage *( 1 + enemy Penetration - your resistance )
 // incoming damage = 100
+// at 0% -> 100 * (1 + 0.75 - 0) = 175
 // at 50% -> 100 * (1 + 0.75 - 0.5) = 125
 // at 75% -> 100 * (1 + 0.75 - 0.75) = 100
 
