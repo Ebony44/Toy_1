@@ -1,7 +1,7 @@
 { 
 	"ToolsVersion": "2025.3.2.0", 
-	"RevisionHash": "682eecd532f868f08c8e2716", 
-	"ChangeNumber": 13, 
+	"RevisionHash": "6832fcd6369ceab0183363e7", 
+	"ChangeNumber": 40, 
 	"Collections": { 
 		"ProjectSettings": [ 
 			{ 
@@ -265,12 +265,12 @@
 						"Name": "Id", 
 						"DisplayName": "Id", 
 						"Description": "", 
-						"DataType": 0, 
+						"DataType": 18, 
 						"DefaultValue": null, 
 						"Uniqueness": 1, 
 						"Requirement": 3, 
 						"ReferenceType": null, 
-						"Size": 0, 
+						"Size": 4, 
 						"Specification": "" 
 					}, 
 					{ 
@@ -314,6 +314,20 @@
 						"ReferenceType": null, 
 						"Size": 4, 
 						"Specification": "pick.Integer=0&pick.Number=1&pick.Percent=2" 
+					}, 
+					{ 
+						"Id": "6832f933369ceab0183363d4", 
+						"SharedProperty": null, 
+						"Name": "PickList1", 
+						"DisplayName": "Pick List 1", 
+						"Description": "", 
+						"DataType": 18, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.None=0&pick.None2=1" 
 					} 
 				] 
 			}, 
@@ -332,6 +346,129 @@
 						"Name": "Id", 
 						"DisplayName": "Id", 
 						"Description": "", 
+						"DataType": 18, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 3, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "" 
+					} 
+				] 
+			}, 
+			{ 
+				"Id": "6832f9c7369ceab0183363d8", 
+				"Name": "ParameterValue", 
+				"DisplayName": "Parameter Value", 
+				"Type": 1, 
+				"Description": "", 
+				"IdGenerator": 3, 
+				"Specification": "group=Settings", 
+				"Properties": [ 
+					{ 
+						"Id": "6832f9c7369ceab0183363d7", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": "", 
+						"DataType": 13, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "6832fa2b369ceab0183363df", 
+						"SharedProperty": null, 
+						"Name": "Parameter", 
+						"DisplayName": "Parameter", 
+						"Description": "", 
+						"DataType": 28, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": { 
+							"Id": "6832f9ce369ceab0183363db", 
+							"DisplayName": "Parameter" 
+						}, 
+						"Size": 0, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "6832fc10369ceab0183363e2", 
+						"SharedProperty": null, 
+						"Name": "Value", 
+						"DisplayName": "Value", 
+						"Description": "", 
+						"DataType": 12, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "6832fcd6369ceab0183363e8", 
+						"SharedProperty": null, 
+						"Name": "Condition", 
+						"DisplayName": "Condition", 
+						"Description": null, 
+						"DataType": 28, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": { 
+							"Id": "6832fc41369ceab0183363e5", 
+							"DisplayName": "Conditions" 
+						}, 
+						"Size": 0, 
+						"Specification": "" 
+					} 
+				] 
+			}, 
+			{ 
+				"Id": "6832f9ce369ceab0183363db", 
+				"Name": "Parameter", 
+				"DisplayName": "Parameter", 
+				"Type": 0, 
+				"Description": "", 
+				"IdGenerator": 0, 
+				"Specification": "group=Settings", 
+				"Properties": [ 
+					{ 
+						"Id": "6832f9ce369ceab0183363da", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": "", 
+						"DataType": 18, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 3, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "" 
+					} 
+				] 
+			}, 
+			{ 
+				"Id": "6832fc41369ceab0183363e5", 
+				"Name": "Conditions", 
+				"DisplayName": "Conditions", 
+				"Type": 0, 
+				"Description": "", 
+				"IdGenerator": 0, 
+				"Specification": "group=Settings", 
+				"Properties": [ 
+					{ 
+						"Id": "6832fc41369ceab0183363e4", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": null, 
 						"DataType": 0, 
 						"DefaultValue": null, 
 						"Uniqueness": 1, 
@@ -531,14 +668,14 @@
 		"SchemaProperty": [ 
 		], 
 		"CommonBattleStats": [ 
-			{ 
-				"Id": "Health", 
-				"MinValue": 0, 
-				"MaxValue": 0, 
-				"ValueKind": 0 
-			} 
+		], 
+		"Conditions": [ 
 		], 
 		"MinionSpecificBattleStats": [ 
+		], 
+		"Parameter": [ 
+		], 
+		"ParameterValue": [ 
 		] 
 	} 
 }

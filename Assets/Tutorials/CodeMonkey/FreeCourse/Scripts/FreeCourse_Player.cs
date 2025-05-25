@@ -44,7 +44,7 @@ public class FreeCourse_Player : MonoBehaviour
         Vector2 inputVector = gameInput.Player.Move.ReadValue<Vector2>();
         // inputVector = inputVector.normalized;
         // -> normalized already from gameinput setting
-        Debug.Log("inputVector: " + inputVector);
+        // Debug.Log("inputVector: " + inputVector);
         return inputVector;
     }
 
@@ -64,31 +64,31 @@ public class FreeCourse_Player : MonoBehaviour
 
 
     }
-    // fire related
-    [SerializeField] private GameObject bulletPrefab;
+    //// fire related
+    //[SerializeField] private GameObject bulletPrefab;
 
-    private void Shoot(Vector3 shootPosition, Vector3 targetPosition)
-    {
-        GameObject bullet = Instantiate(bulletPrefab, shootPosition, Quaternion.identity);
-        Vector3 shootDirection = (targetPosition - shootPosition).normalized;
+    //private void Shoot(Vector3 shootPosition, Vector3 targetPosition)
+    //{
+    //    GameObject bullet = Instantiate(bulletPrefab, shootPosition, Quaternion.identity);
+    //    Vector3 shootDirection = (targetPosition - shootPosition).normalized;
 
-        bullet.GetComponent<FreeCourse_Projectile>().Setup(shootDirection);
-    }
+    //    bullet.GetComponent<FreeCourse_Projectile>().Setup(shootDirection);
+    //}
 
-    public List<GameObject> targets = new List<GameObject>(8);
-    private void CheckHit()
-    {
-        // foreach (Target target in Target.targetsList)
-        foreach (GameObject target in targets)
-        {
-            if (Vector3.Distance(transform.position, target.transform.position) < 0.5f)
-            {
-                // target.Damage();
-                Destroy(gameObject);
-            }
-        }
-    }
+    //public List<GameObject> targets = new List<GameObject>(8);
+    //private void CheckHit()
+    //{
+    //    // foreach (Target target in Target.targetsList)
+    //    foreach (GameObject target in targets)
+    //    {
+    //        if (Vector3.Distance(transform.position, target.transform.position) < 0.5f)
+    //        {
+    //            // target.Damage();
+    //            Destroy(gameObject);
+    //        }
+    //    }
+    //}
 
-    // fire related end
+    //// fire related end
 
 }
