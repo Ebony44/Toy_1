@@ -1,7 +1,7 @@
 { 
 	"ToolsVersion": "2025.3.2.0", 
-	"RevisionHash": "6832fcd6369ceab0183363e7", 
-	"ChangeNumber": 40, 
+	"RevisionHash": "68342015a6f0a751507575bd", 
+	"ChangeNumber": 47, 
 	"Collections": { 
 		"ProjectSettings": [ 
 			{ 
@@ -415,7 +415,7 @@
 						"SharedProperty": null, 
 						"Name": "Condition", 
 						"DisplayName": "Condition", 
-						"Description": null, 
+						"Description": "", 
 						"DataType": 28, 
 						"DefaultValue": null, 
 						"Uniqueness": 0, 
@@ -426,6 +426,20 @@
 						}, 
 						"Size": 0, 
 						"Specification": "" 
+					}, 
+					{ 
+						"Id": "6833fd9aa6f0a751507575b7", 
+						"SharedProperty": null, 
+						"Name": "ParameterTag", 
+						"DisplayName": "Parameter Tag", 
+						"Description": "", 
+						"DataType": 18, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.None=0&pick.BattleParameter=1&pick.ManagementParameter=2&pick.GlobalParameter=3" 
 					} 
 				] 
 			}, 
@@ -451,6 +465,20 @@
 						"ReferenceType": null, 
 						"Size": 4, 
 						"Specification": "" 
+					}, 
+					{ 
+						"Id": "68342015a6f0a751507575be", 
+						"SharedProperty": null, 
+						"Name": "IdPick", 
+						"DisplayName": "Id Pick", 
+						"Description": null, 
+						"DataType": 18, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.HitPoints=0&pick.MaxHitPoints=1&pick.MaxHitPointsPercent=2" 
 					} 
 				] 
 			}, 

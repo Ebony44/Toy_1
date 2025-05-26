@@ -1,8 +1,11 @@
 
+using NUnit.Framework;
+
 namespace MyExercise_1
 {
     public static class MyMath
     {
+        [Test]
         public static int Add(int a, int b)
         {
             return a + b;
