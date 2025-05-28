@@ -1,7 +1,7 @@
 { 
 	"ToolsVersion": "2025.3.2.0", 
-	"RevisionHash": "68342015a6f0a751507575bd", 
-	"ChangeNumber": 47, 
+	"RevisionHash": "6836c701a6f0a751507575c5", 
+	"ChangeNumber": 51, 
 	"Collections": { 
 		"ProjectSettings": [ 
 			{ 
@@ -508,6 +508,45 @@
 				] 
 			}, 
 			{ 
+				"Id": "68367755a6f0a751507575c1", 
+				"Name": "Tags", 
+				"DisplayName": "Tags", 
+				"Type": 0, 
+				"Description": "", 
+				"IdGenerator": 0, 
+				"Specification": null, 
+				"Properties": [ 
+					{ 
+						"Id": "68367755a6f0a751507575c0", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 3, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "6836c6b8a6f0a751507575c4", 
+						"SharedProperty": null, 
+						"Name": "Tag", 
+						"DisplayName": "Tag", 
+						"Description": "", 
+						"DataType": 18, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.None=0&" 
+					} 
+				] 
+			}, 
+			{ 
 				"Id": "d40d8eb1a23248b69b252eea", 
 				"Name": "SchemaProperty", 
 				"DisplayName": "Properties", 
@@ -704,6 +743,8 @@
 		"Parameter": [ 
 		], 
 		"ParameterValue": [ 
+		], 
+		"Tags": [ 
 		] 
 	} 
 }
