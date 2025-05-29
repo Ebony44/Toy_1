@@ -77,7 +77,7 @@ lightning resistance
 --
 
 
---- comp phase
+--- management phase
 
 -- breeder
 
@@ -87,3 +87,20 @@ lightning resistance
 
 
 
+	Management terms
+	ovum - egg
+	ovulation - egg release from ovaries
+	fertilization - male gamete(sperm) fusion with female gamete(ovum)
+
+
+	Management phase stats
+every stats tiers increased, ovulation, etc
+
+=== Management Mechanism
+== When turns end
+--> each Rooms will be checked.
+-> if a Room is not empty, then check who occupies it and process the result
+-> if a Room is empty, pass to the next Room
+
+--> Turn end button can not be pressed consecutively in short time
+== Building block is fixed, like Xcom 2 or Fallout shelter?
