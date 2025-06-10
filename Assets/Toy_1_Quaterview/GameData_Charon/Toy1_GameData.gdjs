@@ -1,7 +1,7 @@
 { 
-	"ToolsVersion": "2025.3.2.0", 
-	"RevisionHash": "6836c701a6f0a751507575c5", 
-	"ChangeNumber": 51, 
+	"ToolsVersion": "2025.3.3.0", 
+	"RevisionHash": "6847ae0525068849c065415a", 
+	"ChangeNumber": 54, 
 	"Collections": { 
 		"ProjectSettings": [ 
 			{ 
@@ -471,7 +471,7 @@
 						"SharedProperty": null, 
 						"Name": "IdPick", 
 						"DisplayName": "Id Pick", 
-						"Description": null, 
+						"Description": "", 
 						"DataType": 18, 
 						"DefaultValue": "0", 
 						"Uniqueness": 0, 
@@ -479,6 +479,48 @@
 						"ReferenceType": null, 
 						"Size": 4, 
 						"Specification": "pick.HitPoints=0&pick.MaxHitPoints=1&pick.MaxHitPointsPercent=2" 
+					}, 
+					{ 
+						"Id": "6847adf025068849c0654158", 
+						"SharedProperty": null, 
+						"Name": "MinValue", 
+						"DisplayName": "Min Value", 
+						"Description": "", 
+						"DataType": 12, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 0, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "6847adf025068849c0654159", 
+						"SharedProperty": null, 
+						"Name": "MaxValue", 
+						"DisplayName": "Max Value", 
+						"Description": "", 
+						"DataType": 12, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 0, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "6847ae0525068849c065415b", 
+						"SharedProperty": null, 
+						"Name": "ValueKind", 
+						"DisplayName": "Value Kind", 
+						"Description": null, 
+						"DataType": 18, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.None=0&" 
 					} 
 				] 
 			}, 
