@@ -1,7 +1,7 @@
 { 
 	"ToolsVersion": "2025.3.3.0", 
-	"RevisionHash": "6847ae0525068849c065415a", 
-	"ChangeNumber": 54, 
+	"RevisionHash": "684946a8466a73f9cce24b8d", 
+	"ChangeNumber": 88, 
 	"Collections": { 
 		"ProjectSettings": [ 
 			{ 
@@ -458,12 +458,12 @@
 						"Name": "Id", 
 						"DisplayName": "Id", 
 						"Description": "", 
-						"DataType": 18, 
+						"DataType": 0, 
 						"DefaultValue": null, 
 						"Uniqueness": 1, 
 						"Requirement": 3, 
 						"ReferenceType": null, 
-						"Size": 4, 
+						"Size": 0, 
 						"Specification": "" 
 					}, 
 					{ 
@@ -513,14 +513,14 @@
 						"SharedProperty": null, 
 						"Name": "ValueKind", 
 						"DisplayName": "Value Kind", 
-						"Description": null, 
+						"Description": "", 
 						"DataType": 18, 
 						"DefaultValue": "0", 
 						"Uniqueness": 0, 
 						"Requirement": 2, 
 						"ReferenceType": null, 
 						"Size": 4, 
-						"Specification": "pick.None=0&" 
+						"Specification": "pick.Interger=0&pick.Number=1&pick.Percent=2" 
 					} 
 				] 
 			}, 
@@ -538,7 +538,7 @@
 						"SharedProperty": null, 
 						"Name": "Id", 
 						"DisplayName": "Id", 
-						"Description": null, 
+						"Description": "", 
 						"DataType": 0, 
 						"DefaultValue": null, 
 						"Uniqueness": 1, 
@@ -546,6 +546,34 @@
 						"ReferenceType": null, 
 						"Size": 0, 
 						"Specification": "" 
+					}, 
+					{ 
+						"Id": "684944e9466a73f9cce24b87", 
+						"SharedProperty": null, 
+						"Name": "Description", 
+						"DisplayName": "Description", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "684946a8466a73f9cce24b8e", 
+						"SharedProperty": null, 
+						"Name": "BoundCheck", 
+						"DisplayName": "Bound Check", 
+						"Description": null, 
+						"DataType": 35, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "resultType=System.Boolean" 
 					} 
 				] 
 			}, 
@@ -585,6 +613,207 @@
 						"ReferenceType": null, 
 						"Size": 4, 
 						"Specification": "pick.None=0&" 
+					} 
+				] 
+			}, 
+			{ 
+				"Id": "68492ced466a73f9cce24b5c", 
+				"Name": "Symbiote", 
+				"DisplayName": "Symbiote", 
+				"Type": 0, 
+				"Description": "", 
+				"IdGenerator": 0, 
+				"Specification": "group=Items%2FEquipment", 
+				"Properties": [ 
+					{ 
+						"Id": "68492ced466a73f9cce24b5a", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 3, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "68492ced466a73f9cce24b5b", 
+						"SharedProperty": null, 
+						"Name": "Rarity", 
+						"DisplayName": "Rarity", 
+						"Description": "", 
+						"DataType": 18, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.Normal=0&pick.Magic=1&pick.Rare=2&pick.Unique=3&pick.Set=4" 
+					}, 
+					{ 
+						"Id": "68492f3c466a73f9cce24b5e", 
+						"SharedProperty": null, 
+						"Name": "Effects", 
+						"DisplayName": "Effects", 
+						"Description": null, 
+						"DataType": 23, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": { 
+							"Id": "6832f9c7369ceab0183363d8", 
+							"DisplayName": "Parameter Value" 
+						}, 
+						"Size": 0, 
+						"Specification": "" 
+					} 
+				] 
+			}, 
+			{ 
+				"Id": "684931b5466a73f9cce24b62", 
+				"Name": "Card", 
+				"DisplayName": "Card", 
+				"Type": 0, 
+				"Description": "", 
+				"IdGenerator": 0, 
+				"Specification": null, 
+				"Properties": [ 
+					{ 
+						"Id": "684931b5466a73f9cce24b61", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 3, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "684931e2466a73f9cce24b64", 
+						"SharedProperty": null, 
+						"Name": "SpellType", 
+						"DisplayName": "Spell Type", 
+						"Description": "", 
+						"DataType": 19, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.Attack=0&pick.Spell=1&pick.Summon=2" 
+					} 
+				] 
+			}, 
+			{ 
+				"Id": "68493293466a73f9cce24b69", 
+				"Name": "DamageType", 
+				"DisplayName": "Damage Type", 
+				"Type": 1, 
+				"Description": "", 
+				"IdGenerator": 0, 
+				"Specification": "group=Settings", 
+				"Properties": [ 
+					{ 
+						"Id": "68493293466a73f9cce24b66", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 3, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "68493293466a73f9cce24b67", 
+						"SharedProperty": null, 
+						"Name": "Group1", 
+						"DisplayName": "Group 1", 
+						"Description": "", 
+						"DataType": 19, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.Attack=0&pick.Spell=1" 
+					}, 
+					{ 
+						"Id": "68493293466a73f9cce24b68", 
+						"SharedProperty": null, 
+						"Name": "Group2", 
+						"DisplayName": "Group 2", 
+						"Description": "", 
+						"DataType": 19, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.Physical=0&pick.Fire=1&pick.Cold=2&pick.Lightning=4&pick.Chaos=8" 
+					}, 
+					{ 
+						"Id": "684932e7466a73f9cce24b6b", 
+						"SharedProperty": null, 
+						"Name": "Group3", 
+						"DisplayName": "Group 3", 
+						"Description": "", 
+						"DataType": 19, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "pick.Hit=0&pick.DoT=1" 
+					} 
+				] 
+			}, 
+			{ 
+				"Id": "684940d6466a73f9cce24b76", 
+				"Name": "Resources", 
+				"DisplayName": "Resources", 
+				"Type": 0, 
+				"Description": "", 
+				"IdGenerator": 0, 
+				"Specification": "group=Items", 
+				"Properties": [ 
+					{ 
+						"Id": "684940d6466a73f9cce24b74", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 3, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "684940d6466a73f9cce24b75", 
+						"SharedProperty": null, 
+						"Name": "Count", 
+						"DisplayName": "Count", 
+						"Description": "", 
+						"DataType": 12, 
+						"DefaultValue": "0", 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 4, 
+						"Specification": "" 
 					} 
 				] 
 			}, 
@@ -776,15 +1005,54 @@
 		], 
 		"SchemaProperty": [ 
 		], 
+		"Card": [ 
+		], 
 		"CommonBattleStats": [ 
 		], 
 		"Conditions": [ 
+			{ 
+				"Id": "Normal", 
+				"Description": "Nothing Special state", 
+				"BoundCheck": null 
+			} 
+		], 
+		"DamageType": [ 
 		], 
 		"MinionSpecificBattleStats": [ 
 		], 
 		"Parameter": [ 
+			{ 
+				"Id": "HitPoint", 
+				"IdPick": 0, 
+				"MinValue": 0, 
+				"MaxValue": null, 
+				"ValueKind": 1 
+			} 
 		], 
 		"ParameterValue": [ 
+		], 
+		"Resources": [ 
+		], 
+		"Symbiote": [ 
+			{ 
+				"Id": "NewbieSym", 
+				"Rarity": 0, 
+				"Effects": [ 
+					{ 
+						"Id": 1, 
+						"Parameter": { 
+							"Id": "HitPoint", 
+							"DisplayName": "HitPoint" 
+						}, 
+						"Value": 5, 
+						"Condition": { 
+							"Id": "Normal", 
+							"DisplayName": "Normal" 
+						}, 
+						"ParameterTag": 1 
+					} 
+				] 
+			} 
 		], 
 		"Tags": [ 
 		] 
