@@ -1,7 +1,7 @@
 { 
 	"ToolsVersion": "2025.3.3.0", 
-	"RevisionHash": "684946a8466a73f9cce24b8d", 
-	"ChangeNumber": 88, 
+	"RevisionHash": "684a945bcb5b58e57c8d7867", 
+	"ChangeNumber": 111, 
 	"Collections": { 
 		"ProjectSettings": [ 
 			{ 
@@ -581,7 +581,7 @@
 				"Id": "68367755a6f0a751507575c1", 
 				"Name": "Tags", 
 				"DisplayName": "Tags", 
-				"Type": 0, 
+				"Type": 1, 
 				"Description": "", 
 				"IdGenerator": 0, 
 				"Specification": null, 
@@ -606,13 +606,13 @@
 						"Name": "Tag", 
 						"DisplayName": "Tag", 
 						"Description": "", 
-						"DataType": 18, 
+						"DataType": 19, 
 						"DefaultValue": "0", 
 						"Uniqueness": 0, 
 						"Requirement": 2, 
 						"ReferenceType": null, 
 						"Size": 4, 
-						"Specification": "pick.None=0&" 
+						"Specification": "pick.None=0&pick.AOE=1&pick.Aura=2&pick.Attack=4&pick.Spell=8&pick.Duration=16&pick.Projectile=32&pick.Ammo=64&pick.Basic=128&pick.Passive=256&pick.Trigger=512&pick.Fire=1024&pick.Cold=2048&pick.Lightning=4096&pick.Poison=8192&pick.Physical=16384&pick.Minion=32768" 
 					} 
 				] 
 			}, 
@@ -707,7 +707,38 @@
 						"Requirement": 2, 
 						"ReferenceType": null, 
 						"Size": 4, 
-						"Specification": "pick.Attack=0&pick.Spell=1&pick.Summon=2" 
+						"Specification": "pick.None=0&pick.Spell=1&pick.Attack=2&pick.Summon=4" 
+					}, 
+					{ 
+						"Id": "684a7c8ccb5b58e57c8d7854", 
+						"SharedProperty": null, 
+						"Name": "Tag", 
+						"DisplayName": "Tag", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 0, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "editor=tags-collection&allowMultiple=true" 
+					}, 
+					{ 
+						"Id": "684a877ccb5b58e57c8d7860", 
+						"SharedProperty": null, 
+						"Name": "CardTag", 
+						"DisplayName": "Card Tag", 
+						"Description": null, 
+						"DataType": 28, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": { 
+							"Id": "68367755a6f0a751507575c1", 
+							"DisplayName": "Tags" 
+						}, 
+						"Size": 0, 
+						"Specification": "" 
 					} 
 				] 
 			}, 
@@ -760,7 +791,7 @@
 						"Requirement": 2, 
 						"ReferenceType": null, 
 						"Size": 4, 
-						"Specification": "pick.Physical=0&pick.Fire=1&pick.Cold=2&pick.Lightning=4&pick.Chaos=8" 
+						"Specification": "pick.Physical=0&pick.Fire=1&pick.Cold=2&pick.Lightning=4&pick.Poison=8" 
 					}, 
 					{ 
 						"Id": "684932e7466a73f9cce24b6b", 
@@ -775,6 +806,20 @@
 						"ReferenceType": null, 
 						"Size": 4, 
 						"Specification": "pick.Hit=0&pick.DoT=1" 
+					}, 
+					{ 
+						"Id": "684a79a4cb5b58e57c8d7852", 
+						"SharedProperty": null, 
+						"Name": "TestTag", 
+						"DisplayName": "Test Tag", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "editor=tags&allowMultiple=false" 
 					} 
 				] 
 			}, 
@@ -813,6 +858,48 @@
 						"Requirement": 2, 
 						"ReferenceType": null, 
 						"Size": 4, 
+						"Specification": "" 
+					} 
+				] 
+			}, 
+			{ 
+				"Id": "684a464dcb5b58e57c8d784e", 
+				"Name": "CardGlyph", 
+				"DisplayName": "Card Glyph", 
+				"Type": 0, 
+				"Description": "", 
+				"IdGenerator": 0, 
+				"Specification": "group=Items%2FEquipment", 
+				"Properties": [ 
+					{ 
+						"Id": "684a464dcb5b58e57c8d784c", 
+						"SharedProperty": null, 
+						"Name": "Id", 
+						"DisplayName": "Id", 
+						"Description": "", 
+						"DataType": 0, 
+						"DefaultValue": null, 
+						"Uniqueness": 1, 
+						"Requirement": 3, 
+						"ReferenceType": null, 
+						"Size": 0, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "684a464dcb5b58e57c8d784d", 
+						"SharedProperty": null, 
+						"Name": "Effects", 
+						"DisplayName": "Effects", 
+						"Description": "", 
+						"DataType": 23, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": { 
+							"Id": "6832f9c7369ceab0183363d8", 
+							"DisplayName": "Parameter Value" 
+						}, 
+						"Size": 0, 
 						"Specification": "" 
 					} 
 				] 
@@ -1006,6 +1093,8 @@
 		"SchemaProperty": [ 
 		], 
 		"Card": [ 
+		], 
+		"CardGlyph": [ 
 		], 
 		"CommonBattleStats": [ 
 		], 
