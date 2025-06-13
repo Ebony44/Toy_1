@@ -1,7 +1,7 @@
 { 
 	"ToolsVersion": "2025.3.3.0", 
-	"RevisionHash": "684a945bcb5b58e57c8d7867", 
-	"ChangeNumber": 111, 
+	"RevisionHash": "684bd4347ecd527ac4df331e", 
+	"ChangeNumber": 116, 
 	"Collections": { 
 		"ProjectSettings": [ 
 			{ 
@@ -888,8 +888,8 @@
 					{ 
 						"Id": "684a464dcb5b58e57c8d784d", 
 						"SharedProperty": null, 
-						"Name": "Effects", 
-						"DisplayName": "Effects", 
+						"Name": "Parameter", 
+						"DisplayName": "Parameter", 
 						"Description": "", 
 						"DataType": 23, 
 						"DefaultValue": null, 
@@ -898,6 +898,40 @@
 						"ReferenceType": { 
 							"Id": "6832f9c7369ceab0183363d8", 
 							"DisplayName": "Parameter Value" 
+						}, 
+						"Size": 0, 
+						"Specification": "" 
+					}, 
+					{ 
+						"Id": "684bd11b7ecd527ac4df331b", 
+						"SharedProperty": null, 
+						"Name": "TestValue", 
+						"DisplayName": "Test Value", 
+						"Description": "", 
+						"DataType": 29, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": { 
+							"Id": "684940d6466a73f9cce24b76", 
+							"DisplayName": "Resources" 
+						}, 
+						"Size": 4, 
+						"Specification": "layout.order=3" 
+					}, 
+					{ 
+						"Id": "684bd4347ecd527ac4df331f", 
+						"SharedProperty": null, 
+						"Name": "TestValue2", 
+						"DisplayName": "Test Value 2", 
+						"Description": null, 
+						"DataType": 28, 
+						"DefaultValue": null, 
+						"Uniqueness": 0, 
+						"Requirement": 2, 
+						"ReferenceType": { 
+							"Id": "68367755a6f0a751507575c1", 
+							"DisplayName": "Tags" 
 						}, 
 						"Size": 0, 
 						"Specification": "" 
