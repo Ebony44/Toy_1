@@ -1,7 +1,7 @@
 { 
 	"ToolsVersion": "2025.3.3.0", 
-	"RevisionHash": "684bd4347ecd527ac4df331e", 
-	"ChangeNumber": 116, 
+	"RevisionHash": "68512fd74d7b3569c8b62e5f", 
+	"ChangeNumber": 122, 
 	"Collections": { 
 		"ProjectSettings": [ 
 			{ 
@@ -566,7 +566,7 @@
 						"SharedProperty": null, 
 						"Name": "BoundCheck", 
 						"DisplayName": "Bound Check", 
-						"Description": null, 
+						"Description": "", 
 						"DataType": 35, 
 						"DefaultValue": null, 
 						"Uniqueness": 0, 
@@ -603,8 +603,8 @@
 					{ 
 						"Id": "6836c6b8a6f0a751507575c4", 
 						"SharedProperty": null, 
-						"Name": "Tag", 
-						"DisplayName": "Tag", 
+						"Name": "TagPickList", 
+						"DisplayName": "Tag Pick List", 
 						"Description": "", 
 						"DataType": 19, 
 						"DefaultValue": "0", 
@@ -1134,9 +1134,108 @@
 		], 
 		"Conditions": [ 
 			{ 
+				"Id": "MonsterTypeUnholy", 
+				"Description": "a", 
+				"BoundCheck": { 
+					"expressionType": "Invoke", 
+					"arguments": { 
+						"0": { 
+							"expressionType": "MemberResolve", 
+							"name": "Unholy", 
+							"expression": { 
+								"expressionType": "MemberResolve", 
+								"name": "MonsterType", 
+								"expression": null, 
+								"arguments": { 
+								}, 
+								"useNullPropagation": false, 
+								"_pos": "1:19+11" 
+							}, 
+							"arguments": { 
+							}, 
+							"useNullPropagation": false, 
+							"_pos": "1:30+1" 
+						} 
+					}, 
+					"expression": { 
+						"expressionType": "MemberResolve", 
+						"name": "Is", 
+						"expression": { 
+							"expressionType": "MemberResolve", 
+							"name": "Target", 
+							"expression": { 
+								"expressionType": "MemberResolve", 
+								"name": "context", 
+								"expression": null, 
+								"arguments": { 
+								}, 
+								"useNullPropagation": false, 
+								"_pos": "1:1+7" 
+							}, 
+							"arguments": { 
+							}, 
+							"useNullPropagation": false, 
+							"_pos": "1:8+1" 
+						}, 
+						"arguments": { 
+						}, 
+						"useNullPropagation": false, 
+						"_pos": "1:15+1" 
+					}, 
+					"_cs": "context.Target.Is(MonsterType.Unholy)", 
+					"_pos": "1:18+1" 
+				} 
+			}, 
+			{ 
 				"Id": "Normal", 
 				"Description": "Nothing Special state", 
-				"BoundCheck": null 
+				"BoundCheck": { 
+					"expressionType": "Equal", 
+					"left": { 
+						"expressionType": "MemberResolve", 
+						"name": "Type", 
+						"expression": { 
+							"expressionType": "MemberResolve", 
+							"name": "Attack", 
+							"expression": { 
+								"expressionType": "MemberResolve", 
+								"name": "context", 
+								"expression": null, 
+								"arguments": { 
+								}, 
+								"useNullPropagation": false, 
+								"_pos": "1:1+7" 
+							}, 
+							"arguments": { 
+							}, 
+							"useNullPropagation": false, 
+							"_pos": "1:8+1" 
+						}, 
+						"arguments": { 
+						}, 
+						"useNullPropagation": true, 
+						"_pos": "1:15+2" 
+					}, 
+					"right": { 
+						"expressionType": "MemberResolve", 
+						"name": "Ranged", 
+						"expression": { 
+							"expressionType": "MemberResolve", 
+							"name": "AttackType", 
+							"expression": null, 
+							"arguments": { 
+							}, 
+							"useNullPropagation": false, 
+							"_pos": "1:25+10" 
+						}, 
+						"arguments": { 
+						}, 
+						"useNullPropagation": false, 
+						"_pos": "1:35+1" 
+					}, 
+					"_cs": "context.Attack?.Type == AttackType.Ranged", 
+					"_pos": "1:22+2" 
+				} 
 			} 
 		], 
 		"DamageType": [ 
