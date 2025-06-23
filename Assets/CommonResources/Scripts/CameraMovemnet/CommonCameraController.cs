@@ -34,18 +34,22 @@ public class CommonCameraController : MonoBehaviour
 
     private float currentZoom = 10f;
     private PlayerInput playerInput;
+    private GameInput gameInput;
     private Vector2 scrollInput;
 
     void Awake()
     {
-        // playerInput = new PlayerInput();
-        // playerInput.Camera.Zoom.performed += ctx => scrollInput = ctx.ReadValue<Vector2>();
+         //playerInput = new PlayerInput();
+         //playerInput.Camera.Zoom.performed += ctx => scrollInput = ctx.ReadValue<Vector2>();
+         gameInput = new GameInput();
+        gameInput.ManagePhaseInput.MouseWheel.performed += OnMouseWheelScrollChanged;
 
     }
 
     void OnEnable()
     {
         // playerInput.ActivateInput();
+        gameInput.Enable();
         
     }
 
@@ -53,11 +57,13 @@ public class CommonCameraController : MonoBehaviour
     {
         // playerInput.DeactivateInput();
         // playerInput.Disable();
+        gameInput.Disable();
     }
 
     public void OnMouseWheelScrollChanged(InputAction.CallbackContext callbackContext)
     {
         float currentAxis = callbackContext.ReadValue<float>();
+        // float currentAxis = callbackContext.ReadValue<Vector2>().y;
         Debug.Log("MouseWheelScrollChanged: " + currentAxis);
         scrollInput.y = currentAxis > 0 ? 1 
             : currentAxis < 0 ? -1 
