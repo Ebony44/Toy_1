@@ -144,6 +144,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5c454cc-2aa7-460e-b8f2-fbfa7f47101c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -397,6 +406,17 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""MouseWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64c4ad92-86ef-474e-b6fb-14badb63d391"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Space"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1179,6 +1199,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
         m_Player_OtherMovement = m_Player.FindAction("OtherMovement", throwIfNotFound: true);
         m_Player_MouseWheel = m_Player.FindAction("MouseWheel", throwIfNotFound: true);
+        m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1284,6 +1305,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MousePosition;
     private readonly InputAction m_Player_OtherMovement;
     private readonly InputAction m_Player_MouseWheel;
+    private readonly InputAction m_Player_Space;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1319,6 +1341,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/MouseWheel".
         /// </summary>
         public InputAction @MouseWheel => m_Wrapper.m_Player_MouseWheel;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Space".
+        /// </summary>
+        public InputAction @Space => m_Wrapper.m_Player_Space;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1363,6 +1389,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @MouseWheel.started += instance.OnMouseWheel;
             @MouseWheel.performed += instance.OnMouseWheel;
             @MouseWheel.canceled += instance.OnMouseWheel;
+            @Space.started += instance.OnSpace;
+            @Space.performed += instance.OnSpace;
+            @Space.canceled += instance.OnSpace;
         }
 
         /// <summary>
@@ -1392,6 +1421,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @MouseWheel.started -= instance.OnMouseWheel;
             @MouseWheel.performed -= instance.OnMouseWheel;
             @MouseWheel.canceled -= instance.OnMouseWheel;
+            @Space.started -= instance.OnSpace;
+            @Space.performed -= instance.OnSpace;
+            @Space.canceled -= instance.OnSpace;
         }
 
         /// <summary>
@@ -1852,6 +1884,13 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMouseWheel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Space" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSpace(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

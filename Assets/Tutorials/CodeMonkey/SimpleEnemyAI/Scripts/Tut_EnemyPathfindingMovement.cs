@@ -42,7 +42,7 @@ public class Tut_EnemyPathfindingMovement : MonoBehaviour
     }
     public void MoveToPos(Vector3 targetPos)
     {
-        Debug.Log("[MoveToPos], move to pos " + targetPos);
+        // Debug.Log("[MoveToPos], move to pos " + targetPos);
 
         NavMeshHit hit;
         
@@ -50,14 +50,14 @@ public class Tut_EnemyPathfindingMovement : MonoBehaviour
         // if(NavMesh.FindClosestEdge())
         {
             targetPos = hit.position;
-            Debug.Log("SamplePosition true, hit position is " + hit.position
-                + " origin pos is " + targetPos);
+            //Debug.Log("SamplePosition true, hit position is " + hit.position
+            //    + " origin pos is " + targetPos);
         }
         else
         {
             NavMesh.SamplePosition(targetPos, out hit, 1.0f, NavMesh.AllAreas);
-            Debug.Log("SamplePosition false, hit position is " + hit.position
-                + " origin pos is " + targetPos);
+            //Debug.Log("SamplePosition false, hit position is " + hit.position
+            //    + " origin pos is " + targetPos);
         }
         
 
