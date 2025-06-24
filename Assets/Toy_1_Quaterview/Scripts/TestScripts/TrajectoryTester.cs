@@ -1,6 +1,8 @@
 // https://learn.unity.com/tutorial/calculating-trajectories#
 // testing trajectory simulation
 
+using System.Collections;
+using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -17,6 +19,8 @@ public class TrajectoryTester : MonoBehaviour
     public Transform shooterTrans;
     // public PlayerInput playerInput;
     private GameInput gameInput;
+
+    public GameObject bulletIndicator;
 
     [SerializeField] float speed = 25f;
     [SerializeField] float rotSpeed = 8f;
@@ -91,13 +95,26 @@ public class TrajectoryTester : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!bIsUpdateLogicEnabled)
+        if (!bIsUpdateLogicEnabled)
         {
             return;
         }
-        LookOnTo();
-        Rotate();
-        CalculateAngle(true); // Calculate the angle for low trajectory
+        #region physics based trajectory
+        //LookOnTo();
+        //Rotate();
+        //CalculateAngle(true); // Calculate the angle for low trajectory
+        #endregion physics based trajectory end
+
+        #region input based trajectory
+        //if(bulletIndicator == null)
+        //{
+        //    bulletIndicator = Instantiate(bulletPrefab, shooterTrans.position, Quaternion.identity);
+        //}
+
+        //bulletIndicator.transform.position =
+        //CalculateBulletVector(shooterTrans.position, target.transform.position, Time.deltaTime, 5f);
+        #endregion input based trajectory end
+
     }
     public void OnPressSpace(InputAction.CallbackContext callbackContext)
     {
@@ -108,7 +125,9 @@ public class TrajectoryTester : MonoBehaviour
         //scrollInput.y = currentAxis > 0 ? 1
         //    : currentAxis < 0 ? -1
         //    : 0;
-        FireBullet();
+        // FireBulletWithPhysics();
+        // FireBulletWithInputBase();
+        StartCoroutine(CalculateBulletVectorRoutine(shooterTrans.position, target.transform.position, 5f));
     }
 
     public void LookOnTo()
@@ -144,7 +163,6 @@ public class TrajectoryTester : MonoBehaviour
         }
         return angle;
     }
-
 
     private float? CalculateAngle(bool low)
     {
@@ -191,31 +209,83 @@ public class TrajectoryTester : MonoBehaviour
         return null;
     }
 
-    public void FireBullet()
+    public void FireBulletWithPhysics()
     {
         GameObject currentBullet = Instantiate(bulletPrefab, shooterTrans.position, shooterTrans.rotation);
         currentBullet.GetComponent<Rigidbody>().linearVelocity =  speed * shooterTrans.forward; // Set the bullet's velocity in the direction the shooter is facing
 
     }
-    
+    public void FireBulletWithInputBase()
+    {
+        if (bulletIndicator == null)
+        {
+            bulletIndicator = Instantiate(bulletPrefab, shooterTrans.position, Quaternion.identity);
+        }
+        // Calculate the bullet's trajectory vector based on the current time and arrival time
+        Vector3 bulletPosition = CalculateBulletVector(shooterTrans.position, target.transform.position, Time.deltaTime, 5f);
+        bulletIndicator.transform.position = bulletPosition;
+        // Optionally, you can also set the rotation of the bullet indicator to face the target
+        // Vector3 direction = (target.transform.position - shooterTrans.position).normalized;
+        //Quaternion lookRotation = Quaternion.LookRotation(direction);
+        //bulletIndicator.transform.rotation = lookRotation;
+    }
 
+    private IEnumerator CalculateBulletVectorRoutine(Vector3 start, Vector3 end, float arriveTime)
+    {
+        if (bulletIndicator == null)
+        {
+            bulletIndicator = Instantiate(bulletPrefab, shooterTrans.position, Quaternion.identity);
+        }
+        var currentTime = 0f;
+        var clampedTime = 0f;
+        Vector3 midPoint = (start + end) / 2f;
+        midPoint.y += 3f; // Adjust the y value to be slightly above the midpoint
+        // please move bulletIndicator to end position
+        while (clampedTime < 1f)
+        {
+            // Calculate the bullet's trajectory vector based on the current time and arrival time
+            // Vector3 bulletPosition = CalculateBulletVector(start, end, currentTime, arriveTime);
 
-    private void CalculateBulletMidPointAngle(Vector3 start, Vector3 end)
+            var startVector = Vector3.Lerp(start, midPoint, clampedTime);
+            var endVector = Vector3.Lerp(midPoint, end, clampedTime);
+            var result = Vector3.Lerp(startVector, endVector, clampedTime);
+
+            bulletIndicator.transform.position = result;
+            // Optionally, you can also set the rotation of the bullet indicator to face the target
+            Vector3 direction = (end - start).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            bulletIndicator.transform.rotation = lookRotation;
+            clampedTime += Time.deltaTime / arriveTime; // Increment current time based on the arrival time
+            yield return null; // Wait for the next frame
+        }
+        Debug.Log("Bullet reached the target position.");
+        yield return new WaitForSeconds(0.1f); // Wait for a moment before deactivating the bullet indicator
+        bulletIndicator.SetActive(false); // Optionally deactivate the bullet indicator after reaching the target
+        yield return null;
+    }
+    private Vector3 CalculateBulletVector(Vector3 start, Vector3 end, float currentTime, float arriveTime)
     {
         // generate mid point between start and end
         // with slightly positive of y value?
         Vector3 midPoint = (start + end) / 2f;
-        midPoint.y += 1f; // Adjust the y value to be slightly above the midpoint
+        midPoint.y += 3f; // Adjust the y value to be slightly above the midpoint
 
         //then vector lerp with mid point?
-        float currentTime = 0f;
+        // float currentTime = 0f;
         var startVector = Vector3.Lerp(start, midPoint, currentTime);
         var endVector = Vector3.Lerp(midPoint, end, currentTime);
         var result = Vector3.Lerp(startVector, endVector, currentTime);
-        
-        
 
-        
+        // above adjust vectors with arrive time
+        if (arriveTime > 0f)
+        {
+            startVector = Vector3.Lerp(start, midPoint, currentTime / arriveTime);
+            endVector = Vector3.Lerp(midPoint, end, currentTime / arriveTime);
+            result = Vector3.Lerp(result, end, currentTime / arriveTime);
+            
+        }
+
+        return result;
 
     }
 
