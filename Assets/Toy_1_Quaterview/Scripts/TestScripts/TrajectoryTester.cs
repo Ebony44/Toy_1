@@ -14,7 +14,7 @@ public class TrajectoryTester : MonoBehaviour
     public GameObject target;
 
     public GameObject bulletPrefab;
-    public GameObject explosion;
+    public GameObject explosionPrefab;
 
     public Transform shooterTrans;
     // public PlayerInput playerInput;
@@ -45,9 +45,9 @@ public class TrajectoryTester : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             // Instantiate explosion effect at the collision point
-            if(explosion != null)
+            if(explosionPrefab != null)
             {
-                GameObject exp = Instantiate(explosion, collision.contacts[0].point, Quaternion.identity);
+                GameObject exp = Instantiate(explosionPrefab, collision.contacts[0].point, Quaternion.identity);
                 Destroy(exp, 2f); // Destroy the explosion effect after 2 seconds
             }
             // Destroy the projectile after collision
@@ -289,8 +289,23 @@ public class TrajectoryTester : MonoBehaviour
 
     }
 
-    // https://foo897.tistory.com/24
+
+    public IEnumerator OnProjectileExplosionRoutine(float explosionTime)
+    {
+        // Handle projectile explosion logic here
+        // For example, you can instantiate an explosion effect at the projectile's position
+        if (explosionPrefab != null)
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        }
+        yield return new WaitForSeconds(explosionTime);
+        // Destroy the projectile after explosion
+        Destroy(gameObject);
+    }
+
+
     #region rip from 
+    // https://foo897.tistory.com/24
     void LaucherProjecttile()
     {
         Vector3 Vo = CalculateVelcoity(target.transform.position, transform.position, 1f);
@@ -301,24 +316,24 @@ public class TrajectoryTester : MonoBehaviour
         DrawPath(Vo);
     }
 
-    //�� ����� ��ǥ ���Ϳ� ������ �������� �ʿ��մϴ�.
-    //time : ����ð�
+    //?? ????? ??? ????? ?????? ???????? ???????.
+    //time : ????$)C)#?
     Vector3 CalculateVelcoity(Vector3 target, Vector3 origin, float time)
     {
         //define the distance x and y first
         Vector3 distance = target - origin;
-        Vector3 distanceXZ = distance; //x��z�� ����̸� �⺻������ �Ÿ��� ���� ����
-        distanceXZ.y = 0f;//y�� 0���� ����
+        Vector3 distanceXZ = distance; //x??z?? ?????? ???????? ????? ???? ????
+        distanceXZ.y = 0f;//y?? 0???? ????
 
         //create a float the represent our distance
-        float Sy = distance.y;//���� ������ �Ÿ��� ����
+        float Sy = distance.y;//???? ?????? ????? ????
         float Sxz = distanceXZ.magnitude;
 
-        //�ӵ� ���
+        //??? ???
         float Vxz = Sxz / time;
         float Vy = Sy / time + 0.5f * Mathf.Abs(Physics.gravity.y) * time;
 
-        //������� ���� ������ �ʱ� �ӵ� ������ ���ο� ���͸� ����� ����
+        //??????? ???? ?????? ??? ??? ?????? ???%o? ????? ????? ????
         Vector3 result = distanceXZ.normalized;
         result *= Vxz;
         result.y = Vy;
@@ -337,12 +352,25 @@ public class TrajectoryTester : MonoBehaviour
 
             Vector3 displacement = velocity * simulationTime + Vector3.up * Physics.gravity.y * simulationTime * simulationTime / 2f;
             Vector3 drawPoint = transform.position + displacement;
-            // DebugExtension.DebugPoint(drawPoint, 1, 1000f);//����Ƽ ���½���� Debug Extension
+            // DebugExtension.DebugPoint(drawPoint, 1, 1000f);//????? ???(v???? Debug Extension
             Debug.DrawLine(previousDrawPoint, drawPoint, Color.green);
             //lineRenderer.SetPosition(i - 1, drawPoint);
             previousDrawPoint = drawPoint;
         }
     }
     #endregion
+
+
+    // x^2 + y^2 = z^2
+    // sine 1,( 1 radian)
+    // x^2 = 0.9998
+    // y^2 = 0.0003
+    // x^2 + y^2 = 1.xx
+    // 1.xx = z^2
+    // 0.9998 + 0.0003 = 1.0001
+    // z = sqrt(1.xx)
+    // explain sine 1 result
+    //57.2958 dgrees
+
 
 }
